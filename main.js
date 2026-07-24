@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('rate-btn')?.addEventListener('click', fetchRate);
 });
 
-// 從 Frankfurter.app 取得最新 USD → JPY 匯率（免費，每日更新，無需 API key）
+// 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、已驗證可用）
 async function fetchRate() {
   const btn = document.getElementById('rate-btn');
   const display = document.getElementById('rate-display');
@@ -215,44 +215,34 @@ async function fetchRate() {
   display.textContent = '更新中…';
 
   try {
-    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=JPY');
-    if (!res.ok) throw new Error('fetch failed');
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
+    if (data.result !== 'success') throw new Error('API error');
     const rate = data.rates.JPY;
     display.textContent = `$1 ≈ ¥${rate.toFixed(0)}`;
-    btn.title = `更新日期：${data.date}，點擊重新整理`;
-  } catch {
-    display.textContent = '匯率載入失敗';
+    btn.title = `更新時間：${data.time_last_update_utc.slice(0, 16)}，點擊刷新`;
+  } catch (err) {
+    display.textContent = '匯率暫時無法載入';
+    console.warn('fetchRate error:', err);
   } finally {
     btn.classList.remove('loading');
   }
 }
 
-// 根據今天日期自動展開對應的行程卡
+// 根據瀏覽器當前日期自動展開對應行程卡
 function autoExpandToday() {
   const now = new Date();
-  // 以日本時間 (UTC+9) 為準
-  const jstOffset = 9 * 60;
-  const jstNow = new Date(now.getTime() + (jstOffset - now.getTimezoneOffset()) * 60000);
-  const todayMonth = jstNow.getMonth() + 1; // 1-12
-  const todayDay = jstNow.getDate();
+  const todayMonth = now.getMonth() + 1; // 1–12
+  const todayDay = now.getDate();
 
-  // 找到對應今天日期的卡片 (date 格式: "8/31", "9/1" 等)
-  const cards = document.querySelectorAll('.day-card');
-  const headers = document.querySelectorAll('.day-header');
-
-  cards.forEach((card, i) => {
-    const header = headers[i];
-    const badge = header?.querySelector('.badge-day');
-    // 從 data-date 屬性取得日期
-    const dateStr = card.getAttribute('data-date');
+  document.querySelectorAll('.day-card').forEach(card => {
+    const dateStr = card.getAttribute('data-date'); // e.g. "8/31"
     if (!dateStr) return;
-
     const [m, d] = dateStr.split('/').map(Number);
     if (m === todayMonth && d === todayDay) {
       card.classList.add('open');
-      header?.setAttribute('aria-expanded', 'true');
-      // 滾動到當天卡片
+      card.querySelector('.day-header')?.setAttribute('aria-expanded', 'true');
       setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
     }
   });
