@@ -83,7 +83,7 @@ const ITINERARY = [
         date: '9/1',
         dayNum: 'Day 2',
         title: '淺草與上野一日遊',
-        summary: '早上淺草寺，下午上野恩賜公園與阿美橫町',
+        summary: '早上淺草寺，下午上野恩賜公園與阿美橫町，傍晚東京晴空塔',
         illustration: '',
         activities: [
           {
@@ -100,6 +100,14 @@ const ITINERARY = [
             desc: '參觀雷門、仲見世商店街與淺草寺。',
             address: '東京都台東區淺草2-3-1',
             mapLink: 'https://maps.google.com/?q=Sensoji+Temple',
+            notes: '',
+          },
+          {
+            time: '16:00',
+            name: '東京晴空塔',
+            desc: '參觀東京晴空塔，欣賞東京市區全景。',
+            address: '東京都墨田區押上1-1-2',
+            mapLink: 'https://maps.google.com/?q=Tokyo+Skytree',
             notes: '',
           },
         ],
