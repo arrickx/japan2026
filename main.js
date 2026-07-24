@@ -220,7 +220,7 @@ async function fetchRate() {
     const data = await res.json();
     if (data.result !== 'success') throw new Error('API error');
     const rate = data.rates.JPY;
-    display.textContent = `$1 ≈ ¥${rate.toFixed(0)}`;
+    display.textContent = `JPY: ${rate.toFixed(2)}`;
     btn.title = `更新時間：${data.time_last_update_utc.slice(0, 16)}，點擊刷新`;
   } catch (err) {
     display.textContent = '匯率暫時無法載入';
