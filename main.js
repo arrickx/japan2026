@@ -1,202 +1,140 @@
-// main.js - Japan Travel Web App Logic
+// ============================================================
+// 行程資料 — 在這裡新增或修改每天的行程
+// ============================================================
+const ITINERARY = [
+  {
+    day: 1,
+    date: '第 1 天',
+    title: '東京抵達 · 淺草初探',
+    summary: '抵達成田機場，辦理入住，傍晚漫步淺草寺',
+    activities: [
+      {
+        time: '14:00',
+        name: '成田國際機場抵達',
+        address: '〒282-0004 千葉縣成田市取香 1-1',
+        mapLink: 'https://maps.google.com/?q=Narita+International+Airport',
+        notes: '乘坐 Narita Express (N\'EX) 直達東京站，車程約 1 小時，票價 ¥3,070。建議事先在網上預購優惠票。',
+      },
+      {
+        time: '16:30',
+        name: '酒店辦理入住',
+        address: '依訂房確認',
+        mapLink: '',
+        notes: '先行寄存行李，換上輕便服裝再出門。',
+      },
+      {
+        time: '18:00',
+        name: '淺草寺 & 雷門',
+        address: '〒111-0032 東京都台東區淺草 2-3-1',
+        mapLink: 'https://maps.google.com/?q=Senso-ji+Temple+Asakusa+Tokyo',
+        notes: '淺草寺全天開放免費入場。雷門前容易塞車，建議步行前往。傍晚燈光亮起後特別漂亮，適合拍照。',
+      },
+      {
+        time: '19:30',
+        name: '晚餐：仲見世通周邊',
+        address: '〒111-0032 東京都台東區淺草 1-36-3',
+        mapLink: 'https://maps.google.com/?q=Nakamise+Shopping+Street+Asakusa',
+        notes: '推薦嘗試天婦羅丼或鰻魚飯，人均消費約 ¥1,500–2,500。',
+      },
+    ],
+  },
+  {
+    day: 2,
+    date: '第 2 天',
+    title: '東京市區 · 新宿 · 涉谷',
+    summary: '白天逛新宿御苑，傍晚前往涉谷展望台俯瞰夜景',
+    activities: [
+      {
+        time: '09:30',
+        name: '新宿御苑',
+        address: '〒160-0014 東京都新宿區內藤町 11',
+        mapLink: 'https://maps.google.com/?q=Shinjuku+Gyoen+National+Garden+Tokyo',
+        notes: '入場費 ¥500，開放時間 09:00–16:30（最終入場 16:00）。園內禁止飲酒，請注意。',
+      },
+      {
+        time: '13:00',
+        name: '午餐：新宿高島屋美食廣場',
+        address: '〒151-0051 東京都澀谷區千馱谷 5-24-2',
+        mapLink: 'https://maps.google.com/?q=Takashimaya+Times+Square+Shinjuku',
+        notes: '地下二樓有多種日式定食選擇，適合一家人口味不同的情況。',
+      },
+      {
+        time: '17:00',
+        name: '涉谷 Sky 展望台',
+        address: '〒150-6145 東京都澀谷區澀谷 2-24-12（涉谷 Scramble Square 45F）',
+        mapLink: 'https://maps.google.com/?q=Shibuya+Sky+Tokyo',
+        notes: '強烈建議提前 2–3 週網上訂票，票價 ¥2,000。選擇日落前 45 分鐘入場，可同時看夕陽與夜景。頂層戶外平台風大，請穿外套。',
+      },
+    ],
+  },
+];
 
-document.addEventListener('DOMContentLoaded', () => {
-  initNavigation();
-  initCountdown();
-  initItineraryFilter();
-  initCardExpandable();
-  initChecklist();
-  initPhrasebook();
-});
+// ============================================================
+// 渲染邏輯（無需修改）
+// ============================================================
+function renderItinerary() {
+  const container = document.getElementById('itinerary-list');
+  if (!container) return;
 
-/* -------------------------------------------------------------
- * 1. Bottom Tab Navigation (View Transitions Progressive Enhancement)
- * ------------------------------------------------------------- */
-function initNavigation() {
-  const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-  const tabPanels = document.querySelectorAll('.tab-panel');
+  ITINERARY.forEach(day => {
+    const card = document.createElement('div');
+    card.className = 'day-card';
 
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const targetTabId = item.getAttribute('data-tab');
+    // 頭部
+    const header = document.createElement('div');
+    header.className = 'day-header';
+    header.setAttribute('role', 'button');
+    header.setAttribute('aria-expanded', 'false');
+    header.innerHTML = `
+      <span class="day-number">${day.date}</span>
+      <div class="day-title-group">
+        <div class="day-title">${day.title}</div>
+        <div class="day-summary">${day.summary}</div>
+      </div>
+      <span class="day-arrow">▼</span>
+    `;
 
-      const updateDOM = () => {
-        navItems.forEach(nav => nav.classList.remove('active'));
-        item.classList.add('active');
+    // 內容
+    const body = document.createElement('div');
+    body.className = 'day-body';
 
-        tabPanels.forEach(panel => {
-          if (panel.id === targetTabId) {
-            panel.classList.add('active');
-          } else {
-            panel.classList.remove('active');
-          }
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
+    const list = document.createElement('ul');
+    list.className = 'activity-list';
 
-      // Modern View Transitions API check
-      if (document.startViewTransition) {
-        document.startViewTransition(updateDOM);
-      } else {
-        updateDOM();
-      }
+    day.activities.forEach(act => {
+      const li = document.createElement('li');
+      li.className = 'activity-item';
+
+      const mapBtn = act.mapLink
+        ? `<a class="btn-map" href="${act.mapLink}" target="_blank" rel="noopener">🗺️ 在 Google Maps 開啟</a>`
+        : '';
+
+      const notes = act.notes
+        ? `<div class="activity-notes">${act.notes}</div>`
+        : '';
+
+      li.innerHTML = `
+        <div class="activity-time">${act.time}</div>
+        <div class="activity-name">${act.name}</div>
+        <div class="activity-address">${act.address}</div>
+        ${mapBtn}
+        ${notes}
+      `;
+      list.appendChild(li);
+    });
+
+    body.appendChild(list);
+    card.appendChild(header);
+    card.appendChild(body);
+    container.appendChild(card);
+
+    // 展開 / 收合
+    header.addEventListener('click', () => {
+      const isOpen = card.classList.contains('open');
+      card.classList.toggle('open', !isOpen);
+      header.setAttribute('aria-expanded', String(!isOpen));
     });
   });
 }
 
-/* -------------------------------------------------------------
- * 2. Countdown Timer
- * ------------------------------------------------------------- */
-function initCountdown() {
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 45);
-
-  const cdDays = document.getElementById('cd-days');
-  const cdHours = document.getElementById('cd-hours');
-  const cdMins = document.getElementById('cd-mins');
-
-  function updateTimer() {
-    const now = new Date();
-    const diff = targetDate - now;
-
-    if (diff <= 0) {
-      if (cdDays) cdDays.textContent = '00';
-      if (cdHours) cdHours.textContent = '00';
-      if (cdMins) cdMins.textContent = '00';
-      return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / 1000 / 60) % 60);
-
-    if (cdDays) cdDays.textContent = String(days).padStart(2, '0');
-    if (cdHours) cdHours.textContent = String(hours).padStart(2, '0');
-    if (cdMins) cdMins.textContent = String(mins).padStart(2, '0');
-  }
-
-  updateTimer();
-  setInterval(updateTimer, 60000);
-}
-
-/* -------------------------------------------------------------
- * 3. Itinerary Filter
- * ------------------------------------------------------------- */
-function initItineraryFilter() {
-  const chips = document.querySelectorAll('.filter-chip');
-  const cards = document.querySelectorAll('.timeline-card');
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-
-      const selectedDay = chip.getAttribute('data-day');
-
-      cards.forEach(card => {
-        if (selectedDay === 'all' || card.getAttribute('data-day') === selectedDay) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-/* -------------------------------------------------------------
- * 4. Expandable Details Toggle
- * ------------------------------------------------------------- */
-function initCardExpandable() {
-  const toggleBtns = document.querySelectorAll('.btn-detail-toggle');
-
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cardBody = btn.closest('.card-body');
-      const details = cardBody.querySelector('.card-expandable-details');
-
-      if (details.classList.contains('hidden')) {
-        details.classList.remove('hidden');
-        btn.textContent = '收起详情 👆';
-      } else {
-        details.classList.add('hidden');
-        btn.textContent = '查看攻略详情 👇';
-      }
-    });
-  });
-}
-
-/* -------------------------------------------------------------
- * 5. Interactive Checklist (LocalStorage)
- * ------------------------------------------------------------- */
-function initChecklist() {
-  const checkboxes = document.querySelectorAll('.check-items input[type="checkbox"]');
-  const progressFill = document.getElementById('progress-fill');
-  const progressText = document.getElementById('checklist-percentage');
-
-  const savedState = JSON.parse(localStorage.getItem('japan_trip_checklist') || '{}');
-
-  function updateProgress() {
-    let checkedCount = 0;
-    checkboxes.forEach(cb => {
-      const id = cb.getAttribute('data-id');
-      if (savedState[id]) {
-        cb.checked = true;
-        checkedCount++;
-      } else {
-        cb.checked = false;
-      }
-    });
-
-    const pct = checkboxes.length ? Math.round((checkedCount / checkboxes.length) * 100) : 0;
-    if (progressFill) progressFill.style.width = `${pct}%`;
-    if (progressText) progressText.textContent = `${pct}%`;
-  }
-
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      const id = cb.getAttribute('data-id');
-      savedState[id] = cb.checked;
-      localStorage.setItem('japan_trip_checklist', JSON.stringify(savedState));
-      updateProgress();
-    });
-  });
-
-  updateProgress();
-}
-
-/* -------------------------------------------------------------
- * 6. Phrasebook (Speech Synthesis & Copy)
- * ------------------------------------------------------------- */
-function initPhrasebook() {
-  const speechBtns = document.querySelectorAll('.btn-speech');
-  const copyBtns = document.querySelectorAll('.btn-copy');
-
-  speechBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const text = btn.getAttribute('data-text');
-      if (!('speechSynthesis' in window)) {
-        alert('您的浏览器暂不支持声音播放');
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ja-JP';
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    });
-  });
-
-  copyBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const text = btn.getAttribute('data-text');
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.textContent;
-        btn.textContent = '✅ 已复制!';
-        setTimeout(() => {
-          btn.textContent = originalText;
-        }, 1500);
-      });
-    });
-  });
-}
+document.addEventListener('DOMContentLoaded', renderItinerary);
