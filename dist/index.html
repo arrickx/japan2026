@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Japan Trip 2026 🇯🇵 | 日本旅行通</title>
+  <meta name="description" content="移动端优先的互动式日本旅行行程指南、准备清单与实用常用语卡片" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index-BA0HUH39.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-7lH9WFpK.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- Header Hero Banner -->
+    <header class="hero-banner">
+      <div class="hero-overlay"></div>
+      <img src="./images/hero.jpg" alt="Mount Fuji Japan" class="hero-img" />
+      <div class="hero-content">
+        <span class="hero-badge">🇯🇵 日本浪漫之旅 2026</span>
+        <h1 class="hero-title">Japan Explorer</h1>
+        <p class="hero-subtitle">东京 • 京都 • 富士山 • 大阪</p>
+        
+        <div class="countdown-card">
+          <div class="countdown-item">
+            <span id="cd-days" class="cd-num">00</span>
+            <span class="cd-label">天</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-item">
+            <span id="cd-hours" class="cd-num">00</span>
+            <span class="cd-label">时</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-item">
+            <span id="cd-mins" class="cd-num">00</span>
+            <span class="cd-label">分</span>
+          </div>
+          <div class="countdown-item countdown-status">
+            <span>距离出发</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Section 1: Itinerary -->
+      <section id="tab-itinerary" class="tab-panel active">
+        <div class="section-header">
+          <h2>📅 每日精选行程</h2>
+          <p>精心规划的经典路线与路线贴士</p>
+        </div>
+
+        <!-- Day Filter Tabs -->
+        <div class="filter-scroll">
+          <button class="filter-chip active" data-day="all">全部行程</button>
+          <button class="filter-chip" data-day="1">Day 1 东京繁华</button>
+          <button class="filter-chip" data-day="2">Day 2 动漫与夜景</button>
+          <button class="filter-chip" data-day="3">Day 3 富士山与温泉</button>
+          <button class="filter-chip" data-day="4">Day 4 京都古都</button>
+        </div>
+
+        <!-- Timeline List -->
+        <div class="timeline-list">
+          <!-- Card 1 -->
+          <article class="timeline-card" data-day="1">
+            <div class="card-tag">Day 1 • 东京</div>
+            <div class="card-img-wrapper">
+              <img src="./images/tokyo.jpg" alt="新宿夜景" class="card-img" />
+              <span class="badge-time">18:00 - 22:00</span>
+            </div>
+            <div class="card-body">
+              <h3>新宿歌舞伎町 & 涩谷 Sky 展望台</h3>
+              <p class="card-desc">探索赛博朋克风的浪漫霓虹街区，前往 360 度露天展望台鸟瞰东京全景。</p>
+              <div class="card-tags">
+                <span class="mini-tag">🏙️ 城市夜景</span>
+                <span class="mini-tag">📸 必打卡</span>
+                <span class="mini-tag">🍜 歌舞伎町</span>
+              </div>
+              <div class="card-actions">
+                <a href="https://maps.google.com/?q=Shibuya+Sky+Tokyo" target="_blank" rel="noopener" class="btn-secondary">
+                  📍 打开地图
+                </a>
+                <button class="btn-detail-toggle">查看攻略详情 👇</button>
+              </div>
+              <div class="card-expandable-details hidden">
+                <div class="detail-box">
+                  <p><strong>💡 贴士：</strong> 涩谷 Sky 建议提前 4 周在线订票，选择落日前 45 分钟入场（最佳落日+夜景切换黄金时段）。附近推荐品尝叙叙苑烧肉。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="timeline-card" data-day="2">
+            <div class="card-tag">Day 2 • 东京</div>
+            <div class="card-img-wrapper">
+              <img src="./images/tokyo.jpg" alt="秋叶原" class="card-img" />
+              <span class="badge-time">10:00 - 17:00</span>
+            </div>
+            <div class="card-body">
+              <h3>秋叶原动漫街 & 浅草寺修学</h3>
+              <p class="card-desc">早晨在雷门浅草寺祈福抽签，下午漫步秋叶原体验 ACG 动漫文化与二手手办店。</p>
+              <div class="card-tags">
+                <span class="mini-tag">⛩️ 文化神社</span>
+                <span class="mini-tag">🎮 动漫手办</span>
+              </div>
+              <div class="card-actions">
+                <a href="https://maps.google.com/?q=Sensoji+Temple+Tokyo" target="_blank" rel="noopener" class="btn-secondary">
+                  📍 打开地图
+                </a>
+                <button class="btn-detail-toggle">查看攻略详情 👇</button>
+              </div>
+              <div class="card-expandable-details hidden">
+                <div class="detail-box">
+                  <p><strong>💡 贴士：</strong> 浅草寺抽签若抽到“凶”可以系在旁边的架子上消灾；秋叶原推荐逛 Mandarake 与 Animate。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="timeline-card" data-day="3">
+            <div class="card-tag">Day 3 • 富士山</div>
+            <div class="card-img-wrapper">
+              <img src="./images/hero.jpg" alt="富士山与新仓山浅间公园" class="card-img" />
+              <span class="badge-time">09:00 - 16:00</span>
+            </div>
+            <div class="card-body">
+              <h3>新仓山浅间公园 & 河口湖</h3>
+              <p class="card-desc">打卡经典的“红塔+富士山”明信片同款绝景，湖畔骑行享受惬意自然的日式风景。</p>
+              <div class="card-tags">
+                <span class="mini-tag">🗻 富士山</span>
+                <span class="mini-tag">🌸 樱花/红叶</span>
+              </div>
+              <div class="card-actions">
+                <a href="https://maps.google.com/?q=Chureito+Pagoda" target="_blank" rel="noopener" class="btn-secondary">
+                  📍 打开地图
+                </a>
+                <button class="btn-detail-toggle">查看攻略详情 👇</button>
+              </div>
+              <div class="card-expandable-details hidden">
+                <div class="detail-box">
+                  <p><strong>💡 贴士：</strong> 早上晴天观看富士山概率最高！推荐乘坐富士急行线特急列车或包车前往。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="timeline-card" data-day="4">
+            <div class="card-tag">Day 4 • 京都</div>
+            <div class="card-img-wrapper">
+              <img src="./images/kyoto.jpg" alt="伏见稻荷大社" class="card-img" />
+              <span class="badge-time">08:30 - 15:00</span>
+            </div>
+            <div class="card-body">
+              <h3>伏见稻荷大社 & 清水寺漫步</h3>
+              <p class="card-desc">穿过千本鸟居的经典朱红隧道，穿和服漫步三年坂二年坂体验千年末日风情。</p>
+              <div class="card-tags">
+                <span class="mini-tag">⛩️ 伏见稻荷</span>
+                <span class="mini-tag">👘 和服体验</span>
+              </div>
+              <div class="card-actions">
+                <a href="https://maps.google.com/?q=Fushimi+Inari+Taisha+Kyoto" target="_blank" rel="noopener" class="btn-secondary">
+                  📍 打开地图
+                </a>
+                <button class="btn-detail-toggle">查看攻略详情 👇</button>
+              </div>
+              <div class="card-expandable-details hidden">
+                <div class="detail-box">
+                  <p><strong>💡 贴士：</strong> 伏见稻荷大社越往山上走游人越少，拍摄千本鸟居空景的最佳地点在半山腰奥社附近。</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 2: Interactive Packing List -->
+      <section id="tab-checklist" class="tab-panel">
+        <div class="section-header">
+          <h2>🧳 行前准备清单</h2>
+          <p>勾选确认，随时掌握行前准备进度</p>
+        </div>
+
+        <div class="progress-bar-card glass-card">
+          <div class="progress-info">
+            <span>准备进度</span>
+            <span id="checklist-percentage">0%</span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="checklist-categories">
+          <!-- Category 1 -->
+          <div class="checklist-card glass-card">
+            <h3>📄 证件与重要文件</h3>
+            <ul class="check-items" data-cat="docs">
+              <li><label><input type="checkbox" data-id="doc1"> 护照（有效期6个月以上）</label></li>
+              <li><label><input type="checkbox" data-id="doc2"> 日本签证 / Visit Japan Web 申报</label></li>
+              <li><label><input type="checkbox" data-id="doc3"> 现金 (日元纸币与硬币)</label></li>
+              <li><label><input type="checkbox" data-id="doc4"> 信用卡 (Visa / Mastercard)</label></li>
+              <li><label><input type="checkbox" data-id="doc5"> 境外旅游保险保单电子件</label></li>
+            </ul>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="checklist-card glass-card">
+            <h3>📱 电子与网络设备</h3>
+            <ul class="check-items" data-cat="tech">
+              <li><label><input type="checkbox" data-id="tech1"> 日本 eSIM 卡 / 随身 Wi-Fi</label></li>
+              <li><label><input type="checkbox" data-id="tech2"> 西瓜卡 Suica / ICOCA 绑定苹果钱包</label></li>
+              <li><label><input type="checkbox" data-id="tech3"> 移动电源 (10000mAh+)</label></li>
+              <li><label><input type="checkbox" data-id="tech4"> 日本转换插头（平口双脚）</label></li>
+              <li><label><input type="checkbox" data-id="tech5"> 相机与备用内存卡</label></li>
+            </ul>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="checklist-card glass-card">
+            <h3>💊 常用药品与洗漱</h3>
+            <ul class="check-items" data-cat="meds">
+              <li><label><input type="checkbox" data-id="med1"> 肠胃药 / 止痛药 / 创可贴</label></li>
+              <li><label><input type="checkbox" data-id="med2"> 防晒霜 / 护肤品</label></li>
+              <li><label><input type="checkbox" data-id="med3"> 舒适走路运动鞋（每天2万步）</label></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Phrasebook -->
+      <section id="tab-phrases" class="tab-panel">
+        <div class="section-header">
+          <h2>🗣️ 实用日本旅行日语</h2>
+          <p>点击发音或复制，应对场景交流无障碍</p>
+        </div>
+
+        <div class="phrases-grid">
+          <!-- Phrase Card 1 -->
+          <div class="phrase-card glass-card">
+            <div class="phrase-main">
+              <span class="jp-text">Sumimasen</span>
+              <span class="jp-kanji">すみません</span>
+              <span class="zh-text">不好意思 / 请问（万能打招呼）</span>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn-speech" data-text="すみません">🔊 播放发音</button>
+              <button class="btn-copy" data-text="すみません">📋 复制</button>
+            </div>
+          </div>
+
+          <!-- Phrase Card 2 -->
+          <div class="phrase-card glass-card">
+            <div class="phrase-main">
+              <span class="jp-text">Kore o kudasai</span>
+              <span class="jp-kanji">これをください</span>
+              <span class="zh-text">请给我这个（点餐/购物首选）</span>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn-speech" data-text="これをください">🔊 播放发音</button>
+              <button class="btn-copy" data-text="これをください">📋 复制</button>
+            </div>
+          </div>
+
+          <!-- Phrase Card 3 -->
+          <div class="phrase-card glass-card">
+            <div class="phrase-main">
+              <span class="jp-text">Okaikei o onegaishimasu</span>
+              <span class="jp-kanji">お会計をお願いします</span>
+              <span class="zh-text">麻烦结账</span>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn-speech" data-text="お会計をお願いします">🔊 播放发音</button>
+              <button class="btn-copy" data-text="お会計をお願いします">📋 复制</button>
+            </div>
+          </div>
+
+          <!-- Phrase Card 4 -->
+          <div class="phrase-card glass-card">
+            <div class="phrase-main">
+              <span class="jp-text">Toire wa doko desu ka?</span>
+              <span class="jp-kanji">トイレはどこですか？</span>
+              <span class="zh-text">请问洗手间在哪里？</span>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn-speech" data-text="トイレはどこですか？">🔊 播放发音</button>
+              <button class="btn-copy" data-text="トイレはどこですか？">📋 复制</button>
+            </div>
+          </div>
+
+          <!-- Phrase Card 5 -->
+          <div class="phrase-card glass-card">
+            <div class="phrase-main">
+              <span class="jp-text">Menzei wa dekimasu ka?</span>
+              <span class="jp-kanji">免税はできますか？</span>
+              <span class="zh-text">请问可以办退税吗？</span>
+            </div>
+            <div class="phrase-actions">
+              <button class="btn-speech" data-text="免税はできますか？">🔊 播放发音</button>
+              <button class="btn-copy" data-text="免税はできますか？">📋 复制</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-tab="tab-itinerary">
+        <span class="nav-icon">🗺️</span>
+        <span class="nav-label">行程</span>
+      </button>
+      <button class="nav-item" data-tab="tab-checklist">
+        <span class="nav-icon">🧳</span>
+        <span class="nav-label">清单</span>
+      </button>
+      <button class="nav-item" data-tab="tab-phrases">
+        <span class="nav-icon">🗣️</span>
+        <span class="nav-label">常用语</span>
+      </button>
+    </nav>
+  </div>
+
+</body>
+</html>
