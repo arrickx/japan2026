@@ -200,7 +200,33 @@ function renderItinerary() {
 document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
   autoExpandToday();
+  fetchRate();
+
+  document.getElementById('rate-btn')?.addEventListener('click', fetchRate);
 });
+
+// 從 Frankfurter.app 取得最新 USD → JPY 匯率（免費，每日更新，無需 API key）
+async function fetchRate() {
+  const btn = document.getElementById('rate-btn');
+  const display = document.getElementById('rate-display');
+  if (!btn || !display) return;
+
+  btn.classList.add('loading');
+  display.textContent = '更新中…';
+
+  try {
+    const res = await fetch('https://api.frankfurter.app/latest?from=USD&to=JPY');
+    if (!res.ok) throw new Error('fetch failed');
+    const data = await res.json();
+    const rate = data.rates.JPY;
+    display.textContent = `$1 ≈ ¥${rate.toFixed(0)}`;
+    btn.title = `更新日期：${data.date}，點擊重新整理`;
+  } catch {
+    display.textContent = '匯率載入失敗';
+  } finally {
+    btn.classList.remove('loading');
+  }
+}
 
 // 根據今天日期自動展開對應的行程卡
 function autoExpandToday() {
