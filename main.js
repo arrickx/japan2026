@@ -169,8 +169,10 @@ function renderItinerary() {
           : '';
 
         li.innerHTML = `
-          ${act.time ? `<div class="activity-time">${act.time}</div>` : ''}
-          <div class="activity-name">${act.name}</div>
+          <div class="activity-name-row">
+            <div class="activity-name">${act.name}</div>
+            ${act.time ? `<span class="activity-time">${act.time}</span>` : ''}
+          </div>
           ${descHtml}
           ${addressHtml}
           ${mapBtn}

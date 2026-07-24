@@ -188,21 +188,29 @@ body {
 
 .activity-item:last-child { border-bottom: none; }
 
-/* 時間 */
-.activity-time {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #c0534a;
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
+/* 時間 + 名稱同一行 */
+.activity-name-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
-/* 名稱 */
 .activity-name {
   font-size: 1.05rem;
   font-weight: 700;
   color: #3a2e28;
-  margin-bottom: 5px;
+  flex: 1;
+}
+
+.activity-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #c0534a;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* 描述 */
