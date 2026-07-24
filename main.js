@@ -152,13 +152,13 @@ function renderItinerary() {
         const li = document.createElement('li');
         li.className = 'activity-item';
 
-        const mapBtn = act.mapLink
-          ? `<a class="btn-map" href="${act.mapLink}" target="_blank" rel="noopener">🗺️ 在 Google Maps 開啟</a><br>`
+        const addressHtml = act.address
+          ? act.mapLink
+            ? `<a class="activity-address" href="${act.mapLink}" target="_blank" rel="noopener">${act.address}</a>`
+            : `<div class="activity-address">${act.address}</div>`
           : '';
 
-        const addressHtml = act.address
-          ? `<div class="activity-address">${act.address}</div>`
-          : '';
+        const mapBtn = '';
 
         const descHtml = act.desc
           ? `<div class="activity-desc">${act.desc}</div>`
