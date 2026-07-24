@@ -106,6 +106,7 @@ function renderItinerary() {
     phase.days.forEach(day => {
       const card = document.createElement('div');
       card.className = 'day-card';
+      card.setAttribute('data-date', day.date); // e.g. "8/31"
 
       // 插圖（若有）
       const illustHtml = day.illustration
@@ -196,4 +197,37 @@ function renderItinerary() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', renderItinerary);
+document.addEventListener('DOMContentLoaded', () => {
+  renderItinerary();
+  autoExpandToday();
+});
+
+// 根據今天日期自動展開對應的行程卡
+function autoExpandToday() {
+  const now = new Date();
+  // 以日本時間 (UTC+9) 為準
+  const jstOffset = 9 * 60;
+  const jstNow = new Date(now.getTime() + (jstOffset - now.getTimezoneOffset()) * 60000);
+  const todayMonth = jstNow.getMonth() + 1; // 1-12
+  const todayDay = jstNow.getDate();
+
+  // 找到對應今天日期的卡片 (date 格式: "8/31", "9/1" 等)
+  const cards = document.querySelectorAll('.day-card');
+  const headers = document.querySelectorAll('.day-header');
+
+  cards.forEach((card, i) => {
+    const header = headers[i];
+    const badge = header?.querySelector('.badge-day');
+    // 從 data-date 屬性取得日期
+    const dateStr = card.getAttribute('data-date');
+    if (!dateStr) return;
+
+    const [m, d] = dateStr.split('/').map(Number);
+    if (m === todayMonth && d === todayDay) {
+      card.classList.add('open');
+      header?.setAttribute('aria-expanded', 'true');
+      // 滾動到當天卡片
+      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }
+  });
+}
