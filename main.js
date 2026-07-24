@@ -79,7 +79,31 @@ const ITINERARY = [
           },
         ],
       },
-      // 之後的天數陸續在此新增…
+      {
+        date: '9/1',
+        dayNum: 'Day 2',
+        title: '淺草與上野一日遊',
+        summary: '早上淺草寺，下午上野恩賜公園與阿美橫町',
+        illustration: '',
+        activities: [
+          {
+            time: '09:00',
+            name: '前往淺草',
+            desc: '搭乘地鐵前往淺草站。',
+            address: '',
+            mapLink: '',
+            notes: '',
+          },
+          {
+            time: '10:00',
+            name: '雷門與淺草寺',
+            desc: '參觀雷門、仲見世商店街與淺草寺。',
+            address: '東京都台東區淺草2-3-1',
+            mapLink: 'https://maps.google.com/?q=Sensoji+Temple',
+            notes: '',
+          },
+        ],
+      },
     ],
   },
 ];
