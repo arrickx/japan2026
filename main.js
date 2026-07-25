@@ -164,10 +164,10 @@ const ITINERARY = [
           {
             time: '10:15',
             name: '🚕 打車直達新豐洲',
-            desc: '從涉谷 Hyatt House 叫車前往 Shin-Toyosu（新豐洲）。',
-            address: '渋谷区桜丘町 1-4（出發地：Hyatt House）',
-            mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya',
-            notes: 'GO / Uber 均可，預計車程 20–25 分鐘，費用約 ¥4,000。',
+            desc: '從涉谷 Hyatt House 叫車前往 Shin-Toyosu（新豐洲），車程約 20–25 分鐘，費用約 ¥4,000。',
+            address: '',
+            mapLink: '',
+            notes: 'GO / Uber 均可叫車。到站後步行約 5 分鐘即達 teamLab Planets。',
           },
           {
             time: '11:00',
