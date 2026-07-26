@@ -526,25 +526,8 @@ function setupHotelFab() {
     });
   });
 
-  // 點擊 FAB：展開顯示酒店名，再點擊跳轉 Maps
+  // 點擊 FAB：直接跳轉 Google Maps
   fab.addEventListener('click', () => {
-    if (!currentHotel) return;
-
-    if (!fab.classList.contains('expanded')) {
-      // 第一次點：展開顯示名稱
-      fab.classList.add('expanded');
-      clearTimeout(expandTimer);
-      expandTimer = setTimeout(() => fab.classList.remove('expanded'), 3000);
-    } else {
-      // 已展開：跳轉導航
-      window.open(currentHotel.mapLink, '_blank', 'noopener');
-    }
-  });
-
-  // 手機 touch：點外面收合
-  document.addEventListener('click', e => {
-    if (!fab.contains(e.target)) {
-      fab.classList.remove('expanded');
-    }
+    if (currentHotel) window.open(currentHotel.mapLink, '_blank', 'noopener');
   });
 }
