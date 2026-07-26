@@ -383,11 +383,24 @@ function renderItinerary() {
       card.appendChild(body);
       container.appendChild(card);
 
-      // 展開 / 收合
+      // 手風琴模式：同一時間只允許一個卡片展開
       header.addEventListener('click', () => {
         const isOpen = card.classList.contains('open');
-        card.classList.toggle('open', !isOpen);
-        header.setAttribute('aria-expanded', String(!isOpen));
+
+        // 先關閉所有卡片
+        document.querySelectorAll('.day-card').forEach(c => {
+          c.classList.remove('open');
+          c.querySelector('.day-header')?.setAttribute('aria-expanded', 'false');
+        });
+
+        // 若原本是關閉的，則展開並滾動到頂部
+        if (!isOpen) {
+          card.classList.add('open');
+          header.setAttribute('aria-expanded', 'true');
+          setTimeout(() => {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
       });
     });
   });
