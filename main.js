@@ -12,6 +12,7 @@ const ITINERARY = [
         title: '抵達東京 · 涉谷絕美夜景',
         summary: '搭機抵達羽田，辦理入住，傍晚涉谷屋頂夜景',
         illustration: './images/shibuya.jpg',
+        hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
             time: '13:35',
@@ -85,6 +86,7 @@ const ITINERARY = [
         title: '下町風情與文化森林',
         summary: '淺草雷門、河畔午餐、明治神宮',
         illustration: './images/asakusa_meiji.jpg',
+        hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
             time: '09:15',
@@ -152,6 +154,7 @@ const ITINERARY = [
         title: '沉浸光影與江戶海濱漫步',
         summary: 'teamLab Planets・豐洲千客萬來・LaLaport',
         illustration: './images/teamlab_toyosu.jpg',
+        hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
             time: '08:30',
@@ -210,6 +213,7 @@ const ITINERARY = [
         title: '橫濱全天親子遊',
         summary: '麵包超人博物館・港未來摩天輪・錯峰返回涉谷',
         illustration: './images/yokohama.jpg',
+        hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
             time: '09:15',
@@ -393,6 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
   autoExpandToday();
   fetchRate();
+  setupHotelFab();
 
   document.getElementById('rate-btn')?.addEventListener('click', fetchRate);
 });
@@ -436,6 +441,97 @@ function autoExpandToday() {
       card.classList.add('open');
       card.querySelector('.day-header')?.setAttribute('aria-expanded', 'true');
       setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }
+  });
+}
+
+// ============================================================
+// 浮動酒店導航按鈕
+// 用 IntersectionObserver 偵測目前畫面中佔比最大的已展開卡片
+// 自動顯示對應酒店，點擊跳轉 Google Maps
+// ============================================================
+function setupHotelFab() {
+  const fab = document.getElementById('hotel-fab');
+  const fabName = document.getElementById('hotel-fab-name');
+  if (!fab || !fabName) return;
+
+  // 建立 date → hotel 對照表（從 ITINERARY 資料中提取）
+  const hotelMap = {};
+  ITINERARY.forEach(phase => {
+    phase.days.forEach(day => {
+      if (day.hotel) hotelMap[day.date] = day.hotel;
+    });
+  });
+
+  let currentHotel = null;
+  let expandTimer = null;
+
+  // 更新 FAB 顯示
+  function updateFab(hotel) {
+    if (!hotel) {
+      fab.classList.add('hidden');
+      return;
+    }
+    fab.classList.remove('hidden');
+    fabName.textContent = hotel.name;
+    currentHotel = hotel;
+  }
+
+  // IntersectionObserver：追蹤哪個已展開卡片在畫面中佔比最大
+  const visibilityMap = new Map();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      visibilityMap.set(entry.target, entry.intersectionRatio);
+    });
+
+    // 找出目前可見比例最高且已展開的卡片
+    let bestCard = null;
+    let bestRatio = 0;
+    visibilityMap.forEach((ratio, card) => {
+      if (ratio > bestRatio && card.classList.contains('open')) {
+        bestRatio = ratio;
+        bestCard = card;
+      }
+    });
+
+    const dateStr = bestCard?.getAttribute('data-date');
+    updateFab(dateStr ? hotelMap[dateStr] ?? null : null);
+  }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
+
+  // 觀察所有 day-card
+  document.querySelectorAll('.day-card').forEach(card => observer.observe(card));
+
+  // 卡片展開/收合時重新觸發
+  document.querySelectorAll('.day-card').forEach(card => {
+    card.querySelector('.day-header')?.addEventListener('click', () => {
+      // 短暫延遲讓 DOM 更新，再重算
+      setTimeout(() => {
+        visibilityMap.forEach((_, c) => observer.unobserve(c));
+        document.querySelectorAll('.day-card').forEach(c => observer.observe(c));
+      }, 50);
+    });
+  });
+
+  // 點擊 FAB：展開顯示酒店名，再點擊跳轉 Maps
+  fab.addEventListener('click', () => {
+    if (!currentHotel) return;
+
+    if (!fab.classList.contains('expanded')) {
+      // 第一次點：展開顯示名稱
+      fab.classList.add('expanded');
+      clearTimeout(expandTimer);
+      expandTimer = setTimeout(() => fab.classList.remove('expanded'), 3000);
+    } else {
+      // 已展開：跳轉導航
+      window.open(currentHotel.mapLink, '_blank', 'noopener');
+    }
+  });
+
+  // 手機 touch：點外面收合
+  document.addEventListener('click', e => {
+    if (!fab.contains(e.target)) {
+      fab.classList.remove('expanded');
     }
   });
 }
