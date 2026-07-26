@@ -531,8 +531,15 @@ function setupHotelFab() {
     });
   });
 
-  // 點擊 FAB：直接跳轉 Google Maps
+  // 點擊 FAB：跳轉 Google Maps（用 <a> 模擬，避免 iOS Safari 空白頁問題）
   fab.addEventListener('click', () => {
-    if (currentHotel) window.open(currentHotel.mapLink, '_blank', 'noopener');
+    if (!currentHotel) return;
+    const a = document.createElement('a');
+    a.href = currentHotel.mapLink;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   });
 }
