@@ -430,12 +430,9 @@ async function fetchRate() {
     const data = await res.json();
     if (data.result !== 'success') throw new Error('API error');
     const rate = data.rates.JPY;
-
-    // 顯示匯率 + 最後更新時間（本地時間）
-    const now = new Date();
-    const hhmm = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const dateStr = data.time_last_update_utc.slice(5, 11); // e.g. "25 Jul"
     display.textContent = `JPY ${rate.toFixed(2)}`;
-    btn.title = `更新於 ${hhmm}，點擊刷新`;
+    btn.title = `數據日期：${dateStr}（每日更新），點擊刷新`;
 
     // 短暫閃爍提示已更新
     btn.classList.add('rate-updated');
