@@ -430,10 +430,18 @@ async function fetchRate() {
     const data = await res.json();
     if (data.result !== 'success') throw new Error('API error');
     const rate = data.rates.JPY;
-    display.textContent = `JPY: ${rate.toFixed(2)}`;
-    btn.title = `更新時間：${data.time_last_update_utc.slice(0, 16)}，點擊刷新`;
+
+    // 顯示匯率 + 最後更新時間（本地時間）
+    const now = new Date();
+    const hhmm = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    display.textContent = `JPY ${rate.toFixed(2)}`;
+    btn.title = `更新於 ${hhmm}，點擊刷新`;
+
+    // 短暫閃爍提示已更新
+    btn.classList.add('rate-updated');
+    setTimeout(() => btn.classList.remove('rate-updated'), 800);
   } catch (err) {
-    display.textContent = '匯率暫時無法載入';
+    display.textContent = '暫時無法載入';
     console.warn('fetchRate error:', err);
   } finally {
     btn.classList.remove('loading');

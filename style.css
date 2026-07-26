@@ -69,6 +69,12 @@ body {
   to { transform: rotate(360deg); }
 }
 
+.rate-btn.rate-updated {
+  background: #e8f5e9;
+  border-color: #81c784;
+  transition: background 0.1s, border-color 0.1s;
+}
+
 /* ===== 主體 ===== */
 .main {
   max-width: 680px;
