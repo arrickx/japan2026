@@ -275,9 +275,92 @@ const ITINERARY = [
     phase: '第二階段：北海道大環線',
     phaseDates: '9/4 – 9/13',
     days: [
-      // 北海道行程陸續新增…
+      // ── Day 5 ──────────────────────────────────────────────
+      {
+        date: '9/4',
+        dayNum: 'Day 5',
+        title: '飛往札幌 · 取車與入住',
+        summary: '羽田飛往新千歲，取車辦理 HEP，入住 FAV LUX 札幌',
+        illustration: './images/sapporo.jpg',
+        hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        activities: [
+          {
+            time: '11:15',
+            name: '🏨 涉谷退房與移動',
+            desc: '辦理退房，推大行李經由人行天橋步行至涉谷站 (Shibuya Fukuras) 乘車點。',
+            address: '',
+            mapLink: '',
+            notes: '天橋設有無障礙電梯，推大行李及推車請放心使用。',
+          },
+          {
+            time: '11:45',
+            name: '🚌 搭機場大巴前往羽田',
+            desc: '乘坐由酒店前台代訂好的機場巴士直達羽田機場 (HND)。',
+            address: '',
+            mapLink: '',
+            notes: '前台代訂巴士省心便捷，大件行李可直接托運於巴士行李廂。',
+          },
+          {
+            time: '12:30',
+            name: '✈️ 羽田抵達與大件行李托運',
+            desc: '抵達羽田機場，前往 JAL First Class 專屬櫃台優先托運大件行李。',
+            address: '東京都大田区羽田空港 3-3-2',
+            mapLink: 'https://maps.google.com/?q=Haneda+Airport+Terminal+1+JAL',
+            notes: '優先櫃台可快速辦理托運，減少排隊等待時間。',
+          },
+          {
+            time: '13:00',
+            name: '🍱 JAL Diamond Premier Lounge 休息',
+            desc: '在休息室享用咖哩包和輕食，全員充能休息。',
+            address: '羽田機場 Terminal 1 JAL Diamond Premier Lounge',
+            mapLink: '',
+            notes: '在休息室吃飽，新千歲抵達後無需再走機場堂食流程。',
+          },
+          {
+            time: '16:40',
+            name: '🛫 飛往新千歲 (CTS)',
+            desc: '搭乘 JAL 523 航班飛往新千歲機場。',
+            address: '',
+            mapLink: '',
+            notes: '預計飛行時間約 1.5 小時。',
+          },
+          {
+            time: '18:20',
+            name: '🛬 抵達新千歲 · 提取行李',
+            desc: '抵達新千歲機場，完成行李提取流程。',
+            address: '北海道千歳市美々（新千歲機場）',
+            mapLink: 'https://maps.google.com/?q=New+Chitose+Airport',
+            notes: '不走機場堂食流程，直接準備前往取車。',
+          },
+          {
+            time: '19:15',
+            name: '🚌 前往豐田租車營業所',
+            desc: '全員直接前往 1F 豐田租車櫃台，搭乘免費接駁車前往營業所。',
+            address: '新千歲機場 1F 豐田租車櫃台',
+            mapLink: '',
+            notes: '接駁車車程約 5–10 分鐘，班次頻繁。',
+          },
+          {
+            time: '20:00',
+            name: '🚗 辦理取車手續 (Toyota Rent-a-Car)',
+            desc: '核對 W3 級 Alphard、確認 1 個安全座椅、現場辦理 ETC 卡租借與 HEP 通行證。',
+            address: '北海道千歳市美々 758-134（Toyota Rent a Car Poplar）',
+            mapLink: 'https://maps.google.com/?q=Toyota+Rent+a+Car+Poplar+New+Chitose+Airport',
+            notes: '⚠️ 取車必看：確認 HEP (Hokkaido Expressway Pass) 已成功綁定 ETC 卡，自駕高速通行更划算。',
+          },
+          {
+            time: '21:00',
+            name: '🏨 驅車抵達札幌 · 入住 FAV LUX 札幌',
+            desc: '驅車前往札幌市區，辦理入住。',
+            address: '北海道札幌市中央区南3条西7丁目 13-1',
+            mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
+            notes: '🅿️ 停車提醒：請將車停放於酒店正後方的合作停車場（Paraca），前台掃碼可享受折扣優惠。今日起 🏨 按鈕將自動導航回 FAV LUX 札幌！',
+          },
+        ],
+      },
     ],
   },
+
 ];
 
 // ============================================================
