@@ -122,6 +122,7 @@ body {
   border: 2px solid #f5d5c8;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(180, 100, 80, 0.08);
+  scroll-margin-top: 64px; /* 抵消 sticky header 高度 */
 }
 
 /* 卡片插圖（可選） */
