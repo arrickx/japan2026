@@ -689,7 +689,7 @@ function renderItinerary() {
       const body = document.createElement('div');
       body.className = 'day-body';
 
-      // 插圖放在展開內容頂部（點擊可原地放大 / 收合）
+      // 插圖放在展開內容頂部（點擊可原地順滑放大 / 收合）
       if (day.illustration) {
         const img = document.createElement('img');
         img.src = day.illustration;
@@ -699,7 +699,16 @@ function renderItinerary() {
         img.title = '點擊放大 / 收合插圖';
         img.addEventListener('click', (e) => {
           e.stopPropagation();
-          img.classList.toggle('expanded');
+          const isExpanded = img.classList.contains('expanded');
+          if (!isExpanded) {
+            // 計算 4:3 比例下满宽的高度
+            const fullHeight = Math.round(img.clientWidth * (3 / 4));
+            img.style.height = `${fullHeight}px`;
+            img.classList.add('expanded');
+          } else {
+            img.style.height = '160px';
+            img.classList.remove('expanded');
+          }
         });
         body.appendChild(img);
       }
