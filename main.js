@@ -689,13 +689,18 @@ function renderItinerary() {
       const body = document.createElement('div');
       body.className = 'day-body';
 
-      // 插圖放在展開內容頂部
+      // 插圖放在展開內容頂部（點擊可原地放大 / 收合）
       if (day.illustration) {
         const img = document.createElement('img');
         img.src = day.illustration;
         img.alt = day.title;
         img.className = 'card-illus';
         img.loading = 'lazy';
+        img.title = '點擊放大 / 收合插圖';
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          img.classList.toggle('expanded');
+        });
         body.appendChild(img);
       }
 
