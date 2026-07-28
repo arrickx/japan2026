@@ -22,18 +22,26 @@
 
   <main class="main">
     <div id="itinerary-list" class="itinerary-list"></div>
-    <!-- 核心物流與預訂備忘盒 -->
-    <div id="memo-section" class="memo-section"></div>
-    <p class="footer-note">✏️ 行程與備忘持續更新中…</p>
+    <p class="footer-note">✏️ 行程持續更新中…</p>
   </main>
 
-  <!-- 浮動酒店導航按鈕 -->
-  <div id="hotel-fab" class="hotel-fab" aria-label="導航回酒店" role="button" tabindex="0">
-    <span class="hotel-fab-icon">🏨</span>
-    <div class="hotel-fab-info">
-      <span id="hotel-fab-name" class="hotel-fab-name">載入中…</span>
-      <span class="hotel-fab-hint">點擊導航回酒店</span>
+  <!-- 浮動按鈕組：備忘 + 酒店 -->
+  <div class="fab-group">
+    <div id="memo-fab" class="memo-fab" aria-label="核心備忘" role="button" tabindex="0">
+      <span class="memo-fab-icon">📋</span>
     </div>
+    <div id="hotel-fab" class="hotel-fab" aria-label="導航回酒店" role="button" tabindex="0">
+      <span class="hotel-fab-icon">🏨</span>
+      <div class="hotel-fab-info">
+        <span id="hotel-fab-name" class="hotel-fab-name">載入中…</span>
+        <span class="hotel-fab-hint">點擊導航回酒店</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 備忘彈窗 -->
+  <div id="memo-overlay" class="memo-overlay">
+    <div class="memo-popup" id="memo-popup"></div>
   </div>
   <!-- 匯率換算彈窗 -->
   <div id="rate-overlay" class="rate-overlay">

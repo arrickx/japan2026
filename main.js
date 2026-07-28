@@ -1350,28 +1350,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================================
-// 核心物流與預訂備忘卡片
+// 核心物流與預訂備忘 (彈窗模式)
 // ============================================================
 function renderMemoSection() {
-  const container = document.getElementById('memo-section');
-  if (!container) return;
+  const overlay = document.getElementById('memo-overlay');
+  const popup = document.getElementById('memo-popup');
+  const fab = document.getElementById('memo-fab');
+  if (!overlay || !popup || !fab) return;
 
-  const card = document.createElement('div');
-  card.className = 'memo-card';
-
-  card.innerHTML = `
-    <div class="memo-header" role="button" aria-expanded="false">
-      <div class="memo-title-group">
-        <span class="memo-icon">📋</span>
-        <div>
-          <div class="memo-title">核心物流、預訂備忘與出行細節</div>
-          <div class="memo-subtitle">租車、ETC/HEP、大巴代訂、飯店停車與備用方案</div>
-        </div>
-      </div>
-      <span class="memo-arrow">▼</span>
+  popup.innerHTML = `
+    <div class="memo-popup-header">
+      <div class="memo-popup-title">📋 核心物流、預訂備忘與出行細節</div>
+      <div class="memo-popup-subtitle">租車、ETC/HEP、大巴代訂、飯店停車與備用方案</div>
     </div>
-    <div class="memo-body">
-      <div class="memo-grid">
+    <div class="memo-popup-body">
 
         <!-- 1. 租車與 ETC/HEP 核心 -->
         <div class="memo-block highlight">
@@ -1427,18 +1419,22 @@ function renderMemoSection() {
           <div class="memo-item"><strong>熱水与哺乳：</strong>沿途道之站 (Michi-no-Eki) 休整 15-30 分鐘；商場及休息區嬰兒室均有 70-80 度恆溫淨水直飲機。</div>
         </div>
 
-      </div>
     </div>
   `;
 
-  container.appendChild(card);
+  // 點擊 📋 FAB → 開啟備忘彈窗
+  fab.addEventListener('click', () => {
+    overlay.classList.add('open');
+  });
 
-  // 點擊展開/收合備忘卡片
-  const header = card.querySelector('.memo-header');
-  header.addEventListener('click', () => {
-    const isOpen = card.classList.contains('open');
-    card.classList.toggle('open', !isOpen);
-    header.setAttribute('aria-expanded', String(!isOpen));
+  // 點擊遮罩（彈窗外面）→ 關閉
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+
+  // 按 Esc 關閉
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') overlay.classList.remove('open');
   });
 }
 
