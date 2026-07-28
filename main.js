@@ -909,47 +909,63 @@ const ITINERARY = [
             desc: '17:00 準時還車：前往 Toyota Rent a Car (新千歲空港 Suzuran 店) 辦理還車，並根據 ETC 記錄結算 HEP 通行證。',
             address: '北海道千歳市美々 758-134',
             mapLink: 'https://maps.google.com/?q=Toyota+Rent+a+Car+Suzuran+New+Chitose+Airport',
-            notes: '工作人員核對車況及 ETC 高速紀錄，快速�    <div class="memo-popup-body">
-
-      <!-- 1. 自駕各飯店停車政策 -->
-      <div class="memo-block highlight">
-        <div class="memo-block-title">🅿️ 北海道自駕各飯店停車政策</div>
-        <div class="memo-item">
-          <strong>FAV LUX 札幌：</strong>無自營車場。停正後方合作地面車場（Paraca），前台掃碼優惠價 1,500 日元 / 24h（無現金支付）。<br/>
-          <em>⚠️ 注意：折扣券為單次出庫券，中途開出即失效。在札幌期間建議停妥後全家步行与地鐵出行。</em>
-        </div>
-        <div class="memo-item"><strong>富良野 Fenix West：</strong>免費，戶外平地車位。</div>
-        <div class="memo-item"><strong>登別 瀧乃家：</strong>免費，提供免費泊車服務。</div>
-        <div class="memo-item"><strong>平成館 潮騷亭：</strong>免費，地面私人車場，車位充足（60+台）。</div>
-        <div class="memo-item"><strong>洞爺湖萬世閣：</strong>免費。入場時主動說明 Alphard 1.95 米車高以分配高頂地面車位。</div>
-        <div class="memo-item warning">
-          <strong>⚠️ Alphard 停車高度紅線：</strong>車高約 1.95 米，<strong>絕對禁止駛入限高 1.55 米的機械立體車庫</strong>。
-        </div>
-      </div>
-
-      <!-- 2. 關鍵大巴代訂時間點 -->
-      <div class="memo-block">
-        <div class="memo-block-title">⏰ 關鍵機場大巴代訂時間點</div>
-        <div class="memo-item"><strong>Day 5 (9/4) 大巴代訂：</strong>入住涉谷 Hyatt House 期間，請前台在出發前 1-2 天代訂前往羽田大巴。</div>
-        <div class="memo-item"><strong>Day 19 (9/18) 大巴代訂：</strong>入住銀座萬怡期間，請前台在出發前 1-2 天代訂前往羽田大巴（14:00 出發完美避開晚高峰）。</div>
-      </div>
-
-      <!-- 3. 零錢與母嬰細節 -->
-      <div class="memo-block">
-        <div class="memo-block-title">💴 零錢備用与 🚼 母嬰出行細節</div>
-        <div class="memo-item"><strong>現金準備：</strong>10,000 日元大鈔（高速人工通道/大餐廳/溫泉旅館）；1,000 日元零錢（投幣車場/自助繳費機）；100/500 日元硬幣（販賣機/儲物櫃）；5 日元硬幣（Day 2 淺草寺許願，日文諧音“有緣”）。</div>
-        <div class="memo-item"><strong>換尿布与垃圾：</strong>多用途廁所 (Multipurpose Toilet) 均有摺疊換尿布台。無尿布垃圾桶時請隨身攜帶 BOS 防臭密封袋。</div>
-        <div class="memo-item"><strong>熱水与哺乳：</strong>沿途道之站 (Michi-no-Eki) 休整 15-30 分鐘；商場及休息區嬰兒室均有 70-80 度恆溫淨水直飲機。</div>
-      </div>
-
-      <!-- 4. 行李與宅急便策略 -->
-      <div class="memo-block">
-        <div class="memo-block-title">🛄 行李寄存与宅急便備用預案</div>
-        <div class="memo-item"><strong>Day 14 新千歲寄存：</strong>首選 JAL 頭等艙櫃台提前托運；備選 1F/2F 大格儲物櫃（600-800 日元/件）。</div>
-        <div class="memo-item"><strong>宅急便備用預案：</strong>涉谷至銀座 20寸約 1,850 日元、24寸約 2,190 日元。時間差破局策略：指定收件日填 9/11，提前電郵銀座萬怡保管。</div>
-      </div>
-
-    </div>單！',
+            notes: '工作人員核對車況及 ETC 高速紀錄，快速完成結算。',
+          },
+          {
+            time: '17:30',
+            name: '🚌 接駁車抵達新千歲機場',
+            desc: '搭乘營業所免費接駁車抵達新千歲機場航站樓。',
+            address: '',
+            mapLink: '',
+            notes: '',
+          },
+          {
+            time: '17:45',
+            name: '🧳 托運与大件行李寄存',
+            desc: '前往 JAL First Class 櫃台嘗試提前托運。若櫃台拒絕提前托運，果斷前往 1F/2F 寄存大件行李。',
+            address: '新千歲機場國內線航站樓 1F/2F',
+            mapLink: 'https://maps.google.com/?q=New+Chitose+Airport+Terminal',
+            notes: '寄存行李後可輕鬆逛街，無需推大行李奔波。',
+          },
+          {
+            time: '18:15',
+            name: '🛍️ 航站樓深度體驗与 Royce\' 巧克力工廠',
+            desc: '18:15–20:30 國內線航站樓 2–3F 免稅購物、遊覽 Royce\' 巧克力工廠。',
+            address: '新千歲機場國內線 3F Royce Chocolate World',
+            mapLink: 'https://maps.google.com/?q=Royce+Chocolate+World+New+Chitose+Airport',
+            notes: '新千歲機場購物食肆豐富，Royce 巧克力工廠設有透明生產線与展示。',
+          },
+          {
+            time: '19:30',
+            name: '🍼 換裝哄睡防線（深夜大轉運）',
+            desc: '在機場母嬰室內，提前為一歲寶寶完成餵奶、更換拉拉褲並換上純棉睡衣。',
+            address: '新千歲機場國內線母嬰室',
+            mapLink: '',
+            notes: '👶 提示：提前在機場完成哄睡準備，確保 21:10 登機後寶寶機能直接進入夜間深睡眠狀態。',
+          },
+          {
+            time: '21:10',
+            name: '🛫 搭 JAL 528 飛回羽田 (HND)',
+            desc: '搭乘 JAL 528 航班飛往羽田機場。',
+            address: '',
+            mapLink: '',
+            notes: '飛行時間約 1.5 小時，寶寶可在機上平穩安睡。',
+          },
+          {
+            time: '22:55',
+            name: '🚕 抵羽田 · 打車直達 Courtyard Ginza',
+            desc: '22:55 抵達羽田機場。分乘 2 輛標準出租車直達 Courtyard Ginza（銀座萬怡），車程約 20 分鐘。',
+            address: '東京都中央区銀座 6-14-10（Courtyard Ginza）',
+            mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
+            notes: '深夜打車快捷省心，大件行李分兩車放妥。',
+          },
+          {
+            time: '00:15',
+            name: '🏨 00:15 抵達銀座萬怡 · Late Check-in 入住',
+            desc: '抵達酒店，辦理 Late Check-in。今日起 🏨 按鈕將自動導航回 Courtyard Ginza！',
+            address: '東京都中央区銀座 6-14-10',
+            mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
+            notes: '⚠️ 延時入住重要備註：抵達時間已過半夜，請務必在 Day 1 前通過電郵向銀座萬怡備註 Late Check-in，防止系統自動判定為 No Show 導致丟單！',
           },
         ],
       },
