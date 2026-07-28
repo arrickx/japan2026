@@ -1069,7 +1069,7 @@ const ITINERARY = [
       {
         date: '9/16',
         dayNum: 'Day 17',
-        title: '東京迪士尼樂園 (零時差狀態全開)',
+        title: '東京迪士尼樂園',
         summary: '避堵打車前往、Parent Swap輪流玩、11:15錯峰午餐、嬰兒中心補給、樹蔭劇場休息',
         illustration: './images/disney.jpg',
         hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
@@ -1342,11 +1342,105 @@ let cachedRate = null; // 全局儲存 JPY 匯率
 
 document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
+  renderMemoSection();
   autoExpandToday();
   fetchRate();
   setupHotelFab();
   setupRatePopup();
 });
+
+// ============================================================
+// 核心物流與預訂備忘卡片
+// ============================================================
+function renderMemoSection() {
+  const container = document.getElementById('memo-section');
+  if (!container) return;
+
+  const card = document.createElement('div');
+  card.className = 'memo-card';
+
+  card.innerHTML = `
+    <div class="memo-header" role="button" aria-expanded="false">
+      <div class="memo-title-group">
+        <span class="memo-icon">📋</span>
+        <div>
+          <div class="memo-title">核心物流、預訂備忘與出行細節</div>
+          <div class="memo-subtitle">租車、ETC/HEP、大巴代訂、飯店停車與備用方案</div>
+        </div>
+      </div>
+      <span class="memo-arrow">▼</span>
+    </div>
+    <div class="memo-body">
+      <div class="memo-grid">
+
+        <!-- 1. 租車與 ETC/HEP 核心 -->
+        <div class="memo-block highlight">
+          <div class="memo-block-title">🚘 Toyota Rent a Car 租車與 HEP 核心</div>
+          <div class="memo-item"><strong>取車門市：</strong>新千歳空港すずらん店 (TEL: 0123-24-0100)</div>
+          <div class="memo-item"><strong>取還時間：</strong>9/4 20:00 取車 — 9/13 17:00 還車</div>
+          <div class="memo-item"><strong>附加項目：</strong>嬰兒座椅（已訂）、NOC 安心險（已訂）</div>
+          <div class="memo-item alert">
+            <strong>現場必辦事項：</strong><br/>
+            1. ETC 卡租借（330 日元/次）<br/>
+            2. HEP 外國人高速通行證（須出示全員護照及簽證，走 ETC 專用車道）
+          </div>
+          <div class="memo-item warning">
+            <strong>⚠️ Alphard 停車高度紅線：</strong>車高約 1.95 米，<strong>絕對禁止駛入限高 1.55 米的機械立體車庫</strong>。
+          </div>
+        </div>
+
+        <!-- 2. 關鍵預訂與大巴時間點 -->
+        <div class="memo-block">
+          <div class="memo-block-title">⏰ 關鍵預訂與大巴代訂時間點</div>
+          <div class="memo-item"><strong>eSIM (推荐 Ubigi)：</strong>覆蓋時段 8/31 — 9/18，出發前 1-2 週購買。</div>
+          <div class="memo-item"><strong>余市威士忌酒廠：</strong>提前 1 個月同日（8/6）日本時間 00:00 搶票。</div>
+          <div class="memo-item"><strong>Day 1 (8/31) 機場大巴：</strong>羽田機場 1F 現場購票 $\rightarrow$ 涉谷（免預約）。</div>
+          <div class="memo-item"><strong>Day 5 (9/4) 大巴代訂：</strong>入住涉谷 Hyatt House 期間，請前台在出發前 1-2 天代訂前往羽田大巴。</div>
+          <div class="memo-item"><strong>Day 19 (9/18) 大巴代訂：</strong>入住銀座萬怡期間，請前台在出發前 1-2 天代訂前往羽田大巴（14:00 出發完美避開晚高峰）。</div>
+        </div>
+
+        <!-- 3. 自駕各飯店停車政策 -->
+        <div class="memo-block">
+          <div class="memo-block-title">🅿️ 北海道自駕各飯店停車政策</div>
+          <div class="memo-item">
+            <strong>FAV LUX 札幌：</strong>無自營車場。停正後方合作地面車場（Paraca），前台掃碼優惠價 1,500 日元 / 24h（無現金支付）。<br/>
+            <em>⚠️ 注意：折扣券為單次出庫券，中途開出即失效。在札幌期間建議停妥後全家步行与地鐵出行。</em>
+          </div>
+          <div class="memo-item"><strong>富良野 Fenix West：</strong>免費，戶外平地車位。</div>
+          <div class="memo-item"><strong>登別 瀧乃家：</strong>免費，提供免費泊車服務。</div>
+          <div class="memo-item"><strong>平成館 潮騷亭：</strong>免費，地面私人車場，車位充足（60+台）。</div>
+          <div class="memo-item"><strong>洞爺湖萬世閣：</strong>免費。入場時主動說明 Alphard 1.95 米車高以分配高頂地面車位。</div>
+        </div>
+
+        <!-- 4. 行李與宅急便策略 -->
+        <div class="memo-block">
+          <div class="memo-block-title">🛄 行李寄存与宅急便備用預案</div>
+          <div class="memo-item"><strong>Day 14 新千歲寄存：</strong>首選 JAL 頭等艙櫃台提前托運；備選 1F/2F 大格儲物櫃（600-800 日元/件）。</div>
+          <div class="memo-item"><strong>宅急便備用預案：</strong>涉谷至銀座 20寸約 1,850 日元、24寸約 2,190 日元。時間差破局策略：指定收件日填 9/11，提前電郵銀座萬怡保管。</div>
+        </div>
+
+        <!-- 5. 零錢與母嬰細節 -->
+        <div class="memo-block">
+          <div class="memo-block-title">💴 零錢備用与 𚼼 母嬰出行細節</div>
+          <div class="memo-item"><strong>現金準備：</strong>10,000 日元大鈔（高速人工通道/大餐廳/溫泉旅館）；1,000 日元零錢（投幣車場/自助繳費機）；100/500 日元硬幣（販賣機/儲物櫃）；5 日元硬幣（Day 2 淺草寺許願，日文諧音“有緣”）。</div>
+          <div class="memo-item"><strong>換尿布与垃圾：</strong>多用途廁所 (Multipurpose Toilet) 均有摺疊換尿布台。無尿布垃圾桶時請隨身攜帶 BOS 防臭密封袋。</div>
+          <div class="memo-item"><strong>熱水与哺乳：</strong>沿途道之站 (Michi-no-Eki) 休整 15-30 分鐘；商場及休息區嬰兒室均有 70-80 度恆溫淨水直飲機。</div>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  container.appendChild(card);
+
+  // 點擊展開/收合備忘卡片
+  const header = card.querySelector('.memo-header');
+  header.addEventListener('click', () => {
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+    header.setAttribute('aria-expanded', String(!isOpen));
+  });
+}
 
 // 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、自動抓最新）
 async function fetchRate() {
