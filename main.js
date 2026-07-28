@@ -779,11 +779,14 @@ function renderItinerary() {
   });
 }
 
+let cachedRate = null; // 全局儲存 JPY 匯率
+
 document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
   autoExpandToday();
   fetchRate();
   setupHotelFab();
+  setupRatePopup();
 });
 
 // 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、自動抓最新）
@@ -796,12 +799,58 @@ async function fetchRate() {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     if (data.result !== 'success') throw new Error('API error');
-    const rate = data.rates.JPY;
-    display.textContent = `最新匯率：${rate.toFixed(2)}`;
+    cachedRate = data.rates.JPY;
+    display.textContent = `最新匯率：${cachedRate.toFixed(2)}`;
   } catch (err) {
     display.textContent = '最新匯率：暫無數據';
     console.warn('fetchRate error:', err);
   }
+}
+
+// 匯率換算彈窗邏輯
+function setupRatePopup() {
+  const badge = document.getElementById('rate-badge');
+  const overlay = document.getElementById('rate-overlay');
+  const jpyInput = document.getElementById('rate-jpy-input');
+  const usdResult = document.getElementById('rate-usd-result');
+  const note = document.getElementById('rate-popup-note');
+  if (!badge || !overlay || !jpyInput || !usdResult) return;
+
+  function calcAndShow() {
+    if (!cachedRate) { usdResult.textContent = '…'; return; }
+    const jpy = parseFloat(jpyInput.value) || 0;
+    const usd = jpy / cachedRate;
+    usdResult.textContent = usd.toFixed(2);
+    if (note) note.textContent = `1 USD ≈ ${cachedRate.toFixed(2)} JPY（每日自動更新）`;
+  }
+
+  // 點擊匯率標籤 → 開啟彈窗
+  badge.addEventListener('click', () => {
+    overlay.classList.add('open');
+    calcAndShow();
+    setTimeout(() => jpyInput.select(), 100);
+  });
+
+  // 點擊遮罩（彈窗外面）→ 關閉
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+
+  // 按 Esc 關閉
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') overlay.classList.remove('open');
+  });
+
+  // 即時輸入計算
+  jpyInput.addEventListener('input', calcAndShow);
+
+  // 快捷金額按鈕
+  document.querySelectorAll('.rate-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      jpyInput.value = btn.dataset.jpy;
+      calcAndShow();
+    });
+  });
 }
 
 // 根據瀏覽器當前日期自動展開對應行程卡

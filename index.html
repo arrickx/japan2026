@@ -15,7 +15,7 @@
   <header class="site-header">
     <span class="flag">🇯🇵</span>
     <span class="site-title">日本旅行 2026</span>
-    <div id="rate-badge" class="rate-badge">
+    <div id="rate-badge" class="rate-badge" role="button" tabindex="0">
       <span id="rate-display">最新匯率：載入中…</span>
     </div>
   </header>
@@ -31,6 +31,32 @@
     <div class="hotel-fab-info">
       <span id="hotel-fab-name" class="hotel-fab-name">載入中…</span>
       <span class="hotel-fab-hint">點擊導航回酒店</span>
+    </div>
+  </div>
+  <!-- 匯率換算彈窗 -->
+  <div id="rate-overlay" class="rate-overlay">
+    <div class="rate-popup">
+      <div class="rate-popup-title">💱 快速換匯計算</div>
+      <div class="rate-popup-row">
+        <div class="rate-input-group">
+          <span class="rate-currency-label">¥</span>
+          <input id="rate-jpy-input" class="rate-input" type="number" inputmode="numeric" value="10000" />
+          <span class="rate-unit">JPY</span>
+        </div>
+        <div class="rate-arrow">→</div>
+        <div class="rate-result-group">
+          <span class="rate-currency-label">$</span>
+          <span id="rate-usd-result" class="rate-result">…</span>
+          <span class="rate-unit">USD</span>
+        </div>
+      </div>
+      <div class="rate-popup-presets">
+        <button class="rate-preset" data-jpy="1000">¥1,000</button>
+        <button class="rate-preset" data-jpy="5000">¥5,000</button>
+        <button class="rate-preset" data-jpy="10000">¥10,000</button>
+        <button class="rate-preset" data-jpy="50000">¥50,000</button>
+      </div>
+      <div id="rate-popup-note" class="rate-popup-note"></div>
     </div>
   </div>
 
