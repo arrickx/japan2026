@@ -784,18 +784,12 @@ document.addEventListener('DOMContentLoaded', () => {
   autoExpandToday();
   fetchRate();
   setupHotelFab();
-
-  document.getElementById('rate-btn')?.addEventListener('click', fetchRate);
 });
 
-// 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、已驗證可用）
+// 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、自動抓最新）
 async function fetchRate() {
-  const btn = document.getElementById('rate-btn');
   const display = document.getElementById('rate-display');
-  if (!btn || !display) return;
-
-  btn.classList.add('loading');
-  display.textContent = '更新中…';
+  if (!display) return;
 
   try {
     const res = await fetch('https://open.er-api.com/v6/latest/USD');
@@ -803,18 +797,10 @@ async function fetchRate() {
     const data = await res.json();
     if (data.result !== 'success') throw new Error('API error');
     const rate = data.rates.JPY;
-    const dateStr = data.time_last_update_utc.slice(5, 11); // e.g. "25 Jul"
-    display.textContent = `JPY ${rate.toFixed(2)}`;
-    btn.title = `數據日期：${dateStr}（每日更新），點擊刷新`;
-
-    // 短暫閃爍提示已更新
-    btn.classList.add('rate-updated');
-    setTimeout(() => btn.classList.remove('rate-updated'), 800);
+    display.textContent = `最新匯率：${rate.toFixed(2)}`;
   } catch (err) {
-    display.textContent = '暫時無法載入';
+    display.textContent = '最新匯率：暫無數據';
     console.warn('fetchRate error:', err);
-  } finally {
-    btn.classList.remove('loading');
   }
 }
 

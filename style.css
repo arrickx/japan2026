@@ -31,49 +31,23 @@ body {
   flex: 1;
 }
 
-/* 匯率按鈕 */
-.rate-btn {
+/* 匯率標籤（非按鈕，不可手動點擊刷新） */
+.rate-badge {
   display: flex;
   align-items: center;
-  gap: 5px;
   background: #fff5f0;
   border: 1.5px solid #f0c8b8;
   border-radius: 20px;
-  padding: 5px 12px;
-  cursor: pointer;
+  padding: 4px 11px;
   white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.15s;
 }
 
-.rate-btn:active { background: #ffe8e0; }
-
 #rate-display {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: #b54040;
 }
 
-.rate-refresh {
-  font-size: 0.9rem;
-  color: #c0807a;
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
-
-.rate-btn.loading .rate-refresh {
-  animation: spin 0.6s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.rate-btn.rate-updated {
-  background: #e8f5e9;
-  border-color: #81c784;
-  transition: background 0.1s, border-color 0.1s;
-}
 
 /* ===== 主體 ===== */
 .main {
