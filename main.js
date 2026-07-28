@@ -972,6 +972,58 @@ const ITINERARY = [
     ],
   },
 
+  // ============================================================
+  // 第三階段：無縫銜接與終極休整
+  // ============================================================
+  {
+    phase: '第三階段：無縫銜接與終極休整',
+    phaseDates: '9/14 – 9/18',
+    days: [
+      // ── Day 15 ─────────────────────────────────────────────
+      {
+        date: '9/14',
+        dayNum: 'Day 15',
+        title: '銀座零距離休整與集中掃貨',
+        summary: '睡到自然醒、三越/松屋開門殺午餐、銀座集中購物、戰利品隨時放回酒店',
+        illustration: './images/ginza.jpg',
+        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        activities: [
+          {
+            time: '09:30',
+            name: '😴 自然醒与休整 (接檔深夜航班)',
+            desc: '昨夜抵達較晚，今日全家不設鬧鐘，睡到自然醒，恢復體力。',
+            address: '',
+            mapLink: '',
+            notes: '利用 Courtyard Ginza 箭步可達的地利優勢，完全免除電車勞頓。',
+          },
+          {
+            time: '11:15',
+            name: '🍱 錯峰開門殺：銀座三越 / 松屋午餐',
+            desc: '11:15 步行前往銀座三越的 とんかつ あんず (Anzu 豬排) 或松屋銀座的天婦羅 綱八 享用高性價比午市定食。',
+            address: '東京都中央区銀座 4-6-16（銀座三越 11F）',
+            mapLink: 'https://maps.google.com/?q=Ginza+Mitsukoshi',
+            notes: '11:15 剛開門入座無須排隊，推車可輕鬆進入，定食品質極高。',
+          },
+          {
+            time: '13:30',
+            name: '🛍️ 銀座核心區集中購物',
+            desc: '集中採購名品、伴手禮、藥妝与母嬰用品。',
+            address: '東京都中央区銀座 6-10-1（GINZA SIX）',
+            mapLink: 'https://maps.google.com/?q=GINZA+SIX+Tokyo',
+            notes: '🛍️ 零負擔提示：由於住在銀座核心區，買好的戰利品可以隨時讓家人提回酒店房間放妥，徹底解放雙手和推車空間！',
+          },
+          {
+            time: '18:00',
+            name: '🍽️ 銀座漫步与優雅晚餐',
+            desc: '在銀座周邊輕鬆漫步，找一家環境優雅的餐廳享用晚餐。',
+            address: '東京都中央区銀座',
+            mapLink: 'https://maps.google.com/?q=Ginza+Tokyo',
+            notes: '銀座步行街傍晚燈光璀璨，餐廳選擇豐富，適合悠閒散步。',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 // ============================================================
