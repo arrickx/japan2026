@@ -547,7 +547,12 @@ const ITINERARY = [
         summary: '砂川綠洲休整、青池白須瀑布、美瑛放牧農場、四季彩之丘、入住 Fenix West',
         illustration: './images/biei_furano.jpg',
         hotel: { name: 'Fenix West (富良野)', mapLink: 'https://maps.google.com/?q=Fenix+West+Furano' },
-        driving: { distance: '總計約 210 公里 / 3.5 小時', route: '札幌→美瑛 150km/2.5h、美瑛→富良野 30km/35min', rest: '砂川高速綠洲 (Sunagawa Highway Oasis)：行駛約 1h 處，北海道最大高速服務區，設有母嬰室', tips: ['美瑛/富良野轉為普通國道，限速 50-60 km/h', '傍晚 17:00 後鄉村道路無路燈，偶有蝦夷鹿穿出'] },
+        driving: { 
+          distance: '總計約 210 公里 / 3.5 小時', 
+          route: '札幌→美瑛 150km/2.5h、美瑛→富良野 30km/35min', 
+          rest: { name: '砂川高速綠洲 (Sunagawa Highway Oasis)', desc: '行駛約 1h 處，北海道最大高速服務區，設有母嬰室', mapLink: 'https://maps.google.com/?q=Sunagawa+Highway+Oasis' }, 
+          tips: ['美瑛/富良野轉為普通國道，限速 50-60 km/h', '傍晚 17:00 後鄉村道路無路燈，偶有蝦夷鹿穿出'] 
+        },
         activities: [
           {
             time: '08:30',
@@ -647,7 +652,12 @@ const ITINERARY = [
         summary: '富田農場&哈密瓜農場、南下登別、瀧乃家入住、D Type 部屋食',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '登別 瀧乃家 (Takinoya)', mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu' },
-        driving: { distance: '約 180 公里 / 2.5–3 小時', route: '道東自動車道', rest: '夕張 PA 或占冠 PA：開出富良野約 1h 處', tips: ['占冠至夕張段有單向單車道隧道，保持安全車距', '駛入登別溫泉街前有連續下坡彎道，注意減速'] },
+        driving: { 
+          distance: '約 180 公里 / 2.5–3 小時', 
+          route: '道東自動車道', 
+          rest: { name: '夕張 PA / 占冠 PA', desc: '開出富良野約 1h 處，可補充水分与換尿布', mapLink: 'https://maps.google.com/?q=Yubari+PA+Hokkaido' }, 
+          tips: ['占冠至夕張段有單向單車道隧道，保持安全車距', '駛入登別溫泉街前有連續下坡彎道，注意減速'] 
+        },
         activities: [
           {
             time: '08:30',
@@ -699,7 +709,12 @@ const ITINERARY = [
         summary: '登別地獄谷、八雲 PA 休整、潮騷亭 Check-in、金森紅磚倉庫、函館山夜景',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
-        driving: { distance: '約 200 公里 / 2.5–3 小時', route: '道央自動車道', rest: '八雲 PA / 噴火灣 Panorama Park：行駛約 1.5h 處，海景公園＋母嬰休息室', tips: ['大沼公園 IC 後轉為 5 號國道（約 30km），紅綠燈增多，預留充裕時間'] },
+        driving: { 
+          distance: '約 200 公里 / 2.5–3 小時', 
+          route: '道央自動車道', 
+          rest: { name: '八雲 PA / 噴火灣 Panorama Park', desc: '行駛約 1.5h 處，🌟 极度推荐！海景公園＋母嬰休息室', mapLink: 'https://maps.google.com/?q=Yakumo+PA+Hokkaido' }, 
+          tips: ['大沼公園 IC 後轉為 5 號國道（約 30km），紅綠燈增多，預留充裕時間'] 
+        },
         activities: [
           {
             time: '09:30',
@@ -827,7 +842,12 @@ const ITINERARY = [
         summary: '七飯町道之站、有珠山纜車、Sairo 展望台、萬世閣入住、湖畔煙火',
         illustration: './images/toya.jpg',
         hotel: { name: '洞爺湖萬世閣 (Toya Manseikaku)', mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel' },
-        driving: { distance: '約 160 公里 / 2–2.5 小時', route: null, rest: '七飯町道之站：開出函館約 30min 處，男爵土豆主題食品與精品咖啡', tips: ['從虻田洞爺湖 IC 下高速有陡峭連續下坡，使用低檔 (B/S檔) 發動機制動'] },
+        driving: { 
+          distance: '約 160 公里 / 2–2.5 小時', 
+          route: null, 
+          rest: { name: '七飯町道之站 (Michi-no-Eki Nanae)', desc: '開出函館約 30min 處，男爵土豆主題食品與精品咖啡', mapLink: 'https://maps.google.com/?q=Michi-no-Eki+Nanae+Danshaku+Lounge' }, 
+          tips: ['從虻田洞爺湖 IC 下高速有陡峭連續下坡，使用低檔 (B/S檔) 發動機制動'] 
+        },
         activities: [
           {
             time: '09:30',
@@ -895,7 +915,12 @@ const ITINERARY = [
         summary: '支笏湖散步、還車結算 HEP、新千歲航站樓體驗、飛羽田、入住 Courtyard Ginza',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
-        driving: { distance: '約 100 公里 / 1 小時 20 分鐘', route: null, rest: '樽前 SA：行駛約 45min 處，設有 7-Eleven 及授乳室', tips: ['還車前需在周邊加油站加滿油並保留加油小票'] },
+        driving: { 
+          distance: '約 100 公里 / 1 小時 20 分鐘', 
+          route: null, 
+          rest: { name: '樽前 SA (Tarumae SA)', desc: '行駛約 45min 處，設有 7-Eleven 及授乳室', mapLink: 'https://maps.google.com/?q=Tarumae+SA+Hokkaido' }, 
+          tips: ['還車前需在周邊加油站加滿油並保留加油小票'] 
+        },
         activities: [
           {
             time: '10:00',
@@ -1292,7 +1317,16 @@ function renderItinerary() {
         if (d.route) html += `<span class="driving-route">${d.route}</span>`;
         html += `</div>`;
 
-        if (d.rest) html += `<div class="driving-rest">🅿️ ${d.rest}</div>`;
+        if (d.rest) {
+          if (typeof d.rest === 'object' && d.rest.name) {
+            const restLink = d.rest.mapLink
+              ? `<a class="driving-rest-link" href="${d.rest.mapLink}" target="_blank" rel="noopener">🅿️ ${d.rest.name}</a>`
+              : `<span>🅿️ ${d.rest.name}</span>`;
+            html += `<div class="driving-rest">${restLink}${d.rest.desc ? `：${d.rest.desc}` : ''}</div>`;
+          } else {
+            html += `<div class="driving-rest">🅿️ ${d.rest}</div>`;
+          }
+        }
 
         if (d.tips && d.tips.length) {
           html += `<div class="driving-tips">`;

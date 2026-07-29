@@ -753,6 +753,20 @@ body {
   font-size: 0.8rem;
 }
 
+.driving-rest-link {
+  color: #1b632d;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(27, 99, 45, 0.35);
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.driving-rest-link:hover {
+  color: #0e451d;
+  text-decoration-color: #0e451d;
+}
+
 .driving-tips {
   margin-top: 6px;
   display: flex;
