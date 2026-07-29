@@ -517,12 +517,10 @@ const ITINERARY = [
             time: '11:15',
             name: '🦀 頂級海鮮與帝王蟹大餐 (首選 UME堂 / 備選 おもひで食堂)',
             desc: '📍 位置說明：札幌場外市場店舖均集中在同一區塊，停好車後步行 1 分鐘均可到達。<br/><br/>' +
-                  '🌟 <strong>首選名店：根室杉山水産 UME堂 (うめぇ堂)</strong><br/>' +
-                  '📍 導航：<a href="https://maps.google.com/?q=Nemuro+Sugiyama+Suisan+Umedo+Sapporo" target="_blank" rel="noopener">北海道札幌市中央区北11条西22丁目 1-1</a><br/>' +
+                  '🌟 <strong>首選名店：<a href="https://maps.google.com/?q=Nemuro+Sugiyama+Suisan+Umedo+Sapporo" target="_blank" rel="noopener">根室杉山水産 UME堂 (うめぇ堂)</a></strong><br/>' +
                   '根室 50 年水產老廠直營，現場挑選活帝王蟹/毛蟹，公開稱重當面蒸烤拆解，透明無宰客；店內平地無障礙、桌椅寬敞，推車輕鬆推入，蟹腳提前剖開大人吃得極省心。<br/>' +
                   '🎫 <strong>結帳出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener">樂吃購 9 折優惠券</a> 享專屬折扣！</strong><br/><br/>' +
-                  '🍣 <strong>備選名店 (Plan B)：おもひで食堂 (北海道特産品銷售)</strong><br/>' +
-                  '📍 導航：<a href="https://maps.google.com/?q=Omohide+Shokudo+Sapporo" target="_blank" rel="noopener">北海道札幌市中央区北11条西22丁目 1-22</a><br/>' +
+                  '🍣 <strong>備選名店 (Plan B)：<a href="https://maps.google.com/?q=Omohide+Shokudo+Sapporo" target="_blank" rel="noopener">おもひで食堂 (北海道特産品銷售)</a></strong><br/>' +
                   '同商圈緊鄰店舖，由活蟹直營工廠運營，內設 8 個大型活水槽。除活帝王蟹/毛蟹蒸煮与 BBQ 炭烤外，還提供水槽活生蠔/帆立貝刺身、鐵盒蒸海鮮（ガンガン焼き），且所有海鮮丼/定食均免費附贈特色螃蟹湯 (カニ汁)。1F 平地無障礙推車友好，若 UME 堂排隊可無縫切換。',
             address: '',
             mapLink: '',
