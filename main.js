@@ -492,7 +492,7 @@ const ITINERARY = [
         date: '9/7',
         dayNum: 'Day 8',
         title: '北海道神宮與札幌場外市場海鮮大餐',
-        summary: '神宮晨間禪意与現烤茶點輕早餐、場外市場 UME 堂頂級海鮮大餐（含優惠券）、狸小路漫步与特調拿鐵',
+        summary: '神宮晨間禪意与現烤茶點輕早餐、場外市場 UME堂/おもひで食堂 海鮮大餐（含 9 折券）、狸小路漫步与特調拿鐵',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
@@ -515,11 +515,16 @@ const ITINERARY = [
           },
           {
             time: '11:15',
-            name: '🦀 11:15 頂級海鮮與帝王蟹大餐：根室杉山水産 UME堂',
-            desc: '鎖定根室 50 年水產老廠直營名店「根室杉山水産 UME堂 (うめぇ堂)」，位於場外市場園區「根室かに市場」大樓內，停好車步行 1 分鐘即達。現場挑選活帝王蟹/毛蟹，公開稱重並當面蒸烤拆解，透明無宰客；店內平地無障礙、桌椅寬敞，推車輕鬆推入，蟹腳提前剖開大人吃得極省心。',
+            name: '🦀 11:15 頂級海鮮與帝王蟹大餐（首選 UME堂 / 備選 おもひで食堂）',
+            desc: '📍 位置說明：札幌場外市場店舖均集中在同一區塊，停好車後步行 1 分鐘均可到達。<br/><br/>' +
+                  '🌟 <strong>首選名店：根室杉山水産 UME堂 (うめぇ堂)</strong><br/>' +
+                  '根室 50 年水產老廠直營，現場挑選活帝王蟹/毛蟹，公開稱重當面蒸烤拆解，透明無宰客；店內平地無障礙、桌椅寬敞，推車輕鬆推入，蟹腳提前剖開大人吃得極省心。<br/>' +
+                  '🎫 <strong>結帳出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener">樂吃購 9 折優惠券</a> 享專屬折扣！</strong><br/><br/>' +
+                  '備選名店 (Plan B)：<strong>おもひで食堂 (有限会社北海道特産品銷售)</strong><br/>' +
+                  '同商圈緊鄰店舖（北11条西22丁目1-22），活蟹直營工廠運營，內設 8 個大型活水槽。除活帝王蟹/毛蟹蒸煮与 BBQ 炭烤外，還提供水槽活生蠔/帆立貝刺身、鐵盒蒸海鮮（ガンガン焼き），且所有海鮮丼/定食均免費附贈特色螃蟹湯 (カニ汁)。1F 平地無障礙推車友好，若 UME 堂排隊可無縫切換。',
             address: '北海道札幌市中央区北11条西22丁目 1-1（根室杉山水産 うめぇ堂）',
             mapLink: 'https://maps.google.com/?q=Nemuro+Sugiyama+Suisan+Umedo+Sapporo',
-            notes: '🎫 專屬優惠券：出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener">樂吃購北海道獨家優惠券</a> 享折扣/贈品福利！',
+            notes: '兩家均為活蟹工廠直營、透明無宰客、1F 平地無障礙，推車与寶寶極友善。',
           },
           {
             time: '13:00',
