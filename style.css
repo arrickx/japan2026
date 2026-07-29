@@ -571,6 +571,12 @@ body {
 .memo-fab:active { transform: scale(0.93); }
 .memo-fab-icon { font-size: 1.2rem; line-height: 1; }
 
+.memo-fab.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+}
+
 /* 酒店 FAB */
 .hotel-fab {
   display: flex;

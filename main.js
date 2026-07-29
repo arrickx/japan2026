@@ -1512,7 +1512,11 @@ function autoExpandToday() {
 function setupHotelFab() {
   const fab = document.getElementById('hotel-fab');
   const fabName = document.getElementById('hotel-fab-name');
+  const memoFab = document.getElementById('memo-fab');
   if (!fab || !fabName) return;
+
+  // 預設隱藏 memoFab，只有展開某天行程時才顯示
+  if (memoFab) memoFab.classList.add('hidden');
 
   // 建立 date → hotel 對照表（從 ITINERARY 資料中提取）
   const hotelMap = {};
@@ -1523,10 +1527,13 @@ function setupHotelFab() {
   });
 
   let currentHotel = null;
-  let expandTimer = null;
 
   // 更新 FAB 顯示
-  function updateFab(hotel) {
+  function updateFab(hotel, hasAnyOpenCard) {
+    if (memoFab) {
+      memoFab.classList.toggle('hidden', !hasAnyOpenCard);
+    }
+
     if (!hotel) {
       fab.classList.add('hidden');
       return;
@@ -1555,7 +1562,8 @@ function setupHotelFab() {
     });
 
     const dateStr = bestCard?.getAttribute('data-date');
-    updateFab(dateStr ? hotelMap[dateStr] ?? null : null);
+    const hasAnyOpenCard = Array.from(document.querySelectorAll('.day-card')).some(c => c.classList.contains('open'));
+    updateFab(dateStr ? hotelMap[dateStr] ?? null : null, hasAnyOpenCard);
   }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
 
   // 觀察所有 day-card
