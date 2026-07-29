@@ -713,18 +713,18 @@ body {
 .driving-bar {
   background: #fffcf0;
   border-top: 2px dashed #f0c060;
-  padding: 14px 18px 16px;
+  padding: 12px 18px 14px;
   margin: 0;
   font-size: 0.84rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .driving-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .driving-icon {
@@ -739,20 +739,20 @@ body {
 
 .driving-route {
   color: #a07820;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   background: #fdefc0;
-  padding: 2px 8px;
+  padding: 1px 7px;
   border-radius: 20px;
 }
 
 .driving-rest {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   background: #fffbf0;
   border: 1.5px dashed #f0c060;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   color: #7a6030;
-  font-size: 0.82rem;
+  font-size: 0.81rem;
 }
 
 .driving-rest-link {
@@ -772,16 +772,16 @@ body {
 .driving-tips {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .driving-tip {
   background: #fffbf0;
   border: 1.5px dashed #f0c060;
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   color: #7a6030;
-  font-size: 0.82rem;
-  line-height: 1.5;
+  font-size: 0.81rem;
+  line-height: 1.45;
 }
 
