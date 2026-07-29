@@ -283,6 +283,7 @@ const ITINERARY = [
         summary: '羽田飛往新千歲，取車辦理 HEP，入住 FAV LUX 札幌',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        driving: { distance: '約 45 公里 / 50 分鐘', route: '道央自動車道', rest: null, tips: ['夜間取車注意控制車速，機場周邊道路較暗', '停 Paraca 時注意不要誤入機械立體車位（Alphard 車高 1.95m）'] },
         activities: [
           {
             time: '11:15',
@@ -366,6 +367,7 @@ const ITINERARY = [
         summary: 'Ario 採購、札幌啤酒博物館烤肉、湯咖哩晚餐、罐裝蛋糕宵夜',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['Paraca 折扣券為一次性出庫券，停回後全家步行'] },
         activities: [
           {
             time: '10:00',
@@ -425,6 +427,7 @@ const ITINERARY = [
         summary: '余市酒廠品鑒 / 白色戀人工廠分頭，小樽運河匯合，LeTAO 下午茶',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        driving: { distance: '單程約 40 公里 / 45 分鐘', route: '札樽自動車道', rest: null, tips: ['札樽高速沿海路段側風較大，雙手穩住方向盤', '小樽運河周邊 Times 露天停車場車位充足'] },
         activities: [
           {
             time: '10:00',
@@ -492,6 +495,7 @@ const ITINERARY = [
         summary: 'Komeda卡座早餐、北海道神宮散步与判官さま、狸小路&Baristart特調拿鐵',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
         activities: [
           {
             time: '08:30',
@@ -543,6 +547,7 @@ const ITINERARY = [
         summary: '砂川綠洲休整、青池白須瀑布、美瑛放牧農場、四季彩之丘、入住 Fenix West',
         illustration: './images/biei_furano.jpg',
         hotel: { name: 'Fenix West (富良野)', mapLink: 'https://maps.google.com/?q=Fenix+West+Furano' },
+        driving: { distance: '總計約 210 公里 / 3.5 小時', route: '札幌→美瑛 150km/2.5h、美瑛→富良野 30km/35min', rest: '砂川高速綠洲 (Sunagawa Highway Oasis)：行駛約 1h 處，北海道最大高速服務區，設有母嬰室', tips: ['美瑛/富良野轉為普通國道，限速 50-60 km/h', '傍晚 17:00 後鄉村道路無路燈，偶有蝦夷鹿穿出'] },
         activities: [
           {
             time: '08:30',
@@ -642,6 +647,7 @@ const ITINERARY = [
         summary: '富田農場&哈密瓜農場、南下登別、瀧乃家入住、D Type 部屋食',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '登別 瀧乃家 (Takinoya)', mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu' },
+        driving: { distance: '約 180 公里 / 2.5–3 小時', route: '道東自動車道', rest: '夕張 PA 或占冠 PA：開出富良野約 1h 處', tips: ['占冠至夕張段有單向單車道隧道，保持安全車距', '駛入登別溫泉街前有連續下坡彎道，注意減速'] },
         activities: [
           {
             time: '08:30',
@@ -693,6 +699,7 @@ const ITINERARY = [
         summary: '登別地獄谷、八雲 PA 休整、潮騷亭 Check-in、金森紅磚倉庫、函館山夜景',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
+        driving: { distance: '約 200 公里 / 2.5–3 小時', route: '道央自動車道', rest: '八雲 PA / 噴火灣 Panorama Park：行駛約 1.5h 處，海景公園＋母嬰休息室', tips: ['大沼公園 IC 後轉為 5 號國道（約 30km），紅綠燈增多，預留充裕時間'] },
         activities: [
           {
             time: '09:30',
@@ -768,6 +775,7 @@ const ITINERARY = [
         summary: '函館朝市海鮮早餐、五稜郭登塔、味彩拉麵/幸運小丑、潮騷亭泡湯、三套晚餐預案',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
+        driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
         activities: [
           {
             time: '07:30',
@@ -819,6 +827,7 @@ const ITINERARY = [
         summary: '七飯町道之站、有珠山纜車、Sairo 展望台、萬世閣入住、湖畔煙火',
         illustration: './images/toya.jpg',
         hotel: { name: '洞爺湖萬世閣 (Toya Manseikaku)', mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel' },
+        driving: { distance: '約 160 公里 / 2–2.5 小時', route: null, rest: '七飯町道之站：開出函館約 30min 處，男爵土豆主題食品與精品咖啡', tips: ['從虻田洞爺湖 IC 下高速有陡峭連續下坡，使用低檔 (B/S檔) 發動機制動'] },
         activities: [
           {
             time: '09:30',
@@ -886,6 +895,7 @@ const ITINERARY = [
         summary: '支笏湖散步、還車結算 HEP、新千歲航站樓體驗、飛羽田、入住 Courtyard Ginza',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        driving: { distance: '約 100 公里 / 1 小時 20 分鐘', route: null, rest: '樽前 SA：行駛約 45min 處，設有 7-Eleven 及授乳室', tips: ['還車前需在周邊加油站加滿油並保留加油小票'] },
         activities: [
           {
             time: '10:00',
@@ -1270,6 +1280,28 @@ function renderItinerary() {
           }
         });
         body.appendChild(img);
+      }
+
+      // 自駕資訊條（僅自駕日顯示）
+      if (day.driving) {
+        const driveBar = document.createElement('div');
+        driveBar.className = 'driving-bar';
+
+        const d = day.driving;
+        let html = `<div class="driving-header"><span class="driving-icon">🚗</span><span class="driving-dist">${d.distance}</span>`;
+        if (d.route) html += `<span class="driving-route">${d.route}</span>`;
+        html += `</div>`;
+
+        if (d.rest) html += `<div class="driving-rest">🅿️ ${d.rest}</div>`;
+
+        if (d.tips && d.tips.length) {
+          html += `<div class="driving-tips">`;
+          d.tips.forEach(t => { html += `<div class="driving-tip">⚠️ ${t}</div>`; });
+          html += `</div>`;
+        }
+
+        driveBar.innerHTML = html;
+        body.appendChild(driveBar);
       }
 
       const list = document.createElement('ul');

@@ -709,3 +709,59 @@ body {
   gap: 14px;
 }
 
+/* ===== 自駕資訊條 ===== */
+.driving-bar {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+  border: 1px solid #c8d8ec;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 0 0 12px 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.driving-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.driving-icon {
+  font-size: 1rem;
+}
+
+.driving-dist {
+  font-weight: 700;
+  color: #1a56a0;
+}
+
+.driving-route {
+  color: #5a7a9a;
+  font-size: 0.78rem;
+}
+
+.driving-route::before {
+  content: '·';
+  margin-right: 5px;
+  color: #8aa8c8;
+}
+
+.driving-rest {
+  margin-top: 6px;
+  color: #3a7040;
+  font-size: 0.8rem;
+}
+
+.driving-tips {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.driving-tip {
+  color: #8a5a30;
+  font-size: 0.78rem;
+}
+
