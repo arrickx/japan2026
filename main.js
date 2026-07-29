@@ -507,10 +507,10 @@ const ITINERARY = [
           },
           {
             time: '11:00',
-            name: '🚗 驅車前往場外市場',
-            desc: '11:00 驅車 8 分鐘直達 札幌場外市場 (Sapporo Outer Market) 露天免費停車場。',
-            address: '北海道札幌市中央区北11条西21丁目',
-            mapLink: 'https://maps.google.com/?q=Sapporo+Outer+Market',
+            name: '🚗 驅車前往場外市場停車場',
+            desc: '11:00 驅車 8 分鐘直達 札幌場外市場 (Sapporo Outer Market) 大型免費露天停車場。',
+            address: '北海道札幌市中央区北11条西21丁目 2-1（場外市場バス駐車場）',
+            mapLink: 'https://maps.google.com/?q=Sapporo+Outer+Market+Bus+Parking',
             notes: '🅿️ 停車極度便利：場外市場配備多個大型免費露天地面停車場（共計 200+ 車位），無高度限制，Alphard 隨到隨停。',
           },
           {
