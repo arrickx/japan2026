@@ -711,71 +711,82 @@ body {
 
 /* ===== 自駕資訊條 ===== */
 .driving-bar {
-  background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
-  border: 1px solid #c8d8ec;
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin: 0 0 12px 0;
-  font-size: 0.82rem;
-  line-height: 1.5;
+  background: #f4f8ff;
+  border: 1.5px solid #d0e2fb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 0 0 16px 0;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(30, 90, 180, 0.05);
 }
 
 .driving-header {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #d0e2fb;
+  margin-bottom: 8px;
 }
 
 .driving-icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .driving-dist {
   font-weight: 700;
-  color: #1a56a0;
+  color: #154c93;
+  font-size: 0.9rem;
 }
 
 .driving-route {
-  color: #5a7a9a;
-  font-size: 0.78rem;
-}
-
-.driving-route::before {
-  content: '·';
-  margin-right: 5px;
-  color: #8aa8c8;
+  color: #4a72a5;
+  font-size: 0.8rem;
+  background: #e4effd;
+  padding: 2px 8px;
+  border-radius: 6px;
 }
 
 .driving-rest {
-  margin-top: 6px;
-  color: #3a7040;
-  font-size: 0.8rem;
+  margin-top: 8px;
+  background: #f0f9f2;
+  border: 1px solid #c3e6cb;
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #276735;
+  font-size: 0.82rem;
 }
 
 .driving-rest-link {
-  color: #1b632d;
+  color: #1e6b30;
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: rgba(27, 99, 45, 0.35);
-  text-underline-offset: 2px;
+  text-decoration-color: rgba(30, 107, 48, 0.4);
+  text-underline-offset: 3px;
   transition: color 0.15s;
 }
 
 .driving-rest-link:hover {
-  color: #0e451d;
-  text-decoration-color: #0e451d;
+  color: #0d421b;
+  text-decoration-color: #0d421b;
 }
 
 .driving-tips {
-  margin-top: 6px;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
 }
 
 .driving-tip {
-  color: #8a5a30;
-  font-size: 0.78rem;
+  background: #fff8eb;
+  border-left: 3.5px solid #f5a623;
+  border-radius: 0 8px 8px 0;
+  padding: 8px 12px;
+  color: #8c5300;
+  font-size: 0.82rem;
+  line-height: 1.5;
 }
 
