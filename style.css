@@ -711,11 +711,10 @@ body {
 
 /* ===== 自駕資訊條 ===== */
 .driving-bar {
-  background: #fffcf0;
   border-top: 2px dashed #f0c060;
-  padding: 12px 18px 14px;
-  margin: 0;
-  font-size: 0.84rem;
+  padding: 12px 18px;
+  background: #fffcf5;
+  font-size: 0.82rem;
   line-height: 1.5;
 }
 
@@ -724,64 +723,47 @@ body {
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-.driving-icon {
-  font-size: 1rem;
-}
+.driving-icon { font-size: 1rem; }
 
 .driving-dist {
   font-weight: 700;
   color: #7a5a10;
-  font-size: 0.88rem;
 }
 
 .driving-route {
   color: #a07820;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   background: #fdefc0;
   padding: 1px 7px;
   border-radius: 20px;
 }
 
 .driving-rest {
-  margin-bottom: 6px;
-  background: #fffbf0;
-  border: 1.5px dashed #f0c060;
-  border-radius: 10px;
-  padding: 8px 12px;
   color: #7a6030;
-  font-size: 0.81rem;
+  margin-bottom: 4px;
 }
 
 .driving-rest-link {
   color: #b87020;
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: underline;
   text-decoration-color: rgba(184, 112, 32, 0.4);
-  text-underline-offset: 3px;
-  transition: color 0.15s;
+  text-underline-offset: 2px;
 }
 
-.driving-rest-link:hover {
-  color: #8a4a00;
-  text-decoration-color: #8a4a00;
-}
+.driving-rest-link:hover { color: #8a4a00; }
 
 .driving-tips {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 }
 
 .driving-tip {
-  background: #fffbf0;
-  border: 1.5px dashed #f0c060;
-  border-radius: 10px;
-  padding: 8px 12px;
-  color: #7a6030;
-  font-size: 0.81rem;
-  line-height: 1.45;
+  color: #8a6830;
+  padding-left: 2px;
 }
 
