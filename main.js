@@ -1466,12 +1466,12 @@ function renderItinerary() {
           : '';
 
         const infoBtn = act.highlight
-          ? `<button class="spot-info-btn" aria-label="景點簡介">ⓘ</button>`
+          ? `<span class="spot-info-badge">ⓘ</span>`
           : '';
 
         li.innerHTML = `
           <div class="activity-name-row">
-            <div class="activity-name">${act.name}${infoBtn}</div>
+            <div class="activity-name${act.highlight ? ' has-highlight' : ''}">${act.name}${infoBtn}</div>
             ${act.time ? `<span class="activity-time">${act.time}</span>` : ''}
           </div>
           ${descHtml}
@@ -1480,11 +1480,11 @@ function renderItinerary() {
           ${notesHtml}
         `;
 
-        // 綁定 ⓘ 按鈕點擊事件
+        // 整個 activity-name 都可點擊（mobile 友善，不需精準點小圓圈）
         if (act.highlight) {
-          const btn = li.querySelector('.spot-info-btn');
-          if (btn) {
-            btn.addEventListener('click', (e) => {
+          const nameEl = li.querySelector('.activity-name.has-highlight');
+          if (nameEl) {
+            nameEl.addEventListener('click', (e) => {
               e.stopPropagation();
               openSpotPopup(act.highlight);
             });
@@ -1561,14 +1561,9 @@ function openSpotPopup(h) {
       </div>` : ''}
       ${tipHtml}
     </div>
-    <button class="spot-close-btn" id="spot-close-btn">關閉</button>
   `;
 
   overlay.classList.add('open');
-
-  popup.querySelector('#spot-close-btn')?.addEventListener('click', () => {
-    overlay.classList.remove('open');
-  });
 }
 
 function setupSpotPopup() {

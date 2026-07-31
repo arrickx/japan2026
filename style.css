@@ -768,34 +768,34 @@ body {
 }
 
 /* ===== 景點簡介按鈕 ===== */
-.spot-info-btn {
+.spot-info-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   margin-left: 5px;
   vertical-align: middle;
   background: #e8f4fd;
   border: 1.5px solid #90c8f0;
   border-radius: 50%;
   color: #2d7bbf;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  cursor: pointer;
   line-height: 1;
-  padding: 0;
+  pointer-events: none; /* 不自己呼吐點擊，由父元素處理 */
   flex-shrink: 0;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  user-select: none;
+}
+
+.activity-name.has-highlight {
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.spot-info-btn:hover {
-  background: #2d7bbf;
-  border-color: #2d7bbf;
-  color: #fff;
-  transform: scale(1.1);
+
+.activity-name.has-highlight:active {
+  opacity: 0.7;
 }
-.spot-info-btn:active { transform: scale(0.92); }
 
 /* ===== 景點簡介彈窗 ===== */
 .spot-overlay {
@@ -931,20 +931,4 @@ body {
   line-height: 1.5;
 }
 
-.spot-close-btn {
-  display: block;
-  width: calc(100% - 36px);
-  margin: 0 18px 18px;
-  padding: 10px;
-  background: #e8f4fd;
-  border: 1.5px solid #90c8f0;
-  border-radius: 12px;
-  color: #2d7bbf;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  transition: background 0.15s;
-}
-.spot-close-btn:hover { background: #d0e8f8; }
 
