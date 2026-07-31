@@ -103,6 +103,20 @@ const ITINERARY = [
             address: '東京都台東区浅草 2-3-1',
             mapLink: 'https://maps.google.com/?q=Senso-ji+Temple+Asakusa+Tokyo',
             notes: '推車建議走仲見世通旁邊的平行街道以避開人流，空間更寬敞。',
+            highlight: {
+              emoji: '⛩️',
+              title: '雷門・淺草寺',
+              tags: ['東京必訪', '千年古剎', '下町風情', '免費入場'],
+              intro: '東京最古老的寺廟，建於公元 628 年，供奉聖觀世音菩薩。雷門（Kaminarimon）是全東京最具代表性的地標——那盞重達 700 公斤的大紅燈籠，是每位訪客必拍的角度。',
+              must: [
+                '雷門大燈籠正面仰拍 — 低角度搭配晴空最美，燈籠底部有隱藏龍雕',
+                '仲見世通 250 公尺商店街 — 兩側 89 間店鋪，人形燒・雷おこし必買',
+                '本堂燒香祈福 — 用手將香煙撫向身體，傳說可驅病消災',
+                '寶藏門・五重塔 — 進入本堂前的巨大山門，塔高 53 公尺可遠眺',
+                '淺草神社（三社祭本社）— 緊鄰淺草寺，安靜清幽，遊客少',
+              ],
+              tip: '💡 10:00 前到達人最少。推車建議走仲見世通側邊的平行小街，寬敞舒適。',
+            },
           },
           {
             time: '11:15',
@@ -135,6 +149,19 @@ const ITINERARY = [
             address: '東京都渋谷区代々木神園町 1-1',
             mapLink: 'https://maps.google.com/?q=Meiji+Shrine+Tokyo',
             notes: '南參道入口（原宿站側）無階梯，推車友善。神宮內道路均為平整砂石路。',
+            highlight: {
+              emoji: '🌿',
+              title: '明治神宮',
+              tags: ['都心森林浴', '明治天皇御祀', '免費入場', '推車友善'],
+              intro: '供奉明治天皇與昭憲皇太后的神道聖地，建於 1920 年。神宮周圍被 70 公頃的人工森林環繞，約有 365 種不同樹木，在喧囂的東京城中形成一片難得的靜謐綠洲。',
+              must: [
+                '南參道大鳥居 — 日本最大的木製鳥居之一，高 12 公尺，進入神域的象徵',
+                '酒樽與葡萄酒桶陳列廊 — 信奉者奉納的清酒桶＆法國葡萄酒桶，東西合璧獨一無二',
+                '本殿參拜 — 抽籤 (みくじ) 並系在指定繩架上，祈求家庭平安',
+                '御苑菖蒲園（需另購票）— 6 月菖蒲盛開，9 月仍可欣賞御苑庭園',
+              ],
+              tip: '💡 傍晚 16:00 後遊人最少，光線柔和拍照最美。從原宿南口進入全程無台階，推車全程順暢。',
+            },
           },
           {
             time: '17:30',
@@ -179,6 +206,19 @@ const ITINERARY = [
             address: '東京都江東区豊洲 6-1-16',
             mapLink: 'https://maps.google.com/?q=teamLab+Planets+Tokyo+Toyosu',
             notes: '⚠️ 帶娃必看：推車停放於門口專用區，館內全程用嬰兒背帶。水深至成人小腿，1 歲寶寶在涉水區必須抱抱。請全員穿可捲至膝蓋以上的長褲或短褲。鏡面地板區域請避免穿裙裝。出口提供免費毛巾擦腳。',
+            highlight: {
+              emoji: '🌊',
+              title: 'teamLab Planets TOKYO',
+              tags: ['沉浸式光影', '涉水體驗', '需預約', '親子推薦'],
+              intro: '全球最受矚目的沉浸式數位藝術展館之一。豐洲版以「涉水」為核心體驗——赤腳踏入水中，腳下是無限延伸的鏡面光影宇宙，與光共舞，分不清真實與虛幻。',
+              must: [
+                '涉水區「宇宙」— 赤腳踩入水面，花卉與星空在腳下蔓延，必拍！',
+                '無限水晶宇宙 — 巨型水晶球陣列，進入前請脫鞋，光影震撼感最強',
+                '花卉與人共鳴互動牆 — 觸摸牆面花卉會綻放，與蝴蝶互動最受孩子喜歡',
+                '冥想茶室 — 展覽動線終點，靜心茶飲，感受視覺後的沉澱',
+              ],
+              tip: '💡 館內全程赤腳，請穿易穿脫鞋款。寶寶在涉水區必須抱抱，推車停門口。出口有免費毛巾擦乾。',
+            },
           },
           {
             time: '13:15',
@@ -728,6 +768,19 @@ const ITINERARY = [
             address: '北海道登別市登別温泉町 60',
             mapLink: 'https://maps.google.com/?q=Noboribetsu+Jigokudani',
             notes: '⚠️ 路況提示：木棧道設有台階，強烈建議使用嬰兒背帶代替推車。',
+            highlight: {
+              emoji: '🌋',
+              title: '登別地獄谷 (Jigokudani)',
+              tags: ['火山地貌', '北海道唯一', '硫磺溫泉源', '免費入場'],
+              intro: '登別地獄谷是北海道最具震撼力的自然奇景，面積約 11 公頃的火山爆裂口遺跡。灰褐色的荒蕪大地上，數十個天然泉眼持續噴湧著 45–90°C 的高溫硫磺泉，白霧瀰漫，宛如地獄入口。',
+              must: [
+                '主棧道全景 — 俯瞰整片地獄谷，泉眼噴霧的視覺衝擊感最強，早晨霧氣最濃',
+                '大湯沼 — 步行約 10 分鐘可達，直徑 450 公尺的天然硫磺沼，水溫高達 75°C',
+                '鬼の花道 — 沿步道深入，地表蒸汽從腳邊裂縫噴出，臨場感十足',
+                '地獄谷展望台 — 全景制高點，可同時拍到谷底泉眼群與遠山',
+              ],
+              tip: '💡 建議使用嬰兒背帶，部分棧道有台階推車不易通行。硫磺氣味較濃，呼吸道敏感者可帶口罩。',
+            },
           },
           {
             time: '11:30',
@@ -768,6 +821,19 @@ const ITINERARY = [
             address: '北海道函館市元町 19-7（山麓站）',
             mapLink: 'https://maps.google.com/?q=Mount+Hakodate+Ropeway',
             notes: '⚠️ 交通禁行提示：每日 17:00–22:00 登山道對私家車全面禁行，切勿自駕上山！请停在山麓站露天停車場乘纜車登頂。纜車無障礙設施完善，推車可上。',
+            highlight: {
+              emoji: '🌃',
+              title: '函館山百萬夜景',
+              tags: ['世界三大夜景', '函館必訪', '纜車登頂', '日落＋夜景'],
+              intro: '與摩納哥、香港並列「世界三大夜景」之一。海拔 334 公尺的函館山頂，城市被兩側海灣夾住形成獨特的「沙洲地形」，入夜後萬家燈火連結成一條閃爍腰帶，令人屏息。',
+              must: [
+                '日落前 30 分鐘抵達 — 傍晚天際由橘轉深藍，城市燈光逐漸亮起的過渡時刻最美',
+                '展望台全景台 — 正面面對函館灣的觀景位置，必搶的最佳拍照機位',
+                '夜景全景 360° — 沿展望台繞行一圈，函館港與津輕海峽盡收眼底',
+                '纜車本身 — 3 分鐘登頂的纜車體驗，夜間透過玻璃看山腰燈光也很美',
+              ],
+              tip: '💡 17:00–22:00 私家車禁行登山道，必須停山麓站乘纜車。建議 17:30 前到山麓站排隊，避開日落後的人潮高峰。',
+            },
           },
           {
             time: '18:30',
@@ -812,6 +878,19 @@ const ITINERARY = [
             address: '北海道函館市五稜郭町 43-9',
             mapLink: 'https://maps.google.com/?q=Goryokaku+Tower+Hakodate',
             notes: '五稜郭塔設有無障礙電梯，推車可輕鬆登頂遠眺。',
+            highlight: {
+              emoji: '⭐',
+              title: '五稜郭公園・五稜郭塔',
+              tags: ['日本唯一星形要塞', '幕末歷史', '函館必訪', '塔高 107 公尺'],
+              intro: '日本唯一的五角星形西式城堡遺跡，建於 1864 年，是幕末最後一場戰役「箱館戰爭」的終結之地。從 107 公尺高的五稜郭塔俯瞰，完美的星形輪廓一覽無遺——這個視角是函館旅行中最令人震撼的瞬間之一。',
+              must: [
+                '五稜郭塔展望台 — 搭電梯登頂，俯瞰完整星形要塞輪廓，春季粉紅櫻花海壯觀',
+                '塔內幕末歷史館 — 展示土方歲三等幕末英雄的蠟像與史料，立體感極強',
+                '星形護城河散步 — 沿要塞外圍的五角形護城河漫步，推車完全友善',
+                '函館奉行所（部分復原）— 要塞中心的江戶時代官廳建築，免費入場',
+              ],
+              tip: '💡 塔內無障礙電梯完善，推車可直接推上展望台。早上 10:30 前人最少，下午人潮逐漸增多。',
+            },
           },
           {
             time: '11:15',
@@ -877,6 +956,19 @@ const ITINERARY = [
             address: '北海道有珠郡壮瞥町昭和新山 184-5',
             mapLink: 'https://maps.google.com/?q=Mount+Usu+Ropeway+Hokkaido',
             notes: '🌤️ 氣象提示：提前至中午抵達，可大幅降低下午山頂起霧的風險。纜車無障礙設施完善。',
+            highlight: {
+              emoji: '🌋',
+              title: '有珠山・昭和新山 (Usu Ropeway)',
+              tags: ['活火山近距離', '洞爺湖全景', '昭和新山奇景', '纜車友善'],
+              intro: '有珠山是北海道最活躍的活火山之一，最近一次噴發在 2000 年。乘纜車登頂後，腳下同時展開三個視角的壯麗景色：洞爺湖的湖面倒影、昭和新山的火山錐體、以及無垠太平洋海景。',
+              must: [
+                '纜車展望台 — 洞爺湖全景、昭和新山和羊蹄山同框，是北海道最震撼的視角之一',
+                '西山火口散策路 — 展望台旁的步道可近距離看 2000 年噴發後的火口遺跡（30 分鐘）',
+                '昭和新山（纜車站旁）— 1943 年從麥田中突然崛起的火山錐，世界奇觀',
+                '山頂餐廳 — 邊吃邊俯瞰洞爺湖，天氣好時視野無限延伸',
+              ],
+              tip: '💡 上午 11:00–13:00 是山頂能見度最佳時段，下午容易起霧。纜車設施完善，推車可上展望台。',
+            },
           },
           {
             time: '14:30',
@@ -1346,11 +1438,16 @@ function renderItinerary() {
       const list = document.createElement('ul');
       list.className = 'activity-list';
 
-      day.activities.forEach(act => {
+      day.activities.forEach((act, actIdx) => {
         if (!act.name && !act.desc) return;
 
         const li = document.createElement('li');
         li.className = 'activity-item';
+
+        // 若有 highlight，儲存在元素上以供彈窗使用
+        if (act.highlight) {
+          li.dataset.highlight = JSON.stringify(act.highlight);
+        }
 
         const addressHtml = act.address
           ? act.mapLink
@@ -1368,9 +1465,13 @@ function renderItinerary() {
           ? `<div class="activity-notes"><span class="notes-label">⚠️ 注意事項</span>${act.notes}</div>`
           : '';
 
+        const infoBtn = act.highlight
+          ? `<button class="spot-info-btn" aria-label="景點簡介">ⓘ</button>`
+          : '';
+
         li.innerHTML = `
           <div class="activity-name-row">
-            <div class="activity-name">${act.name}</div>
+            <div class="activity-name">${act.name}${infoBtn}</div>
             ${act.time ? `<span class="activity-time">${act.time}</span>` : ''}
           </div>
           ${descHtml}
@@ -1378,6 +1479,18 @@ function renderItinerary() {
           ${mapBtn}
           ${notesHtml}
         `;
+
+        // 綁定 ⓘ 按鈕點擊事件
+        if (act.highlight) {
+          const btn = li.querySelector('.spot-info-btn');
+          if (btn) {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openSpotPopup(act.highlight);
+            });
+          }
+        }
+
         list.appendChild(li);
       });
 
@@ -1418,7 +1531,60 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchRate();
   setupHotelFab();
   setupRatePopup();
+  setupSpotPopup();
 });
+
+// ============================================================
+// 景點簡介彈窗
+// ============================================================
+function openSpotPopup(h) {
+  const overlay = document.getElementById('spot-overlay');
+  const popup = document.getElementById('spot-popup');
+  if (!overlay || !popup) return;
+
+  const tagsHtml = (h.tags || []).map(t => `<span class="spot-tag">${t}</span>`).join('');
+  const mustHtml = (h.must || []).map(m => `<li>${m}</li>`).join('');
+  const tipHtml = h.tip ? `<div class="spot-tip">💡 ${h.tip.replace(/^💡\s*/, '')}</div>` : '';
+
+  popup.innerHTML = `
+    <div class="spot-popup-header">
+      <span class="spot-popup-emoji">${h.emoji || '📍'}</span>
+      <div class="spot-popup-title">${h.title}</div>
+      <div class="spot-popup-tags">${tagsHtml}</div>
+    </div>
+    <div class="spot-popup-body">
+      <div class="spot-intro">${h.intro}</div>
+      ${mustHtml ? `
+      <div>
+        <div class="spot-must-title">★ 必看重點</div>
+        <ul class="spot-must-list">${mustHtml}</ul>
+      </div>` : ''}
+      ${tipHtml}
+    </div>
+    <button class="spot-close-btn" id="spot-close-btn">關閉</button>
+  `;
+
+  overlay.classList.add('open');
+
+  popup.querySelector('#spot-close-btn')?.addEventListener('click', () => {
+    overlay.classList.remove('open');
+  });
+}
+
+function setupSpotPopup() {
+  const overlay = document.getElementById('spot-overlay');
+  if (!overlay) return;
+
+  // 點擊遮罩關閉
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+
+  // Esc 鍵關閉
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') overlay.classList.remove('open');
+  });
+}
 
 // ============================================================
 // 核心物流與預訂備忘 (彈窗模式)
