@@ -9,8 +9,8 @@ const ITINERARY = [
       {
         date: '8/31',
         dayNum: 'Day 1',
-        title: '抵達東京 · 涉谷絕美夜景',
-        summary: '搭機抵達羽田，辦理入住，傍晚涉谷屋頂夜景',
+        title: '抵達東京 · 涉谷夜景',
+        summary: '羽田抵達 · 涉谷 Hyatt House 入住 · 屋頂夜景',
         illustration: './images/shibuya.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
@@ -83,8 +83,8 @@ const ITINERARY = [
       {
         date: '9/1',
         dayNum: 'Day 2',
-        title: '下町風情與文化森林',
-        summary: '淺草雷門、河畔午餐、明治神宮',
+        title: '下町風情與明治神宮',
+        summary: '淺草雷門散步 · 河畔午餐 · 明治神宮森林',
         illustration: './images/asakusa_meiji.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
@@ -178,8 +178,8 @@ const ITINERARY = [
       {
         date: '9/2',
         dayNum: 'Day 3',
-        title: '沉浸光影與江戶海濱漫步',
-        summary: 'teamLab Planets・豐洲千客萬來・LaLaport',
+        title: '光影藝術與豐洲海濱',
+        summary: 'teamLab Planets · 豐洲千客萬來 · LaLaport',
         illustration: './images/teamlab_toyosu.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
@@ -250,8 +250,8 @@ const ITINERARY = [
       {
         date: '9/3',
         dayNum: 'Day 4',
-        title: '鎌倉古都風情、海邊電車與湘南懸空單軌 (背帶+推車組合版)',
-        summary: '湘南新宿線直達、小町通散步、高德院大佛与長谷寺海景、灌籃高手平交道、江之島布丁与湘南懸空單軌電車',
+        title: '鎌倉古都與湘南海岸',
+        summary: '小町通 · 鎌倉大佛 · 灌籃高手平交道 · 湘南單軌',
         illustration: './images/kamakura.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
@@ -398,8 +398,8 @@ const ITINERARY = [
       {
         date: '9/4',
         dayNum: 'Day 5',
-        title: '飛往札幌 · 取車與入住',
-        summary: '羽田飛往新千歲，取車辦理 HEP，入住 FAV LUX 札幌',
+        title: '飛往札幌與租車自駕',
+        summary: '羽田飛往新千歲 · 豐田取車 · 入住 FAV LUX',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '約 45 公里 / 50 分鐘', route: '道央自動車道', rest: null, tips: ['夜間取車注意控制車速，機場周邊道路較暗', '停 Paraca 時注意不要誤入機械立體車位（Alphard 車高 1.95m）'] },
@@ -482,8 +482,8 @@ const ITINERARY = [
       {
         date: '9/5',
         dayNum: 'Day 6',
-        title: '札幌文化體驗與烤肉',
-        summary: 'Ario 採購、札幌啤酒博物館烤肉、湯咖哩晚餐、罐裝蛋糕宵夜',
+        title: '札幌美食與啤酒博物館',
+        summary: 'Ario 母嬰採購 · 啤酒博物館烤肉 · RAMAI 湯咖哩',
         illustration: './images/sapporo_bbq.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['Paraca 折扣券為一次性出庫券，停回後全家步行'] },
@@ -542,8 +542,8 @@ const ITINERARY = [
       {
         date: '9/6',
         dayNum: 'Day 7',
-        title: '分頭行動與小樽漫步',
-        summary: '余市酒廠品鑒 / 白色戀人工廠分頭，小樽運河匯合，LeTAO 下午茶',
+        title: '小樽運河與手作甜品',
+        summary: '余市/白色戀人分頭 · 小樽運河漫步 · LeTAO 下午茶',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '單程約 40 公里 / 45 分鐘', route: '札樽自動車道', rest: null, tips: ['札樽高速沿海路段側風較大，雙手穩住方向盤', '小樽運河周邊 Times 露天停車場車位充足'] },
@@ -610,8 +610,8 @@ const ITINERARY = [
       {
         date: '9/7',
         dayNum: 'Day 8',
-        title: '北海道神宮與札幌場外市場海鮮大餐',
-        summary: '神宮晨間禪意与現烤茶點輕早餐、場外市場 UME堂/おもひで食堂 海鮮大餐（含 9 折券）、狸小路漫步与特調拿鐵',
+        title: '北海道神宮與場外海鮮',
+        summary: '神宮晨間散步 · 場外市場帝王蟹大餐 · 狸小路',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
@@ -667,8 +667,8 @@ const ITINERARY = [
       {
         date: '9/8',
         dayNum: 'Day 9',
-        title: '美瑛絕景與富良野',
-        summary: '砂川綠洲休整、青池白須瀑布、美瑛放牧農場、四季彩之丘、入住 Fenix West',
+        title: '美瑛花海與青池絕景',
+        summary: '白金青池 · 美瑛農場 · 四季彩之丘 · 入住富良野',
         illustration: './images/biei_furano.jpg',
         hotel: { name: 'Fenix West (富良野)', mapLink: 'https://maps.google.com/?q=Fenix+West+Furano' },
         driving: { 
@@ -772,8 +772,8 @@ const ITINERARY = [
       {
         date: '9/9',
         dayNum: 'Day 10',
-        title: '富良野雙農場與登別溫泉',
-        summary: '富田農場&哈密瓜農場、南下登別、瀧乃家入住、D Type 部屋食',
+        title: '富良野農場與登別溫泉',
+        summary: '富田農場哈密瓜 · 登別瀧乃家入住 · 房內部屋食',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '登別 瀧乃家 (Takinoya)', mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu' },
         driving: { 
@@ -829,8 +829,8 @@ const ITINERARY = [
       {
         date: '9/10',
         dayNum: 'Day 11',
-        title: '登別地獄谷與函館經典入城',
-        summary: '登別地獄谷、八雲 PA 休整、潮騷亭 Check-in、金森紅磚倉庫、函館山夜景',
+        title: '登別地獄谷與函館夜景',
+        summary: '地獄谷散步 · 金森紅磚倉庫 · 函館山纜車夜景',
         illustration: './images/hakodate_night.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         driving: { 
@@ -936,8 +936,8 @@ const ITINERARY = [
       {
         date: '9/11',
         dayNum: 'Day 12',
-        title: '舒緩自然醒、五稜郭與湯之川海景晚宴',
-        summary: '睡到自然醒、悠閒早餐、五稜郭登塔、味彩拉麵/幸運小丑、潮騷亭泡湯、三套晚餐預案',
+        title: '五稜郭要塞與海景休整',
+        summary: '自然醒休整 · 五稜郭塔俯瞰 · 潮騷亭海景泡湯',
         illustration: './images/goryokaku.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
@@ -1001,8 +1001,8 @@ const ITINERARY = [
       {
         date: '9/12',
         dayNum: 'Day 13',
-        title: '洞爺湖火山絕景與煙火',
-        summary: '七飯町道之站、有珠山纜車、Sairo 展望台、萬世閣入住、湖畔煙火',
+        title: '洞爺湖火山與湖畔煙火',
+        summary: '有珠山纜車 · Sairo 展望台 · 萬世閣湖畔煙火',
         illustration: './images/toya.jpg',
         hotel: { name: '洞爺湖萬世閣 (Toya Manseikaku)', mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel' },
         driving: { 
@@ -1087,8 +1087,8 @@ const ITINERARY = [
       {
         date: '9/13',
         dayNum: 'Day 14',
-        title: '湖畔休整與機場體驗',
-        summary: '支笏湖散步、還車結算 HEP、新千歲航站樓體驗、飛羽田、入住 Courtyard Ginza',
+        title: '支笏湖散步與飛回東京',
+        summary: '支笏湖散步 · 還車結算 · 新千歲體驗 · 飛羽田',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         driving: { 
@@ -1194,8 +1194,8 @@ const ITINERARY = [
       {
         date: '9/14',
         dayNum: 'Day 15',
-        title: '銀座零距離休整與集中掃貨 (接檔深夜航班)',
-        summary: '自然醒恢復體力、11:15 附近 Lunch Special、集中購物戰利品隨時送回房間、傍晚優雅晚餐',
+        title: '銀座漫步與集中購物',
+        summary: '自然醒休整 · 11:15 特色午餐 · 銀座購物漫步',
         illustration: './images/ginza.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
@@ -1238,7 +1238,7 @@ const ITINERARY = [
         date: '9/15',
         dayNum: 'Day 16',
         title: '富士山包車一日遊',
-        summary: '包車出發、大石公園花海、錯峰享用餺餂麵、忍野八海散步',
+        summary: '河口湖大石公園 · 餺餂麵午餐 · 忍野八海散步',
         illustration: './images/fuji.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
@@ -1281,7 +1281,7 @@ const ITINERARY = [
         date: '9/16',
         dayNum: 'Day 17',
         title: '東京迪士尼樂園',
-        summary: '避堵打車前往、Parent Swap輪流玩、11:15錯峰午餐、嬰兒中心補給、樹蔭劇場休息',
+        summary: '迪士尼樂園遊玩 · 錯峰午餐 · 嬰兒中心休整',
         illustration: './images/disney.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
@@ -1331,8 +1331,8 @@ const ITINERARY = [
       {
         date: '9/17',
         dayNum: 'Day 18',
-        title: '皇居漫步與自由休整',
-        summary: '皇居/日比谷漫步、查漏補缺最後採購、行李打包封箱',
+        title: '皇居外苑與自由休整',
+        summary: '皇居外苑漫步 · 最後查漏補缺 · 行李打包封箱',
         illustration: './images/ginza_night.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
@@ -1366,8 +1366,8 @@ const ITINERARY = [
       {
         date: '9/18',
         dayNum: 'Day 19',
-        title: '圓滿完結 · 啟程回國',
-        summary: '行李清點、代訂機場大巴直達羽田、JAL值機、NH 7544 飛紐約',
+        title: '圓滿完結與啟程回國',
+        summary: '行李清點 · 機場大巴直達羽田 · 飛往紐約',
         illustration: './images/haneda.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
