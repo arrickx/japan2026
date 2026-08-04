@@ -473,7 +473,7 @@ const ITINERARY = [
         dayNum: 'Day 6',
         title: '札幌文化體驗與烤肉',
         summary: 'Ario 採購、札幌啤酒博物館烤肉、湯咖哩晚餐、罐裝蛋糕宵夜',
-        illustration: './images/sapporo.jpg',
+        illustration: './images/sapporo_bbq.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['Paraca 折扣券為一次性出庫券，停回後全家步行'] },
         activities: [
@@ -601,7 +601,7 @@ const ITINERARY = [
         dayNum: 'Day 8',
         title: '北海道神宮與札幌場外市場海鮮大餐',
         summary: '神宮晨間禪意与現烤茶點輕早餐、場外市場 UME堂/おもひで食堂 海鮮大餐（含 9 折券）、狸小路漫步与特調拿鐵',
-        illustration: './images/sapporo.jpg',
+        illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
         activities: [
@@ -820,7 +820,7 @@ const ITINERARY = [
         dayNum: 'Day 11',
         title: '登別地獄谷與函館經典入城',
         summary: '登別地獄谷、八雲 PA 休整、潮騷亭 Check-in、金森紅磚倉庫、函館山夜景',
-        illustration: './images/noboribetsu.jpg',
+        illustration: './images/hakodate_night.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
         driving: { 
           distance: '約 200 公里 / 2.5–3 小時', 
@@ -927,7 +927,7 @@ const ITINERARY = [
         dayNum: 'Day 12',
         title: '舒緩自然醒、五稜郭與湯之川海景晚宴',
         summary: '睡到自然醒、悠閒早餐、五稜郭登塔、味彩拉麵/幸運小丑、潮騷亭泡湯、三套晚餐預案',
-        illustration: './images/noboribetsu.jpg',
+        illustration: './images/goryokaku.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
         driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
         activities: [
