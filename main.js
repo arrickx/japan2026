@@ -1460,8 +1460,11 @@ function renderItinerary() {
           e.stopPropagation();
           const isExpanded = img.classList.contains('expanded');
           if (!isExpanded) {
-            // 計算 4:3 比例下满宽的高度
-            const fullHeight = Math.round(img.clientWidth * (3 / 4));
+            // 按圖片真實比例展開（避免不同比例圖片額外放大）
+            const ratio = img.naturalHeight && img.naturalWidth
+              ? img.naturalHeight / img.naturalWidth
+              : 9 / 16;
+            const fullHeight = Math.round(img.clientWidth * ratio);
             img.style.height = `${fullHeight}px`;
             img.classList.add('expanded');
           } else {
