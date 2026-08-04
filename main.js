@@ -252,7 +252,7 @@ const ITINERARY = [
         dayNum: 'Day 4',
         title: '鎌倉古都風情與灌籃高手平交道朝聖',
         summary: '湘南新宿線直達、小町通散步、高德院大佛与長谷寺海景、江之電鎌倉高校前平交道',
-        illustration: './images/yokohama.jpg',
+        illustration: './images/kamakura.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
