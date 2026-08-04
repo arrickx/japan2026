@@ -832,7 +832,7 @@ const ITINERARY = [
         title: '登別地獄谷與函館經典入城',
         summary: '登別地獄谷、八雲 PA 休整、潮騷亭 Check-in、金森紅磚倉庫、函館山夜景',
         illustration: './images/hakodate_night.jpg',
-        hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
+        hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         driving: { 
           distance: '約 200 公里 / 2.5–3 小時', 
           route: '道央自動車道', 
@@ -882,7 +882,7 @@ const ITINERARY = [
             name: '🏨 潮騷亭 Check-in · 湯之川溫泉',
             desc: '14:30–15:15 直達湯之川「平成館 潮騷亭」辦理 Check-in 卸行李。',
             address: '北海道函館市湯川町 1 丁目 2-30',
-            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate',
+            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '🏨 今日起 🏨 按鈕將自動導航回平成館 潮騷亭！先拿到房間鑰匙卸行李，傍晚玩完直接回房休息。',
           },
           {
@@ -927,7 +927,7 @@ const ITINERARY = [
             name: '♨️ 返回潮騷亭泡湯休息',
             desc: '輕鬆驅車 15 分鐘返回潮騷亭，憑已拿到的鑰匙直接回房泡湯休息，零趕路壓力。',
             address: '北海道函館市湯川町 1 丁目 2-30',
-            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate',
+            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '',
           },
         ],
@@ -939,7 +939,7 @@ const ITINERARY = [
         title: '舒緩自然醒、五稜郭與湯之川海景晚宴',
         summary: '睡到自然醒、悠閒早餐、五稜郭登塔、味彩拉麵/幸運小丑、潮騷亭泡湯、三套晚餐預案',
         illustration: './images/goryokaku.jpg',
-        hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate' },
+        hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
         activities: [
           {
@@ -947,7 +947,7 @@ const ITINERARY = [
             name: '☕ 舒緩起床與悠閒早餐',
             desc: '08:30–10:00 不急不趕，全家睡到自然醒，在潮騷亭或周邊享用早餐與愜意休整，徹底避免趕早市排隊的勞頓與被宰風險。',
             address: '北海道函館市湯川町 1 丁目 2-30',
-            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate',
+            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '不急赶时间，全家补足睡眠与体力。',
           },
           {
@@ -984,7 +984,7 @@ const ITINERARY = [
             name: '♨️ 返回潮騷亭泡湯休整',
             desc: '返回平成館 潮騷亭，下午在酒店內徹底休息泡湯，讓寶寶在榻榻米房間內補覺。',
             address: '北海道函館市湯川町 1 丁目 2-30',
-            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitai+Hakodate',
+            mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '榻榻米客房非常適合寶寶安全爬行与舒適午睡。',
           },
           {
@@ -1090,7 +1090,7 @@ const ITINERARY = [
         title: '湖畔休整與機場體驗',
         summary: '支笏湖散步、還車結算 HEP、新千歲航站樓體驗、飛羽田、入住 Courtyard Ginza',
         illustration: './images/sapporo.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         driving: { 
           distance: '約 100 公里 / 1 小時 20 分鐘', 
           route: null, 
@@ -1197,7 +1197,7 @@ const ITINERARY = [
         title: '銀座零距離休整與集中掃貨 (接檔深夜航班)',
         summary: '自然醒恢復體力、11:15 附近 Lunch Special、集中購物戰利品隨時送回房間、傍晚優雅晚餐',
         illustration: './images/ginza.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '09:30',
@@ -1240,7 +1240,7 @@ const ITINERARY = [
         title: '富士山包車一日遊',
         summary: '包車出發、大石公園花海、錯峰享用餺餂麵、忍野八海散步',
         illustration: './images/fuji.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '08:30',
@@ -1283,7 +1283,7 @@ const ITINERARY = [
         title: '東京迪士尼樂園',
         summary: '避堵打車前往、Parent Swap輪流玩、11:15錯峰午餐、嬰兒中心補給、樹蔭劇場休息',
         illustration: './images/disney.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '08:30',
@@ -1334,7 +1334,7 @@ const ITINERARY = [
         title: '皇居漫步與自由休整',
         summary: '皇居/日比谷漫步、查漏補缺最後採購、行李打包封箱',
         illustration: './images/ginza_night.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '10:00',
@@ -1369,7 +1369,7 @@ const ITINERARY = [
         title: '圓滿完結 · 啟程回國',
         summary: '行李清點、代訂機場大巴直達羽田、JAL值機、NH 7544 飛紐約',
         illustration: './images/haneda.jpg',
-        hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '10:00',
