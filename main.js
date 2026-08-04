@@ -1322,7 +1322,7 @@ const ITINERARY = [
         dayNum: 'Day 18',
         title: '皇居漫步與自由休整',
         summary: '皇居/日比谷漫步、查漏補缺最後採購、行李打包封箱',
-        illustration: './images/shibuya.jpg',
+        illustration: './images/ginza_night.jpg',
         hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
@@ -1357,7 +1357,7 @@ const ITINERARY = [
         dayNum: 'Day 19',
         title: '圓滿完結 · 啟程回國',
         summary: '行李清點、代訂機場大巴直達羽田、JAL值機、NH 7544 飛紐約',
-        illustration: './images/shibuya.jpg',
+        illustration: './images/haneda.jpg',
         hotel: { name: 'Courtyard Marriage Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
