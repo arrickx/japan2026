@@ -52,48 +52,29 @@ function parseSunsetTime(str) {
   return `${String(h).padStart(2, '0')}:${m}`;
 }
 
-// 從 sunrisesunset.io 批量獲取所有日落時間
-async function fetchAllSunsets() {
-  const entries = Object.entries(SUNSET_COORDS);
-  const results = await Promise.allSettled(
-    entries.map(async ([dateKey, info]) => {
-      const url = `https://api.sunrisesunset.io/json?lat=${info.lat}&lng=${info.lng}&date=${info.apiDate}&timezone=Asia/Tokyo`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      if (data.status !== 'OK') throw new Error('API status not OK');
-      const time = parseSunsetTime(data.results.sunset);
-      if (!time) throw new Error('Parse failed');
-      return { dateKey, time, city: info.city };
-    })
-  );
+// 按需獲取單日日落時間（展開那天才 fetch，緩存後不重複請求）
+async function fetchSunsetForDate(dateKey) {
+  // 已經從 API 拿過就跳過
+  if (SUNSET_TABLE[dateKey]?.fromApi) return SUNSET_TABLE[dateKey];
 
-  let apiCount = 0;
-  results.forEach((result, i) => {
-    const dateKey = entries[i][0];
-    const city = entries[i][1].city;
-    if (result.status === 'fulfilled') {
-      SUNSET_TABLE[dateKey] = { time: result.value.time, city };
-      apiCount++;
-    } else {
-      // 回退到靜態值
-      SUNSET_TABLE[dateKey] = { time: SUNSET_FALLBACK[dateKey] || '--:--', city };
-      console.warn(`Sunset API fallback for ${dateKey}:`, result.reason);
-    }
-  });
-  console.log(`🌅 Sunset data loaded: ${apiCount}/${entries.length} from API`);
+  const info = SUNSET_COORDS[dateKey];
+  if (!info) return null;
 
-  // 刷新當前已展開卡片的日落顯示
-  const sunsetDisplay = document.getElementById('sunset-display');
-  const sunsetBadge = document.getElementById('sunset-badge');
-  const openCard = document.querySelector('.day-card.open');
-  if (openCard && sunsetDisplay && sunsetBadge) {
-    const dateStr = openCard.getAttribute('data-date');
-    const info = SUNSET_TABLE[dateStr];
-    if (info) {
-      sunsetBadge.style.display = '';
-      sunsetDisplay.textContent = `🌅 ${info.time} 日落 · ${info.city}`;
-    }
+  try {
+    const url = `https://api.sunrisesunset.io/json?lat=${info.lat}&lng=${info.lng}&date=${info.apiDate}&timezone=Asia/Tokyo`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.status !== 'OK') throw new Error('API status not OK');
+    const time = parseSunsetTime(data.results.sunset);
+    if (!time) throw new Error('Parse failed');
+
+    SUNSET_TABLE[dateKey] = { time, city: info.city, fromApi: true };
+    console.log(`🌅 Sunset API: ${dateKey} (${info.city}) → ${time}`);
+    return SUNSET_TABLE[dateKey];
+  } catch (err) {
+    console.warn(`🌅 Sunset API fallback for ${dateKey}:`, err.message);
+    return SUNSET_TABLE[dateKey]; // 返回靜態回退值
   }
 }
 
@@ -1815,7 +1796,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderMemoSection();
   autoExpandToday();
   fetchRate();
-  fetchAllSunsets();
   setupHotelFab();
   setupRatePopup();
   setupSpotPopup();
@@ -2057,12 +2037,24 @@ function setupHotelFab() {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
     }
 
-    // 更新日落標籤
+    // 更新日落標籤（先顯示回退值，再按需 fetch API 精確值）
     if (sunsetBadge && sunsetDisplay) {
       const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
       if (sunsetInfo && hasAnyOpenCard) {
         sunsetBadge.style.display = '';
         sunsetDisplay.textContent = `🌅 ${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
+        // 若尚未從 API 取得，觸發懶加載（僅 1 次請求，緩存後不重複）
+        if (!sunsetInfo.fromApi && dateStr) {
+          fetchSunsetForDate(dateStr).then(updated => {
+            if (updated && updated.fromApi) {
+              // 確認當前仍在顯示同一天
+              const stillOpen = document.querySelector('.day-card.open');
+              if (stillOpen?.getAttribute('data-date') === dateStr) {
+                sunsetDisplay.textContent = `🌅 ${updated.time} 日落 · ${updated.city}`;
+              }
+            }
+          });
+        }
       } else {
         sunsetBadge.style.display = 'none';
       }
