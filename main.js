@@ -1858,10 +1858,26 @@ function setupRainFab() {
   const rainFab = document.getElementById('rain-fab');
   if (!rainFab) return;
 
-  rainFab.addEventListener('click', () => {
-    const day2 = days.find(d => d.dayNum === 'Day 2');
-    if (day2 && day2.rainBackup) {
-      openSpotPopup(day2.rainBackup);
+  rainFab.classList.add('hidden');
+
+  rainFab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let targetBackup = null;
+    const openCard = document.querySelector('.day-card.open');
+    const dateStr = openCard ? openCard.getAttribute('data-date') : null;
+
+    ITINERARY.forEach(phase => {
+      phase.days.forEach(day => {
+        if (dateStr && day.date === dateStr && day.rainBackup) {
+          targetBackup = day.rainBackup;
+        } else if (!targetBackup && day.dayNum === 'Day 2' && day.rainBackup) {
+          targetBackup = day.rainBackup;
+        }
+      });
+    });
+
+    if (targetBackup) {
+      openSpotPopup(targetBackup);
     }
   });
 }
@@ -2083,18 +2099,16 @@ function setupHotelFab() {
   const memoFab = document.getElementById('memo-fab');
   if (!fab || !fabName) return;
 
-  // 預設隱藏 memoFab，只有展開某天行程時才顯示
-  if (memoFab) memoFab.classList.add('hidden');
+  const rainFab = document.getElementById('rain-fab');
+  if (rainFab) rainFab.classList.add('hidden');
 
-  // 日落標籤元素
-  const sunsetBadge = document.getElementById('sunset-badge');
-  const sunsetDisplay = document.getElementById('sunset-display');
-
-  // 建立 date → hotel 對照表（從 ITINERARY 資料中提取）
+  // 建立 date → hotel 及 date → rainBackup 對照表（從 ITINERARY 資料中提取）
   const hotelMap = {};
+  const rainBackupMap = {};
   ITINERARY.forEach(phase => {
     phase.days.forEach(day => {
       if (day.hotel) hotelMap[day.date] = day.hotel;
+      if (day.rainBackup) rainBackupMap[day.date] = day.rainBackup;
     });
   });
 
@@ -2104,6 +2118,10 @@ function setupHotelFab() {
   function updateFab(hotel, hasAnyOpenCard, dateStr) {
     if (memoFab) {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
+    }
+    if (rainFab) {
+      const hasRain = dateStr && rainBackupMap[dateStr];
+      rainFab.classList.toggle('hidden', !hasRain || !hasAnyOpenCard);
     }
 
     // 更新日落標籤（先顯示回退值，再按需 fetch API 精確值）

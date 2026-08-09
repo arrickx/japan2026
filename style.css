@@ -588,6 +588,12 @@ body {
 .rain-fab:active { transform: scale(0.93); }
 .rain-fab-icon { font-size: 1.25rem; line-height: 1; }
 
+.rain-fab.hidden {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* 備忘 FAB */
 .memo-fab {
   display: flex;
