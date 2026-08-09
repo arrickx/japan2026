@@ -160,18 +160,30 @@ const ITINERARY = [
           },
         ],
       },
-      {
+            {
         date: '9/1',
         dayNum: 'Day 2',
         title: '下町風情與明治神宮',
         summary: '淺草雷門 · 河畔午餐 · 明治神宮',
-        illustration: './images/asakusa_meiji.jpg',
+        illustration: './images/asakusa.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
+        rainBackup: {
+          emoji: '☔',
+          title: '暴雨備選預案（僅強降雨時啟用）',
+          tags: ['室內避雨', '無障礙連廊', '晴空塔 6F', '墨田水族館'],
+          intro: '若當天遇到暴雨強降雨，取消戶外隅田公園散步與明治神宮參拜。午餐後直接通過無障礙連廊進入全室內的【墨田水族館 (Sumida Aquarium)】游覽，隨後直接返回酒店休整。',
+          must: [
+            '12:30–15:00 墨田水族館游覽 — 晴空塔 6F 全室內，設有企鵝池、水母水槽與海洋展區',
+            '全程無障礙連廊 — 從 Mizumachi 沿河餐廳一路平地/電梯直達水族館，完全不淋雨',
+            '15:00 提前返回酒店休整 — 搭地鐵/打車回 Hyatt House 客房休整，晚間就近晚餐'
+          ],
+          tip: '💡 晴空塔 6F 設有無障礙電梯與高端母嬰室。水族館全程可推推車。'
+        },
         activities: [
           {
             time: '09:15',
-            name: '🚇 搭銀座線前往淺草站',
-            desc: '09:15 之後出發，徹底避開地鐵通勤高峰。',
+            name: '🚇 避開早高峰：搭乘銀座線前往淺草站',
+            desc: '09:15 之後搭乘地鐵銀座線前往淺草站，徹底避開地鐵通勤人潮。<br/>🎫 <strong>提示：本日有預訂傳統服飾拍照及化妝 (Klook 預訂)。</strong>',
             address: '',
             mapLink: '',
             notes: '',
@@ -179,7 +191,7 @@ const ITINERARY = [
           {
             time: '10:00',
             name: '⛩️ 雷門・淺草寺',
-            desc: '抵達雷門，漫步仲見世通。',
+            desc: '抵達雷門，走仲見世通旁邊的平行街道避開密集人流。',
             address: '東京都台東区浅草 2-3-1',
             mapLink: 'https://maps.google.com/?q=Senso-ji+Temple+Asakusa+Tokyo',
             notes: '',
@@ -201,31 +213,31 @@ const ITINERARY = [
           {
             time: '11:15',
             name: '🍱 錯峰午餐：Tokyo Mizumachi 沿河餐廳',
-            desc: '準時 11:15 入座，避開正午人潮。',
+            desc: '準時於 11:15 入座 Tokyo Mizumachi 沿河餐廳（錯開正午就餐高峰），推車可直接推入桌旁。',
             address: '東京都墨田区向島 1 丁目（Tokyo Mizumachi）',
             mapLink: 'https://maps.google.com/?q=Tokyo+Mizumachi+Asakusa',
             notes: '',
           },
           {
-            time: '13:30',
-            name: '🌧️ 雨天備選：墨田水族館',
-            desc: '若遇強降雨，取消戶外散步，改走無障礙連廊直達全室內的墨田水族館。',
-            address: '東京都墨田区押上 1-1-2（東京晴空塔 6F）',
-            mapLink: 'https://maps.google.com/?q=Sumida+Aquarium+Tokyo+Skytree',
+            time: '12:30',
+            name: '☕ 河畔慢逛與寶寶推車小憩',
+            desc: '12:30–13:45 沿隅田公園及 Mizumachi 散步至晴空塔下。路面極為平整，非常適合寶寶在推車內睡下午覺，大人可在沿岸咖啡館休整。',
+            address: '東京都墨田区向島 1 丁目（隅田公園）',
+            mapLink: 'https://maps.google.com/?q=Sumida+Park+Tokyo',
             notes: '',
           },
           {
-            time: '15:30',
-            name: '🚃 錯峰移動：淺草/押上 ➔ 原宿 (明治神宮)',
-            desc: '15:30 提前避開晚高峰。從淺草站搭乘【地鐵銀座線】直達「表參道站」（19 分鐘一車直達），出站沿表參道林蔭大道散步 5 分鐘；或搭乘至 JR 原宿站（表參道口）。',
+            time: '13:45',
+            name: '🚃 錯峰移動：前往原宿/明治神宮',
+            desc: '13:45–14:30 乘地鐵（銀座線至表參道，約 20 分鐘一車直達）或 GO App 打車前往原宿/明治神宮，避開晚高峰。',
             address: '東京都渋谷区神宮前 1 丁目（JR 原宿站 表參道口）',
             mapLink: 'https://maps.google.com/?q=Harajuku+Station+Omotesando+Exit',
             notes: '',
           },
           {
-            time: '16:00',
+            time: '14:30',
             name: '🌿 明治神宮 (南參道入口 · 原宿口)',
-            desc: '從神宮橋旁的大鳥居（南參道入口）進入神域，此路段全程平坦無台階，樹蔭覆蓋率極高，推車行走最舒適。',
+            desc: '14:30–16:30 由原宿南參道入口進入（路面最平坦無台階），漫步參拜，時間充裕且採光極佳。',
             address: '東京都渋谷区代々木神園町 1-1（明治神宮 南參道鳥居・原宿口）',
             mapLink: 'https://maps.google.com/?q=Meiji+Jingu+Harajuku+Entrance',
             notes: '',
@@ -237,11 +249,19 @@ const ITINERARY = [
               must: [
                 '南參道大鳥居 — 日本最大的木製鳥居之一，高 12 公尺，進入神域的象徵',
                 '酒樽與葡萄酒桶陳列廊 — 信奉者奉納的清酒桶＆法國葡萄酒桶，東西合璧獨一無二',
-                '本殿參拜 — 抽籤 (みくじ) 並系在指定繩架上，祈求家庭平安',
+                '本堂燒香祈福 — 用手將香煙撫向身體，傳說可驅病消災',
                 '御苑菖蒲園（需另購票）— 6 月菖蒲盛開，9 月仍可欣賞御苑庭園',
               ],
-              tip: '💡 導航直達「南參道大鳥居（原宿口）」！傍晚 16:00 後遊人最少，從原宿南口進入全程無台階，推車最順暢。',
+              tip: '💡 導航直達「南參道大鳥居（原宿口）」！傍晚採光極佳，從原宿南口進入全程無台階，推車最順暢。',
             },
+          },
+          {
+            time: '16:30',
+            name: '🛍️ 表參道/原宿區域輕鬆慢逛',
+            desc: '16:30–17:30 在表參道/原宿區域輕鬆慢逛。17:30 晚高峰前 GO App 打車返回酒店或就近晚餐。',
+            address: '東京都渋谷区神宮前',
+            mapLink: 'https://maps.google.com/?q=Omotesando+Harajuku+Tokyo',
+            notes: '',
           },
           {
             time: '17:30',
@@ -271,8 +291,8 @@ const ITINERARY = [
                 mapLink: 'https://maps.google.com/?q=Tsurutontan+UDON+NOODLE+Brasserie+Shibuya'
               }
             ]
-          },
-        ],
+          }
+        ]
       },
 
       // ── Day 3 ──────────────────────────────────────────────
@@ -1164,7 +1184,6 @@ const ITINERARY = [
             name: '🍜 錯峰午餐：味彩拉麵 / 幸運小丑漢堡',
             desc: '準時在 11:15 入座五稜郭塔旁的 麺厨房あじさい (味彩拉麵 本店) 或旁邊的 幸運小丑漢堡 (五稜郭公園前店)。',
             address: '北海道函館市五稜郭町 29-22（味彩拉麵本店）',
-            mapLink: 'https://maps.google.com/?q=Ajisai+Ramen+Goryokaku+Hakodate',
             notes: '',
           },
           {
@@ -1703,6 +1722,19 @@ function renderItinerary() {
 
         driveBar.innerHTML = html;
         body.appendChild(driveBar);
+      }
+
+      // 暴雨備選預案按鈕（僅在有 rainBackup 數據時顯示）
+      if (day.rainBackup) {
+        const rainBtn = document.createElement('button');
+        rainBtn.className = 'rain-backup-btn';
+        rainBtn.type = 'button';
+        rainBtn.innerHTML = `☔ 暴雨備選預案 <span>ⓘ</span>`;
+        rainBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openSpotPopup(day.rainBackup);
+        });
+        body.appendChild(rainBtn);
       }
 
       const list = document.createElement('ul');
