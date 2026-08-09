@@ -1,27 +1,101 @@
 // ============================================================
-// 日落時間查詢表（固定日期 + 固定城市，天文精算，無需 API）
+// 日落時間系統（sunrisesunset.io API + 靜態回退）
 // ============================================================
-const SUNSET_TABLE = {
-  '8/31': { time: '18:06', city: '東京' },
-  '9/1':  { time: '18:04', city: '東京' },
-  '9/2':  { time: '18:03', city: '東京' },
-  '9/3':  { time: '18:01', city: '東京/鎌倉' },
-  '9/4':  { time: '18:01', city: '札幌' },
-  '9/5':  { time: '17:59', city: '札幌' },
-  '9/6':  { time: '17:57', city: '小樽/札幌' },
-  '9/7':  { time: '17:55', city: '札幌' },
-  '9/8':  { time: '17:52', city: '美瑛/富良野' },
-  '9/9':  { time: '17:51', city: '富良野/登別' },
-  '9/10': { time: '17:51', city: '登別/函館' },
-  '9/11': { time: '17:49', city: '函館' },
-  '9/12': { time: '17:47', city: '函館/洞爺' },
-  '9/13': { time: '17:46', city: '洞爺/東京' },
-  '9/14': { time: '17:48', city: '東京/銀座' },
-  '9/15': { time: '17:47', city: '河口湖/東京' },
-  '9/16': { time: '17:45', city: '東京/浦安' },
-  '9/17': { time: '17:44', city: '東京/銀座' },
-  '9/18': { time: '17:42', city: '東京/羽田' },
+
+// 每天對應的城市坐標（用於 API 查詢）
+const SUNSET_COORDS = {
+  '8/31': { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-08-31' },
+  '9/1':  { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-09-01' },
+  '9/2':  { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-09-02' },
+  '9/3':  { lat: 35.3175, lng: 139.5503, city: '鎌倉',       apiDate: '2026-09-03' },
+  '9/4':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-04' },
+  '9/5':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-05' },
+  '9/6':  { lat: 43.1907, lng: 140.9945, city: '小樽',       apiDate: '2026-09-06' },
+  '9/7':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-07' },
+  '9/8':  { lat: 43.3480, lng: 142.3830, city: '美瑛',       apiDate: '2026-09-08' },
+  '9/9':  { lat: 43.3408, lng: 142.3834, city: '富良野',     apiDate: '2026-09-09' },
+  '9/10': { lat: 41.7750, lng: 140.7291, city: '函館',       apiDate: '2026-09-10' },
+  '9/11': { lat: 41.7750, lng: 140.7291, city: '函館',       apiDate: '2026-09-11' },
+  '9/12': { lat: 42.6043, lng: 140.8567, city: '洞爺',       apiDate: '2026-09-12' },
+  '9/13': { lat: 42.7828, lng: 141.3625, city: '千歲',       apiDate: '2026-09-13' },
+  '9/14': { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-09-14' },
+  '9/15': { lat: 35.5165, lng: 138.7527, city: '河口湖',     apiDate: '2026-09-15' },
+  '9/16': { lat: 35.6329, lng: 139.8804, city: '浦安',       apiDate: '2026-09-16' },
+  '9/17': { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-09-17' },
+  '9/18': { lat: 35.5533, lng: 139.7811, city: '羽田',       apiDate: '2026-09-18' },
 };
+
+// 靜態回退值（萬一 API 掛了也有保底數據）
+const SUNSET_FALLBACK = {
+  '8/31': '18:06', '9/1': '18:04', '9/2': '18:03', '9/3': '18:01',
+  '9/4': '18:01', '9/5': '17:59', '9/6': '17:57', '9/7': '17:55',
+  '9/8': '17:52', '9/9': '17:51', '9/10': '17:51', '9/11': '17:49',
+  '9/12': '17:47', '9/13': '17:46', '9/14': '17:48', '9/15': '17:47',
+  '9/16': '17:45', '9/17': '17:44', '9/18': '17:42',
+};
+
+// API 動態緩存（先用靜態回退值填充，API 成功後會覆蓋）
+const SUNSET_TABLE = {};
+Object.keys(SUNSET_COORDS).forEach(k => {
+  SUNSET_TABLE[k] = { time: SUNSET_FALLBACK[k] || '--:--', city: SUNSET_COORDS[k].city };
+});
+
+// 將 "6:11:54 PM" 轉為 "18:11"
+function parseSunsetTime(str) {
+  const match = str.match(/^(\d{1,2}):(\d{2}):\d{2}\s*(AM|PM)$/i);
+  if (!match) return null;
+  let h = parseInt(match[1], 10);
+  const m = match[2];
+  const ampm = match[3].toUpperCase();
+  if (ampm === 'PM' && h !== 12) h += 12;
+  if (ampm === 'AM' && h === 12) h = 0;
+  return `${String(h).padStart(2, '0')}:${m}`;
+}
+
+// 從 sunrisesunset.io 批量獲取所有日落時間
+async function fetchAllSunsets() {
+  const entries = Object.entries(SUNSET_COORDS);
+  const results = await Promise.allSettled(
+    entries.map(async ([dateKey, info]) => {
+      const url = `https://api.sunrisesunset.io/json?lat=${info.lat}&lng=${info.lng}&date=${info.apiDate}&timezone=Asia/Tokyo`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.status !== 'OK') throw new Error('API status not OK');
+      const time = parseSunsetTime(data.results.sunset);
+      if (!time) throw new Error('Parse failed');
+      return { dateKey, time, city: info.city };
+    })
+  );
+
+  let apiCount = 0;
+  results.forEach((result, i) => {
+    const dateKey = entries[i][0];
+    const city = entries[i][1].city;
+    if (result.status === 'fulfilled') {
+      SUNSET_TABLE[dateKey] = { time: result.value.time, city };
+      apiCount++;
+    } else {
+      // 回退到靜態值
+      SUNSET_TABLE[dateKey] = { time: SUNSET_FALLBACK[dateKey] || '--:--', city };
+      console.warn(`Sunset API fallback for ${dateKey}:`, result.reason);
+    }
+  });
+  console.log(`🌅 Sunset data loaded: ${apiCount}/${entries.length} from API`);
+
+  // 刷新當前已展開卡片的日落顯示
+  const sunsetDisplay = document.getElementById('sunset-display');
+  const sunsetBadge = document.getElementById('sunset-badge');
+  const openCard = document.querySelector('.day-card.open');
+  if (openCard && sunsetDisplay && sunsetBadge) {
+    const dateStr = openCard.getAttribute('data-date');
+    const info = SUNSET_TABLE[dateStr];
+    if (info) {
+      sunsetBadge.style.display = '';
+      sunsetDisplay.textContent = `🌅 ${info.time} 日落 · ${info.city}`;
+    }
+  }
+}
 
 // ============================================================
 // 行程資料 — 在這裡新增或修改每天的行程
@@ -1741,6 +1815,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderMemoSection();
   autoExpandToday();
   fetchRate();
+  fetchAllSunsets();
   setupHotelFab();
   setupRatePopup();
   setupSpotPopup();
@@ -1987,7 +2062,7 @@ function setupHotelFab() {
       const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
       if (sunsetInfo && hasAnyOpenCard) {
         sunsetBadge.style.display = '';
-        sunsetDisplay.textContent = `🌅 ${sunsetInfo.time} 日落`;
+        sunsetDisplay.textContent = `🌅 ${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
       } else {
         sunsetBadge.style.display = 'none';
       }
