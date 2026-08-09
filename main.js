@@ -989,7 +989,7 @@ const ITINERARY = [
         driving: { 
           distance: '約 180 公里 / 2.5–3 小時', 
           route: '道東自動車道', 
-          rest: { name: '夕張 PA / 占冠 PA', desc: '開出富良野約 1h 處，可補充水分与換尿布', mapLink: 'https://maps.google.com/?q=Yubari+PA+Hokkaido' }, 
+          rest: { name: '占冠 PA (首選) / 夕張 PA (備選)', desc: '開出富良野約 45 分鐘先抵達占冠 PA（設有 7-Eleven 與授乳室）；若錯過可再行駛 30 分鐘至夕張 PA。', mapLink: 'https://maps.google.com/?q=Shimukappu+PA+Doto+Expressway' }, 
           tips: ['占冠至夕張段有單向單車道隧道，保持安全車距', '駛入登別溫泉街前有連續下坡彎道，注意減速'] 
         },
         activities: [
@@ -1046,7 +1046,7 @@ const ITINERARY = [
         driving: { 
           distance: '約 200 公里 / 2.5–3 小時', 
           route: '道央自動車道', 
-          rest: { name: '八雲 PA / 噴火灣 Panorama Park', desc: '行駛約 1.5h 處，🌟 极度推荐！海景公園＋母嬰休息室', mapLink: 'https://maps.google.com/?q=Yakumo+PA+Hokkaido' }, 
+          rest: { name: '八雲 PA / 噴火灣 Panorama Park', desc: '行駛約 1.5h 處，🌟 极度推荐！海景公園＋母嬰休息室', mapLink: 'https://maps.google.com/?q=Yakumo+PA+Panorama+Park+Hokkaido' }, 
           tips: ['大沼公園 IC 後轉為 5 號國道（約 30km），紅綠燈增多，預留充裕時間'] 
         },
         activities: [
@@ -1084,7 +1084,7 @@ const ITINERARY = [
             name: '☕ 八雲休息站休整 (Yakumo PA)',
             desc: '行駛約 1.5 小時後，停靠 Yakumo PA (八雲休息站) 舒展休整、補給水份。',
             address: '北海道二海郡八雲町浜松 368-8',
-            mapLink: 'https://maps.google.com/?q=Yakumo+PA+Hokkaido',
+            mapLink: 'https://maps.google.com/?q=Yakumo+PA+Panorama+Park+Hokkaido',
             notes: '',
           },
           {
@@ -1303,7 +1303,7 @@ const ITINERARY = [
         driving: { 
           distance: '約 100 公里 / 1 小時 20 分鐘', 
           route: null, 
-          rest: { name: '樽前 SA (Tarumae SA)', desc: '行駛約 45min 處，設有 7-Eleven 及授乳室', mapLink: 'https://maps.google.com/?q=Tarumae+SA+Hokkaido' }, 
+          rest: { name: '樽前 SA (Tarumae SA)', desc: '行駛約 45min 處，設有 7-Eleven 及授乳室', mapLink: 'https://maps.google.com/?q=Tarumae+Service+Area+Hokkaido' }, 
           tips: ['還車前需在周邊加油站加滿油並保留加油小票'] 
         },
         activities: [
