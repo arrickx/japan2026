@@ -245,11 +245,32 @@ const ITINERARY = [
           },
           {
             time: '17:30',
-            name: '🍽️ 晚高峰物理避讓・就近晚餐',
-            desc: '17:30–19:30 此時段不安排任何地鐵移動。在原宿／表參道周邊就近晚餐，或叫車（GO App）返回酒店。',
-            address: '原宿・表参道周邊',
-            mapLink: 'https://maps.google.com/?q=Omotesando+Harajuku+Tokyo',
+            name: '🍽️ 原宿/涉谷 Tabelog 嚴選晚宴 (包廂/推車/多人家宴)',
+            desc: '17:30–19:30 避開地鐵晚高峰，精選 3 家高分 (Tabelog 3.5+)、空間寬敞、對推車與寶寶極友善的餐廳：',
+            address: '東京都渋谷区神宮前 4-11-11（表參道 Yakiniku KINTAN）',
+            mapLink: 'https://maps.google.com/?q=Yakiniku+KINTAN+Omotesando',
             notes: '',
+            options: [
+              {
+                badge: '🥩 黑毛和牛燒肉 (Tabelog 3.56)',
+                title: '表參道 / 原宿 Yakiniku KINTAN',
+                desc: '黑毛和牛頂級燒肉，擁有獨立包廂 (完全個室)，座位寬敞可輕鬆放推車，寶寶安靜不打擾他人。<br/>⚠️ <strong>預約需求：必須提前 1-2 週官網/TableCheck 預訂獨立包廂。</strong>',
+                mapLink: 'https://maps.google.com/?q=Yakiniku+KINTAN+Omotesando',
+                isPrimary: true
+              },
+              {
+                badge: '🍲 頂級黑毛和牛壽喜燒 (Tabelog 3.48)',
+                title: '木曽路 渋谷店 (Kisoji Shibuya)',
+                desc: '日式老牌和牛壽喜燒/涮涮鍋，提供大型榻榻米包廂、寶寶餐椅與嬰兒餐具，服務極佳，大人小孩皆宜。<br/>⚠️ <strong>預約需求：建議提前預訂「個室包廂」套餐。</strong>',
+                mapLink: 'https://maps.google.com/?q=Kisoji+Shibuya'
+              },
+              {
+                badge: '🍜 創意巨碗烏冬與夜景 (Tabelog 3.58)',
+                title: 'つるとんたん 渋谷 (Tsurutontan 13F)',
+                desc: '位於 Shibuya Scramble Square 13F，高空夜景絕佳，電梯直達平地無台階。烏冬麵質軟爛適合 1 歲寶寶進食。<br/>⚠️ <strong>預約需求：建議提前 TableCheck 預訂卡座。</strong>',
+                mapLink: 'https://maps.google.com/?q=Tsurutontan+UDON+NOODLE+Brasserie+Shibuya'
+              }
+            ]
           },
         ],
       },
