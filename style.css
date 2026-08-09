@@ -52,6 +52,23 @@ body {
   color: #b54040;
 }
 
+/* 日落時間標籤 */
+.sunset-badge {
+  display: flex;
+  align-items: center;
+  background: #fff8f0;
+  border: 1.5px solid #f0d8b0;
+  border-radius: 20px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+#sunset-display {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #c07820;
+}
+
 /* ===== 匯率換算彈窗 ===== */
 .rate-overlay {
   position: fixed;

@@ -1,4 +1,29 @@
 // ============================================================
+// 日落時間查詢表（固定日期 + 固定城市，天文精算，無需 API）
+// ============================================================
+const SUNSET_TABLE = {
+  '8/31': { time: '18:06', city: '東京' },
+  '9/1':  { time: '18:04', city: '東京' },
+  '9/2':  { time: '18:03', city: '東京' },
+  '9/3':  { time: '18:01', city: '東京/鎌倉' },
+  '9/4':  { time: '18:01', city: '札幌' },
+  '9/5':  { time: '17:59', city: '札幌' },
+  '9/6':  { time: '17:57', city: '小樽/札幌' },
+  '9/7':  { time: '17:55', city: '札幌' },
+  '9/8':  { time: '17:52', city: '美瑛/富良野' },
+  '9/9':  { time: '17:51', city: '富良野/登別' },
+  '9/10': { time: '17:51', city: '登別/函館' },
+  '9/11': { time: '17:49', city: '函館' },
+  '9/12': { time: '17:47', city: '函館/洞爺' },
+  '9/13': { time: '17:46', city: '洞爺/東京' },
+  '9/14': { time: '17:48', city: '東京/銀座' },
+  '9/15': { time: '17:47', city: '河口湖/東京' },
+  '9/16': { time: '17:45', city: '東京/浦安' },
+  '9/17': { time: '17:44', city: '東京/銀座' },
+  '9/18': { time: '17:42', city: '東京/羽田' },
+};
+
+// ============================================================
 // 行程資料 — 在這裡新增或修改每天的行程
 // ============================================================
 const ITINERARY = [
@@ -1937,6 +1962,10 @@ function setupHotelFab() {
   // 預設隱藏 memoFab，只有展開某天行程時才顯示
   if (memoFab) memoFab.classList.add('hidden');
 
+  // 日落標籤元素
+  const sunsetBadge = document.getElementById('sunset-badge');
+  const sunsetDisplay = document.getElementById('sunset-display');
+
   // 建立 date → hotel 對照表（從 ITINERARY 資料中提取）
   const hotelMap = {};
   ITINERARY.forEach(phase => {
@@ -1947,10 +1976,21 @@ function setupHotelFab() {
 
   let currentHotel = null;
 
-  // 更新 FAB 顯示
-  function updateFab(hotel, hasAnyOpenCard) {
+  // 更新 FAB 與日落標籤
+  function updateFab(hotel, hasAnyOpenCard, dateStr) {
     if (memoFab) {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
+    }
+
+    // 更新日落標籤
+    if (sunsetBadge && sunsetDisplay) {
+      const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
+      if (sunsetInfo && hasAnyOpenCard) {
+        sunsetBadge.style.display = '';
+        sunsetDisplay.textContent = `🌅 ${sunsetInfo.time} 日落`;
+      } else {
+        sunsetBadge.style.display = 'none';
+      }
     }
 
     if (!hotel) {
@@ -1982,7 +2022,7 @@ function setupHotelFab() {
 
     const dateStr = bestCard?.getAttribute('data-date');
     const hasAnyOpenCard = Array.from(document.querySelectorAll('.day-card')).some(c => c.classList.contains('open'));
-    updateFab(dateStr ? hotelMap[dateStr] ?? null : null, hasAnyOpenCard);
+    updateFab(dateStr ? hotelMap[dateStr] ?? null : null, hasAnyOpenCard, dateStr);
   }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
 
   // 觀察所有 day-card
