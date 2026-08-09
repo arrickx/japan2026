@@ -247,8 +247,8 @@ const ITINERARY = [
             time: '17:30',
             name: '🍽️ 原宿/涉谷 Tabelog 嚴選晚宴 (包廂/推車/多人家宴)',
             desc: '17:30–19:30 避開地鐵晚高峰，精選 3 家高分 (Tabelog 3.5+)、空間寬敞、對推車與寶寶極友善的餐廳：',
-            address: '東京都渋谷区神宮前 4-11-11（表參道 Yakiniku KINTAN）',
-            mapLink: 'https://maps.google.com/?q=Yakiniku+KINTAN+Omotesando',
+            address: '',
+            mapLink: '',
             notes: '',
             options: [
               {
@@ -679,8 +679,8 @@ const ITINERARY = [
             time: '13:30',
             name: '🤝 小樽站匯合與停車方案 (首選觀光車場 / 備選車場)',
             desc: 'Team A 乘 JR 返回小樽站，與駕車抵達的 Team B 匯合。Alphard 建議停放於運河周邊大型露天平面停車場。',
-            address: '北海道小樽市港町 5-2（小樽市觀光停車場）',
-            mapLink: 'https://maps.google.com/?q=Otaru+City+Tourism+Parking',
+            address: '',
+            mapLink: '',
             notes: '',
             options: [
               {
@@ -744,8 +744,8 @@ const ITINERARY = [
             time: '17:00',
             name: '🍗 小樽晚宴方案：若鶏時代 なると 本店 (早去戰術 / 備選預案)',
             desc: '【為什麼在小樽吃】：小樽百載名物「炸半雞定食」+ 鮮極壽司，在地體驗極強，自帶 21 車位免費專屬停車場，Alphard 隨到隨停。',
-            address: '北海道小樽市稲穂 3-16-13',
-            mapLink: 'https://maps.google.com/?q=Naruto+Main+Store+Otaru',
+            address: '',
+            mapLink: '',
             options: [
               {
                 badge: '首選戰術',
@@ -778,8 +778,8 @@ const ITINERARY = [
             time: '18:45',
             name: '🚗 高速返程：札樽自動車道返回札幌',
             desc: '18:45 驅車經札樽自動車道（高速約 40 分鐘）返回札幌 FAV LUX 酒店入庫，寶寶可在車上完成夜間睡眠過渡。',
-            address: '北海道札幌市中央区南3条西7丁目 13-1',
-            mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
+            address: '',
+            mapLink: '',
             notes: '',
           },
         ],
@@ -814,8 +814,8 @@ const ITINERARY = [
             time: '11:15',
             name: '🦀 頂級海鮮與帝王蟹大餐 (首選 UME堂 / 備選 おもひで食堂)',
             desc: '📍 位置說明：札幌場外市場店舖均集中在同一區塊，停好車後步行 1 分鐘均可到達。',
-            address: '北海道札幌市中央区北11条西21丁目 2-1（札幌場外市場）',
-            mapLink: 'https://maps.google.com/?q=Sapporo+Outer+Market',
+            address: '',
+            mapLink: '',
             notes: '',
             options: [
               {
