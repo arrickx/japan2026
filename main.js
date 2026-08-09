@@ -128,10 +128,10 @@ const ITINERARY = [
           },
           {
             time: '17:15',
-            name: '🍽️ 錯峰晚餐（涉谷站周邊）',
-            desc: '避開晚高峰，在涉谷站周邊（如 Scramble Square 或 Fukuras 樓上）享用晚餐。',
-            address: '涉谷 Scramble Square（渋谷区渋谷 2-24-12）',
-            mapLink: 'https://maps.google.com/?q=Shibuya+Scramble+Square+Tokyo',
+            name: '🍽️ 錯峰晚餐：つるとんたん 烏冬麵 (Scramble Square 13F)',
+            desc: '17:15 避開晚高峰，前往涉谷站 Scramble Square 13F 享用知名名店「つるとんたん (TsuruTonTan)」創意大碗烏冬麵。電梯直達 13F 全程平路，麵質軟爛適合寶寶，兼具高空景色。',
+            address: '東京都渋谷区渋谷 2-24-12（渋谷スクランブルスクエア 13F）',
+            mapLink: 'https://maps.google.com/?q=Tsurutontan+UDON+NOODLE+Brasserie+Shibuya',
             notes: '',
           },
           {
