@@ -777,7 +777,7 @@ const ITINERARY = [
             desc: '09:15 全家稍作整理出發避開高峰。驅車前往円山公園与北海道神宮，在參道樹蔭下慢逛散步，直接在神宮內的六花亭茶屋享用現烤名物「判官さま」配熱茶（表面金黃微焦的軟糯紅豆餅）作為輕早餐。',
             address: '北海道札幌市中央区宮ケ丘 474',
             mapLink: 'https://maps.google.com/?q=Hokkaido+Shrine',
-            notes: '🅿️ 停車提示：參拜享 2 小時免費停車。',
+            notes: '',
           },
           {
             time: '11:00',
@@ -871,7 +871,7 @@ const ITINERARY = [
             desc: '驅車 10 分鐘前往美瑛放牧酪農場。在起伏的綠丘中觀賞牛群，享用鮮牛奶和軟冰淇淋。',
             address: '北海道上川郡美瑛町新田 第1',
             mapLink: 'https://maps.google.com/?q=Biei+Farm',
-            notes: '🍦 營業提示：週二照常營業，鮮奶與軟冰淇淋極佳。',
+            notes: '',
           },
           {
             time: '15:30',
@@ -1189,7 +1189,7 @@ const ITINERARY = [
             desc: '提早在 11:15 抵達有珠山周邊享用簡易定食，隨後登上有珠山纜車俯瞰洞爺湖与昭和新山。',
             address: '北海道有珠郡壮瞥町昭和新山 184-5',
             mapLink: 'https://maps.google.com/?q=Mount+Usu+Ropeway+Hokkaido',
-            notes: '🌤️ 氣象提示：提前至中午抵達可大幅降低下午山頂起霧風險。',
+            notes: '',
             highlight: {
               emoji: '🌋',
               title: '有珠山・昭和新山 (Usu Ropeway)',
@@ -1267,7 +1267,7 @@ const ITINERARY = [
             desc: '16:15 抵達新千歲機場周邊加油站加滿油。',
             address: '北海道千歳市美々（新千歲機場周邊加油站）',
             mapLink: '',
-            notes: '🧾 提示：還車前請務必保留加油發票供營業所查驗。',
+            notes: '',
           },
           {
             time: '17:00',
@@ -1470,7 +1470,7 @@ const ITINERARY = [
             desc: '利用明日世界或卡通城的嬰兒中心 (Baby Center) 餵輔食、換尿布、沖泡奶粉。',
             address: '東京迪士尼樂園 Baby Center',
             mapLink: '',
-            notes: '👶 設施：設有熱水、換尿布台、哺乳室及輔食微波爐。',
+            notes: '',
           },
           {
             time: '14:30',
