@@ -2072,14 +2072,15 @@ function setupHotelFab() {
   // IntersectionObserver：追蹤哪個已展開卡片在畫面中佔比最大
   const visibilityMap = new Map();
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      visibilityMap.set(entry.target, entry.intersectionRatio);
-    });
+  function checkAndUpdateActiveCard() {
+    const openCards = Array.from(document.querySelectorAll('.day-card.open'));
+    if (!openCards.length) {
+      updateFab(null, false, null);
+      return;
+    }
 
-    // 找出目前可見比例最高且已展開的卡片
-    let bestCard = null;
-    let bestRatio = 0;
+    let bestCard = openCards[0];
+    let bestRatio = -1;
     visibilityMap.forEach((ratio, card) => {
       if (ratio > bestRatio && card.classList.contains('open')) {
         bestRatio = ratio;
@@ -2087,13 +2088,22 @@ function setupHotelFab() {
       }
     });
 
-    const dateStr = bestCard?.getAttribute('data-date');
-    const hasAnyOpenCard = Array.from(document.querySelectorAll('.day-card')).some(c => c.classList.contains('open'));
-    updateFab(dateStr ? hotelMap[dateStr] ?? null : null, hasAnyOpenCard, dateStr);
+    const dateStr = bestCard.getAttribute('data-date');
+    updateFab(dateStr ? hotelMap[dateStr] ?? null : null, true, dateStr);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      visibilityMap.set(entry.target, entry.intersectionRatio);
+    });
+    checkAndUpdateActiveCard();
   }, { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] });
 
   // 觀察所有 day-card
   document.querySelectorAll('.day-card').forEach(card => observer.observe(card));
+
+  // 頁面初始化時，立即檢查一次（處理 autoExpandToday 自動展開的情況）
+  checkAndUpdateActiveCard();
 
   // 卡片展開/收合時重新觸發
   document.querySelectorAll('.day-card').forEach(card => {
