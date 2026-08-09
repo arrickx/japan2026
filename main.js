@@ -574,11 +574,32 @@ const ITINERARY = [
           },
           {
             time: '13:30',
-            name: '🤝 小樽站匯合與停車',
-            desc: 'Team A 乘 JR 返回小樽站，與駕車抵達的 Team B 匯合。Alphard 停放於運河周邊大型露天 Times 停車場（如「Times 小樽運河前」）。',
-            address: '北海道小樽市港町 5（Times 小樽運河前停車場）',
-            mapLink: 'https://maps.google.com/?q=Otaru+Canal+Times+Parking',
-            notes: '🅿️ 停車提示：露天 Times 停車場位子寬敞，停放 Alphard 極為方便。',
+            name: '🤝 小樽站匯合與停車方案 (首選觀光車場 / 備選車場)',
+            desc: 'Team A 乘 JR 返回小樽站，與駕車抵達的 Team B 匯合。Alphard 建議停放於運河周邊大型露天平面停車場。',
+            address: '北海道小樽市港町 5-2（小樽市觀光停車場）',
+            mapLink: 'https://maps.google.com/?q=Otaru+City+Tourism+Parking',
+            notes: '🅿️ 停車提示：大型露天平面車場，位子寬敞，停放 Alphard 極為方便。',
+            options: [
+              {
+                badge: '👑 最推薦 (碼頭對面)',
+                title: '小樽市觀光停車場 (小樽市観光駐車場)',
+                desc: '大型露天平面車場，緊鄰小樽運河遊覽船碼頭（步行僅 1 分鐘），車位極多，是首選停車點。',
+                mapLink: 'https://maps.google.com/?q=Otaru+City+Tourism+Parking',
+                isPrimary: true
+              },
+              {
+                badge: '🅿️ 備選 1 (倉庫旁)',
+                title: '三井 Repark 小樽運河倉庫第 1 / 第 2 停車場',
+                desc: '就在小樽市觀光停車場隔壁，也是露天平面車場，24 小時營業。',
+                mapLink: 'https://maps.google.com/?q=Mitsui+Repark+Otaru+Canal+Warehouse+Parking'
+              },
+              {
+                badge: '🅿️ 備選 2 (黃金中點)',
+                title: 'Times 小樽色內 1 丁目 (タイムズ小樽色内1丁目)',
+                desc: '位於色內銀行街幾何中心點。往北走 3 分鐘到運河，往南走 5 分鐘到堺町通，往西走 8 分鐘到「若鶏時代 なると 本店」。',
+                mapLink: 'https://maps.google.com/?q=Times+Otaru+Ironai+1-chome'
+              }
+            ]
           },
           {
             time: '14:00',
@@ -1640,7 +1661,7 @@ function renderItinerary() {
           });
 
           optionsWrapper.innerHTML = `
-            <div class="options-carousel-header">👈 左右滑動查看所有備選餐廳 (${act.options.length}) 👉</div>
+            <div class="options-carousel-header">👈 左右滑動查看所有備選方案 (${act.options.length}) 👉</div>
             <div class="options-carousel">${cardsHtml}</div>
           `;
           li.appendChild(optionsWrapper);
