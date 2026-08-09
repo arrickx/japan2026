@@ -931,4 +931,112 @@ body {
   line-height: 1.5;
 }
 
+/* ===== 備選方案 左右滑動卡片 ===== */
+.options-carousel-wrapper {
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.options-carousel-header {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #b05038;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.options-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 10px 2px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.options-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.option-card {
+  flex: 0 0 255px;
+  scroll-snap-align: start;
+  background: #ffffff;
+  border: 1.5px solid #f2cfc2;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(180, 100, 60, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.option-card:active {
+  transform: scale(0.98);
+}
+
+.option-card.primary {
+  background: #fffdfa;
+  border-color: #e87a5d;
+  box-shadow: 0 3px 10px rgba(232, 122, 93, 0.15);
+}
+
+.option-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.option-card.primary .option-badge {
+  background: #e8685a;
+  color: #ffffff;
+}
+
+.option-card.secondary .option-badge {
+  background: #f4eae4;
+  color: #7a5c4d;
+}
+
+.option-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #3a2e28;
+  margin-bottom: 5px;
+  line-height: 1.35;
+}
+
+.option-desc {
+  font-size: 0.79rem;
+  color: #5c4a40;
+  line-height: 1.48;
+  margin-bottom: 8px;
+  flex: 1;
+}
+
+.option-link {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #c0534a;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  align-self: flex-start;
+  background: #fff5f2;
+  border: 1px solid #f5d5c8;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.option-link:hover {
+  background: #ffebe5;
+}
+
 

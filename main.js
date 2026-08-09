@@ -610,24 +610,50 @@ const ITINERARY = [
           },
           {
             time: '16:30',
-            name: '🛍️ 運河沿岸散步與採購伴手禮',
-            desc: '16:30–17:15 運河沿岸散步放風，購買小樽特色伴手禮（六花亭、北菓樓），隨後前往停車場取車。',
-            address: '北海道小樽市堺町 7-22（北菓樓 / 六花亭小樽店）',
-            mapLink: 'https://maps.google.com/?q=Kitakaro+Otaru',
-            notes: '購物完畢取車直奔晚餐。',
+            name: '🚗 運河沿岸散步與取車準備晚餐',
+            desc: '16:30–16:45 運河沿岸散步放風，前往 Times 停車場取車，準備前往晚餐。',
+            address: '北海道小樽市港町 5（Times 小樽運河前停車場）',
+            mapLink: 'https://maps.google.com/?q=Otaru+Canal+Times+Parking',
+            notes: '取車後開車 5 分鐘直達晚餐餐廳。',
           },
           {
-            time: '17:30',
-            name: '🍗 小樽本地名物晚宴：若鶏時代 なると 本店',
-            desc: '17:30–18:45 享用小樽百年名物「炸半雞定食」與鮮極壽司！在地體驗極強，無需趕回札幌搶飯吃。',
+            time: '17:00',
+            name: '🍗 小樽晚宴方案：若鶏時代 なると 本店 (早去戰術 / 備選預案)',
+            desc: '【為什麼在小樽吃】：小樽百載名物「炸半雞定食」+ 鮮極壽司，在地體驗極強，自帶 21 車位免費專屬停車場，Alphard 隨到隨停。',
             address: '北海道小樽市稲穂 3-16-13',
             mapLink: 'https://maps.google.com/?q=Naruto+Main+Store+Otaru',
-            notes: '🍗 帶娃神店：擁有龐大榻榻米（座敷）包廂，1 歲寶寶可自由坐臥爬行；自帶 21 車位免費專屬停車場，Alphard 隨到隨停。',
+            options: [
+              {
+                badge: '首選戰術',
+                title: '若鶏時代 なると 本店 (早去免排隊)',
+                desc: '若提前電話未訂到位切勿放棄！店內有 270 席位絕大部分放現場。只需在 16:45–17:00 到店取號避開 17:30 高峰，通常等 5–15 分鐘即可入座榻榻米包廂。',
+                mapLink: 'https://maps.google.com/?q=Naruto+Main+Store+Otaru',
+                isPrimary: true
+              },
+              {
+                badge: '備選 1',
+                title: '政寿司 ぜん庵 (Masazushi Zenan)',
+                desc: '小樽頂級海景壽司，位於運河邊，環境極佳有榻榻米，推車友好（建議提前官網預訂）。',
+                mapLink: 'https://maps.google.com/?q=Otaru+Masazushi+Zenan'
+              },
+              {
+                badge: '備選 2',
+                title: '小樽倉庫No.1 (Otaru Soko No.1)',
+                desc: '運河沿岸紅磚倉庫德式/和洋餐廳，空間極巨大推車暢行無阻，氣氛輕鬆不怕寶寶鬧，提供烤肉、海鮮丼與披薩。',
+                mapLink: 'https://maps.google.com/?q=Otaru+Soko+No.1'
+              },
+              {
+                badge: '備選 3',
+                title: '魚真 (Uomasa)',
+                desc: '本地高分海鮮居酒屋，榻榻米包廂寬敞，海鮮極鮮，自帶免費停車場。',
+                mapLink: 'https://maps.google.com/?q=Uomasa+Otaru'
+              }
+            ]
           },
           {
-            time: '19:00',
+            time: '18:45',
             name: '🚗 高速返程：札樽自動車道返回札幌',
-            desc: '19:00 驅車經札樽自動車道（高速約 40 分鐘）返回札幌 FAV LUX 酒店入庫，寶寶可在車上完成夜間睡眠過渡。',
+            desc: '18:45 驅車經札樽自動車道（高速約 40 分鐘）返回札幌 FAV LUX 酒店入庫，寶寶可在車上完成夜間睡眠過渡。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
             mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
             notes: '40 分鐘高速回札幌，寶寶可在車上沉沉安睡。',
@@ -1589,6 +1615,36 @@ function renderItinerary() {
           ${mapBtn}
           ${notesHtml}
         `;
+
+        // 渲染 備選方案 左右滑動卡片（若有）
+        if (act.options && act.options.length) {
+          const optionsWrapper = document.createElement('div');
+          optionsWrapper.className = 'options-carousel-wrapper';
+
+          let cardsHtml = '';
+          act.options.forEach(opt => {
+            const isPri = opt.isPrimary ? ' primary' : ' secondary';
+            const linkHtml = opt.mapLink
+              ? `<a href="${opt.mapLink}" target="_blank" rel="noopener" class="option-link">📍 導航/地圖 ➔</a>`
+              : '';
+            cardsHtml += `
+              <div class="option-card${isPri}">
+                <div>
+                  <span class="option-badge">${opt.badge}</span>
+                  <div class="option-title">${opt.title}</div>
+                  <div class="option-desc">${opt.desc}</div>
+                </div>
+                ${linkHtml}
+              </div>
+            `;
+          });
+
+          optionsWrapper.innerHTML = `
+            <div class="options-carousel-header">👈 左右滑動查看所有備選餐廳 (${act.options.length}) 👉</div>
+            <div class="options-carousel">${cardsHtml}</div>
+          `;
+          li.appendChild(optionsWrapper);
+        }
 
         // 整個 activity-name 都可點擊（mobile 友善，不需精準點小圓圈）
         if (act.highlight) {
