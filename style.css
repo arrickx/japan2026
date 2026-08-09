@@ -842,6 +842,41 @@ body {
   opacity: 0.7;
 }
 
+/* ===== 暴雨備選彈窗 ===== */
+.rain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.40);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.rain-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rain-popup {
+  background: #fff;
+  border-radius: 20px;
+  width: min(92vw, 400px);
+  max-height: 82vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(30, 80, 150, 0.16);
+  transform: scale(0.92) translateY(14px);
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  -webkit-overflow-scrolling: touch;
+}
+.rain-overlay.open .rain-popup {
+  transform: scale(1) translateY(0);
+}
+
 /* ===== 景點簡介彈窗 ===== */
 .spot-overlay {
   position: fixed;

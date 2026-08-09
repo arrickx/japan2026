@@ -1851,39 +1851,67 @@ let cachedRate = null; // 全局儲存 JPY 匯率
 document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
   renderMemoSection();
+  renderRainSection();
   autoExpandToday();
   fetchRate();
   setupHotelFab();
-  setupRainFab();
   setupRatePopup();
   setupSpotPopup();
 });
 
-function setupRainFab() {
-  const rainFab = document.getElementById('rain-fab');
-  if (!rainFab) return;
+// ============================================================
+// 暴雨備選預案 (獨立彈窗模式 - 與核心備忘相同架構)
+// ============================================================
+function renderRainSection() {
+  const overlay = document.getElementById('rain-overlay');
+  const popup = document.getElementById('rain-popup');
+  const fab = document.getElementById('rain-fab');
+  if (!overlay || !popup) return;
 
-  rainFab.classList.add('hidden');
+  popup.innerHTML = `
+    <div class="spot-popup-header">
+      <span class="spot-popup-emoji">☔</span>
+      <div class="spot-popup-title">暴雨備選預案（僅強降雨時啟用）</div>
+      <button class="spot-popup-close" id="rain-popup-close" type="button" aria-label="關閉">✕</button>
+      <div class="spot-popup-tags">
+        <span class="spot-tag">室內避雨</span>
+        <span class="spot-tag">無障礙連廊</span>
+        <span class="spot-tag">晴空塔 6F</span>
+        <span class="spot-tag">墨田水族館</span>
+      </div>
+    </div>
+    <div class="spot-popup-body">
+      <div class="spot-intro">若當天遇到暴雨強降雨，取消戶外隅田公園散步與明治神宮參拜。午餐後直接通過無障礙連廊進入全室內的【墨田水族館 (Sumida Aquarium)】游覽，隨後直接返回酒店休整。</div>
+      <div>
+        <div class="spot-must-title">★ 備選行程亮點與細節</div>
+        <ul class="spot-must-list">
+          <li>12:30–15:00 墨田水族館游覽 — 晴空塔 6F 全室內，設有企鵝池、水母水槽與海洋展區</li>
+          <li>全程無障礙連廊 — 從 Mizumachi 沿河餐廳一路平地/電梯直達水族館，完全不淋雨</li>
+          <li>15:00 提前返回酒店休整 — 搭地鐵/打車回 Hyatt House 客房休整，晚間就近晚餐</li>
+        </ul>
+      </div>
+      <div class="spot-address-box">
+        <a href="https://maps.google.com/?q=Sumida+Aquarium+Tokyo+Skytree" target="_blank" rel="noopener" class="spot-address-link">📍 導航/地圖：東京都墨田区押上 1-1-2（東京晴空塔 6F） ➔</a>
+      </div>
+      <div class="spot-tip">💡 晴空塔 6F 設有無障礙電梯與高端母嬰室。水族館全程可推推車。</div>
+    </div>
+  `;
 
-  rainFab.addEventListener('click', (e) => {
-    e.stopPropagation();
-    let targetBackup = null;
-    const openCard = document.querySelector('.day-card.open');
-    const dateStr = openCard ? openCard.getAttribute('data-date') : null;
-
-    ITINERARY.forEach(phase => {
-      phase.days.forEach(day => {
-        if (dateStr && day.date === dateStr && day.rainBackup) {
-          targetBackup = day.rainBackup;
-        } else if (!targetBackup && day.dayNum === 'Day 2' && day.rainBackup) {
-          targetBackup = day.rainBackup;
-        }
-      });
+  if (fab) {
+    fab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.classList.add('open');
     });
+  }
 
-    if (targetBackup) {
-      openSpotPopup(targetBackup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.id === 'rain-popup-close' || e.target.closest('#rain-popup-close')) {
+      overlay.classList.remove('open');
     }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') overlay.classList.remove('open');
   });
 }
 
