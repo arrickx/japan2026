@@ -878,10 +878,35 @@ body {
 }
 
 .spot-popup-header {
+  position: relative;
   background: linear-gradient(135deg, #e8f4fd 0%, #d4eaf8 100%);
-  padding: 18px 20px 14px;
+  padding: 18px 40px 14px 20px;
   border-bottom: 1.5px solid #b8d8f0;
   border-radius: 20px 20px 0 0;
+}
+
+.spot-popup-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.08);
+  color: #555;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s, transform 0.15s;
+}
+.spot-popup-close:active {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(0.92);
 }
 
 .spot-popup-emoji {

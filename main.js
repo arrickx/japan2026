@@ -1836,6 +1836,11 @@ function renderItinerary() {
             card.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }, 50);
         }
+
+        // 立即同步更新 FAB 狀態（無須等待滾動觸發）
+        if (typeof window.triggerFabUpdate === 'function') {
+          window.triggerFabUpdate();
+        }
       });
     });
   });
@@ -1901,6 +1906,7 @@ function openSpotPopup(h) {
     <div class="spot-popup-header">
       <span class="spot-popup-emoji">${h.emoji || '📍'}</span>
       <div class="spot-popup-title">${h.title}</div>
+      <button class="spot-popup-close" type="button" aria-label="關閉">✕</button>
       <div class="spot-popup-tags">${tagsHtml}</div>
     </div>
     <div class="spot-popup-body">
@@ -1922,9 +1928,11 @@ function setupSpotPopup() {
   const overlay = document.getElementById('spot-overlay');
   if (!overlay) return;
 
-  // 點擊遮罩關閉
+  // 點擊遮罩或 X 按鈕關閉
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
+    if (e.target === overlay || e.target.classList.contains('spot-popup-close') || e.target.closest('.spot-popup-close')) {
+      overlay.classList.remove('open');
+    }
   });
 
   // Esc 鍵關閉
@@ -2178,6 +2186,9 @@ function setupHotelFab() {
     const dateStr = bestCard.getAttribute('data-date');
     updateFab(dateStr ? hotelMap[dateStr] ?? null : null, true, dateStr);
   }
+
+  // 供全局手動觸發更新（例如點擊卡片頭部時）
+  window.triggerFabUpdate = checkAndUpdateActiveCard;
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
