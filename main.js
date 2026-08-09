@@ -165,13 +165,15 @@ const ITINERARY = [
         dayNum: 'Day 2',
         title: '下町風情與明治神宮',
         summary: '淺草雷門 · 河畔午餐 · 明治神宮',
-        illustration: './images/asakusa.jpg',
+        illustration: './images/asakusa_meiji.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         rainBackup: {
           emoji: '☔',
           title: '暴雨備選預案（僅強降雨時啟用）',
           tags: ['室內避雨', '無障礙連廊', '晴空塔 6F', '墨田水族館'],
           intro: '若當天遇到暴雨強降雨，取消戶外隅田公園散步與明治神宮參拜。午餐後直接通過無障礙連廊進入全室內的【墨田水族館 (Sumida Aquarium)】游覽，隨後直接返回酒店休整。',
+          address: '東京都墨田区押上 1-1-2（東京晴空塔 6F）',
+          mapLink: 'https://maps.google.com/?q=Sumida+Aquarium+Tokyo+Skytree',
           must: [
             '12:30–15:00 墨田水族館游覽 — 晴空塔 6F 全室內，設有企鵝池、水母水槽與海洋展區',
             '全程無障礙連廊 — 從 Mizumachi 沿河餐廳一路平地/電梯直達水族館，完全不淋雨',
@@ -1724,19 +1726,6 @@ function renderItinerary() {
         body.appendChild(driveBar);
       }
 
-      // 暴雨備選預案按鈕（僅在有 rainBackup 數據時顯示）
-      if (day.rainBackup) {
-        const rainBtn = document.createElement('button');
-        rainBtn.className = 'rain-backup-btn';
-        rainBtn.type = 'button';
-        rainBtn.innerHTML = `☔ 暴雨備選預案 <span>ⓘ</span>`;
-        rainBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          openSpotPopup(day.rainBackup);
-        });
-        body.appendChild(rainBtn);
-      }
-
       const list = document.createElement('ul');
       list.className = 'activity-list';
 
@@ -1861,9 +1850,22 @@ document.addEventListener('DOMContentLoaded', () => {
   autoExpandToday();
   fetchRate();
   setupHotelFab();
+  setupRainFab();
   setupRatePopup();
   setupSpotPopup();
 });
+
+function setupRainFab() {
+  const rainFab = document.getElementById('rain-fab');
+  if (!rainFab) return;
+
+  rainFab.addEventListener('click', () => {
+    const day2 = days.find(d => d.dayNum === 'Day 2');
+    if (day2 && day2.rainBackup) {
+      openSpotPopup(day2.rainBackup);
+    }
+  });
+}
 
 // ============================================================
 // 景點簡介彈窗
@@ -1876,6 +1878,9 @@ function openSpotPopup(h) {
   const tagsHtml = (h.tags || []).map(t => `<span class="spot-tag">${t}</span>`).join('');
   const mustHtml = (h.must || []).map(m => `<li>${m}</li>`).join('');
   const tipHtml = h.tip ? `<div class="spot-tip">💡 ${h.tip.replace(/^💡\s*/, '')}</div>` : '';
+  const addressHtml = h.address && h.mapLink
+    ? `<div class="spot-address-box"><a href="${h.mapLink}" target="_blank" rel="noopener" class="spot-address-link">📍 導航/地圖：${h.address} ➔</a></div>`
+    : '';
 
   popup.innerHTML = `
     <div class="spot-popup-header">
@@ -1890,6 +1895,7 @@ function openSpotPopup(h) {
         <div class="spot-must-title">★ 必看重點</div>
         <ul class="spot-must-list">${mustHtml}</ul>
       </div>` : ''}
+      ${addressHtml}
       ${tipHtml}
     </div>
   `;

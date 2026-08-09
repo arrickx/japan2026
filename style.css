@@ -566,6 +566,28 @@ body {
   gap: 10px;
 }
 
+/* 暴雨備選 FAB */
+.rain-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(27, 91, 152, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 3px 12px rgba(27, 91, 152, 0.15);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.85;
+  transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.rain-fab:hover { opacity: 1; box-shadow: 0 4px 16px rgba(27, 91, 152, 0.25); }
+.rain-fab:active { transform: scale(0.93); }
+.rain-fab-icon { font-size: 1.25rem; line-height: 1; }
+
 /* 備忘 FAB */
 .memo-fab {
   display: flex;
@@ -946,6 +968,30 @@ body {
   border-radius: 10px;
   padding: 10px 12px;
   line-height: 1.5;
+  margin-top: 10px;
+}
+
+.spot-address-box {
+  margin-top: 12px;
+}
+
+.spot-address-link {
+  display: block;
+  background: #f0f7ff;
+  border: 1.5px solid #a8d0f8;
+  color: #1a5698;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.spot-address-link:active {
+  background: #d8ebfe;
+  transform: scale(0.98);
 }
 
 /* ☔ 暴雨備選預案 按鈕 */
