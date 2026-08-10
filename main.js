@@ -1971,6 +1971,7 @@ function renderMemoSection() {
 
   popup.innerHTML = `
     <div class="memo-popup-header">
+      <button class="spot-popup-close" type="button" aria-label="關閉">✕</button>
       <div class="memo-popup-title">📋 核心物流、預訂備忘與出行細節</div>
       <div class="memo-popup-subtitle">飯店停車、大巴代訂、零錢母嬰與行李策略</div>
     </div>

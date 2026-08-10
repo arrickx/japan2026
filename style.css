@@ -106,6 +106,7 @@ body {
 
 /* ===== 匯率換算彈窗（覆寫基類差異） ===== */
 .rate-popup {
+  position: relative;
   background: #fffbf8;
   border: 2px solid #f5d5c8;
   padding: 28px 24px 22px;
