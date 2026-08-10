@@ -287,10 +287,10 @@ const ITINERARY = [
                 mapLink: 'https://maps.google.com/?q=Kisoji+Shibuya'
               },
               {
-                badge: '🍜 創意巨碗烏冬與夜景 (Tabelog 3.58)',
-                title: 'つるとんたん 渋谷 (Tsurutontan 13F)',
-                desc: '位於 Shibuya Scramble Square 13F，高空夜景絕佳，電梯直達平地無台階。烏冬麵質軟爛適合 1 歲寶寶進食。<br/>⚠️ <strong>預約需求：建議提前 TableCheck 預訂卡座。</strong>',
-                mapLink: 'https://maps.google.com/?q=Tsurutontan+UDON+NOODLE+Brasserie+Shibuya'
+                badge: '🍱 標誌性老店炸豬排 (Tabelog 3.59)',
+                title: '舞泉豬排 表參道本店 (Maisen Omotesando)',
+                desc: '位於表參道巷內，由舊錢湯改建的歷史名店。空間寬敞且設有包廂/和室，提供軟爛蒸蛋與嬰兒餐具，推車出入方便。<br/>⚠️ <strong>預約需求：建議提前預訂二樓包廂或 17:30 錯峰用餐。</strong>',
+                mapLink: 'https://maps.google.com/?q=Tonkatsu+Maisen+Aoyama'
               }
             ]
           }
