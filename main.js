@@ -2123,19 +2123,23 @@ function setupHotelFab() {
       rainFab.classList.toggle('hidden', !hasRain || !hasAnyOpenCard);
     }
 
-    // 展開卡片時替代頂部「🇯🇵 日本旅行 2026」為「🌅 18:04 日落 · 東京」
+    // 展開卡片時替代頂部「🇯🇵 日本旅行 2026」
+    // API 成功時顯示 🌅 emoji，靜態回退（hardcoded）時無 🌅 emoji（顯示 🌆 與 (靜態) 標記）
     if (siteFlag && siteTitle) {
       const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
       if (sunsetInfo && hasAnyOpenCard) {
-        siteFlag.textContent = '🌅';
-        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
+        const isFromApi = Boolean(sunsetInfo.fromApi);
+        siteFlag.textContent = isFromApi ? '🌅' : '🌆';
+        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}${isFromApi ? '' : ' (靜態)'}`;
         siteTitle.classList.add('sunset-active');
+
         // 若尚未從 API 取得，觸發懶加載
-        if (!sunsetInfo.fromApi && dateStr) {
+        if (!isFromApi && dateStr) {
           fetchSunsetForDate(dateStr).then(updated => {
             if (updated && updated.fromApi) {
               const stillOpen = document.querySelector('.day-card.open');
               if (stillOpen?.getAttribute('data-date') === dateStr) {
+                siteFlag.textContent = '🌅';
                 siteTitle.textContent = `${updated.time} 日落 · ${updated.city}`;
               }
             }
