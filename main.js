@@ -1798,7 +1798,7 @@ function renderItinerary() {
           : '';
 
         const infoBtn = act.highlight
-          ? `<span class="spot-info-badge">ⓘ</span>`
+          ? `<span class="spot-info-badge">✨ 詳情</span>`
           : '';
 
         li.innerHTML = `
