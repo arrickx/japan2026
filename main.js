@@ -1618,6 +1618,51 @@ const ITINERARY = [
 ];
 
 // ============================================================
+// 通用工具函數
+// ============================================================
+
+/** 遍歷所有行程天數 */
+function forEachDay(callback) {
+  ITINERARY.forEach(phase => phase.days.forEach(day => callback(day, phase)));
+}
+
+/**
+ * 為任何彈窗設定標準的 open/close 行為
+ * @param {string} overlayId  - overlay 元素的 id
+ * @param {string} [triggerId] - 觸發開啟的按鈕 id（可選）
+ * @param {object} [opts]      - { onOpen }
+ * @returns {HTMLElement|null} overlay 元素
+ */
+function setupModalOverlay(overlayId, triggerId, opts = {}) {
+  const overlay = document.getElementById(overlayId);
+  const trigger = triggerId ? document.getElementById(triggerId) : null;
+  if (!overlay) return null;
+
+  if (trigger) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      overlay.classList.add('open');
+      opts.onOpen?.();
+    });
+  }
+
+  overlay.addEventListener('click', (e) => {
+    const isClose = e.target === overlay
+      || e.target.classList.contains('spot-popup-close')
+      || e.target.closest('.spot-popup-close');
+    if (isClose) overlay.classList.remove('open');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      overlay.classList.remove('open');
+    }
+  });
+
+  return overlay;
+}
+
+// ============================================================
 // 渲染邏輯
 // ============================================================
 function renderItinerary() {
@@ -1850,87 +1895,47 @@ let cachedRate = null; // 全局儲存 JPY 匯率
 
 document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
-  renderMemoSection();
   renderRainSection();
+  renderMemoSection();
   autoExpandToday();
   fetchRate();
   setupHotelFab();
   setupRatePopup();
-  setupSpotPopup();
+  setupModalOverlay('spot-overlay');
 });
 
 // ============================================================
-// 暴雨備選預案 (獨立彈窗模式 - 與核心備忘相同架構)
+// 暴雨備選預案 (複用 buildSpotPopupHtml 模板渲染)
 // ============================================================
 function renderRainSection() {
-  const overlay = document.getElementById('rain-overlay');
   const popup = document.getElementById('rain-popup');
-  const fab = document.getElementById('rain-fab');
-  if (!overlay || !popup) return;
+  if (!popup) return;
 
-  popup.innerHTML = `
-    <div class="spot-popup-header">
-      <span class="spot-popup-emoji">☔</span>
-      <div class="spot-popup-title">暴雨備選預案（僅強降雨時啟用）</div>
-      <button class="spot-popup-close" id="rain-popup-close" type="button" aria-label="關閉">✕</button>
-      <div class="spot-popup-tags">
-        <span class="spot-tag">室內避雨</span>
-        <span class="spot-tag">無障礙連廊</span>
-        <span class="spot-tag">晴空塔 6F</span>
-        <span class="spot-tag">墨田水族館</span>
-      </div>
-    </div>
-    <div class="spot-popup-body">
-      <div class="spot-intro">若當天遇到暴雨強降雨，取消戶外隅田公園散步與明治神宮參拜。午餐後直接通過無障礙連廊進入全室內的【墨田水族館 (Sumida Aquarium)】游覽，隨後直接返回酒店休整。</div>
-      <div>
-        <div class="spot-must-title">★ 備選行程亮點與細節</div>
-        <ul class="spot-must-list">
-          <li>12:30–15:00 墨田水族館游覽 — 晴空塔 6F 全室內，設有企鵝池、水母水槽與海洋展區</li>
-          <li>全程無障礙連廊 — 從 Mizumachi 沿河餐廳一路平地/電梯直達水族館，完全不淋雨</li>
-          <li>15:00 提前返回酒店休整 — 搭地鐵/打車回 Hyatt House 客房休整，晚間就近晚餐</li>
-        </ul>
-      </div>
-      <div class="spot-address-box">
-        <a href="https://maps.google.com/?q=Sumida+Aquarium+Tokyo+Skytree" target="_blank" rel="noopener" class="spot-address-link">📍 導航/地圖：東京都墨田区押上 1-1-2（東京晴空塔 6F） ➔</a>
-      </div>
-      <div class="spot-tip">💡 晴空塔 6F 設有無障礙電梯與高端母嬰室。水族館全程可推推車。</div>
-    </div>
-  `;
-
-  if (fab) {
-    fab.addEventListener('click', (e) => {
-      e.stopPropagation();
-      overlay.classList.add('open');
-    });
-  }
-
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay || e.target.id === 'rain-popup-close' || e.target.closest('#rain-popup-close')) {
-      overlay.classList.remove('open');
-    }
+  let rainData = null;
+  forEachDay(day => {
+    if (day.rainBackup && !rainData) rainData = day.rainBackup;
   });
+  if (!rainData) return;
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') overlay.classList.remove('open');
-  });
+  popup.innerHTML = buildSpotPopupHtml(rainData);
+  setupModalOverlay('rain-overlay', 'rain-fab');
 }
 
 // ============================================================
 // 景點簡介彈窗
 // ============================================================
-function openSpotPopup(h) {
-  const overlay = document.getElementById('spot-overlay');
-  const popup = document.getElementById('spot-popup');
-  if (!overlay || !popup) return;
 
+/** 生成景點/備選彈窗的 HTML（供 openSpotPopup 和 renderRainSection 共用） */
+function buildSpotPopupHtml(h) {
   const tagsHtml = (h.tags || []).map(t => `<span class="spot-tag">${t}</span>`).join('');
   const mustHtml = (h.must || []).map(m => `<li>${m}</li>`).join('');
-  const tipHtml = h.tip ? `<div class="spot-tip">💡 ${h.tip.replace(/^💡\s*/, '')}</div>` : '';
+  const mustTitle = h.mustTitle || '★ 必看重點';
+  const tipHtml = h.tip ? `<div class="spot-tip">💡 ${h.tip.replace(/^💡\\s*/, '')}</div>` : '';
   const addressHtml = h.address && h.mapLink
     ? `<div class="spot-address-box"><a href="${h.mapLink}" target="_blank" rel="noopener" class="spot-address-link">📍 導航/地圖：${h.address} ➔</a></div>`
     : '';
 
-  popup.innerHTML = `
+  return `
     <div class="spot-popup-header">
       <span class="spot-popup-emoji">${h.emoji || '📍'}</span>
       <div class="spot-popup-title">${h.title}</div>
@@ -1941,42 +1946,28 @@ function openSpotPopup(h) {
       <div class="spot-intro">${h.intro}</div>
       ${mustHtml ? `
       <div>
-        <div class="spot-must-title">★ 必看重點</div>
+        <div class="spot-must-title">${mustTitle}</div>
         <ul class="spot-must-list">${mustHtml}</ul>
       </div>` : ''}
       ${addressHtml}
       ${tipHtml}
     </div>
   `;
+}
 
+function openSpotPopup(h) {
+  const overlay = document.getElementById('spot-overlay');
+  const popup = document.getElementById('spot-popup');
+  if (!overlay || !popup) return;
+
+  popup.innerHTML = buildSpotPopupHtml(h);
   overlay.classList.add('open');
 }
 
-function setupSpotPopup() {
-  const overlay = document.getElementById('spot-overlay');
-  if (!overlay) return;
-
-  // 點擊遮罩或 X 按鈕關閉
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay || e.target.classList.contains('spot-popup-close') || e.target.closest('.spot-popup-close')) {
-      overlay.classList.remove('open');
-    }
-  });
-
-  // Esc 鍵關閉
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') overlay.classList.remove('open');
-  });
-}
-
-// ============================================================
-// 核心物流與預訂備忘 (彈窗模式)
 // ============================================================
 function renderMemoSection() {
-  const overlay = document.getElementById('memo-overlay');
   const popup = document.getElementById('memo-popup');
-  const fab = document.getElementById('memo-fab');
-  if (!overlay || !popup || !fab) return;
+  if (!popup) return;
 
   popup.innerHTML = `
     <div class="memo-popup-header">
@@ -2011,7 +2002,7 @@ function renderMemoSection() {
         <!-- 3. 零錢與母嬰細節 -->
         <div class="memo-block">
           <div class="memo-block-title">💴 零錢備用与 👶 母嬰出行細節</div>
-          <div class="memo-item"><strong>現金準備：</strong>10,000 日元大鈔（高速人工通道/大餐廳/溫泉旅館）；1,000 日元零錢（投幣車場/自助繳費機）；100/500 日元硬幣（販賣機/儲物櫃）；5 日元硬幣（Day 2 淺草寺許願，日文諧音“有緣”）。</div>
+          <div class="memo-item"><strong>現金準備：</strong>10,000 日元大鈔（高速人工通道/大餐廳/溫泉旅館）；1,000 日元零錢（投幣車場/自助繳費機）；100/500 日元硬幣（販賣機/儲物櫃）；5 日元硬幣（Day 2 淺草寺許願，日文諧音"有緣"）。</div>
           <div class="memo-item"><strong>換尿布与垃圾：</strong>多用途廁所 (Multipurpose Toilet) 均有摺疊換尿布台。無尿布垃圾桶時請隨身攜帶 BOS 防臭密封袋。</div>
           <div class="memo-item"><strong>熱水与哺乳：</strong>沿途道之站 (Michi-no-Eki) 休整 15-30 分鐘；商場及休息區嬰兒室均有 70-80 度恆溫淨水直飲機。</div>
         </div>
@@ -2026,20 +2017,8 @@ function renderMemoSection() {
     </div>
   `;
 
-  // 點擊 📋 FAB → 開啟備忘彈窗
-  fab.addEventListener('click', () => {
-    overlay.classList.add('open');
-  });
-
-  // 點擊遮罩（彈窗外面）→ 關閉
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
-
-  // 按 Esc 關閉
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') overlay.classList.remove('open');
-  });
+  // 統一事件綁定
+  setupModalOverlay('memo-overlay', 'memo-fab');
 }
 
 // 從 open.er-api.com 取得最新 USD → JPY 匯率（免費、無需 key、自動抓最新）
@@ -2062,12 +2041,10 @@ async function fetchRate() {
 
 // 匯率換算彈窗邏輯
 function setupRatePopup() {
-  const badge = document.getElementById('rate-badge');
-  const overlay = document.getElementById('rate-overlay');
   const jpyInput = document.getElementById('rate-jpy-input');
   const usdResult = document.getElementById('rate-usd-result');
   const note = document.getElementById('rate-popup-note');
-  if (!badge || !overlay || !jpyInput || !usdResult) return;
+  if (!jpyInput || !usdResult) return;
 
   function calcAndShow() {
     if (!cachedRate) { usdResult.textContent = '…'; return; }
@@ -2077,21 +2054,9 @@ function setupRatePopup() {
     if (note) note.textContent = `1 USD ≈ ${cachedRate.toFixed(2)} JPY（每日自動更新）`;
   }
 
-  // 點擊匯率標籤 → 開啟彈窗
-  badge.addEventListener('click', () => {
-    overlay.classList.add('open');
-    calcAndShow();
-    setTimeout(() => jpyInput.select(), 100);
-  });
-
-  // 點擊遮罩（彈窗外面）→ 關閉
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
-  });
-
-  // 按 Esc 關閉
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') overlay.classList.remove('open');
+  // 統一事件綁定
+  setupModalOverlay('rate-overlay', 'rate-badge', {
+    onOpen: () => { calcAndShow(); setTimeout(() => jpyInput.select(), 100); }
   });
 
   // 即時輸入計算
@@ -2138,14 +2103,16 @@ function setupHotelFab() {
   const rainFab = document.getElementById('rain-fab');
   if (rainFab) rainFab.classList.add('hidden');
 
+  // 日落標籤元素
+  const sunsetBadge = document.getElementById('sunset-badge');
+  const sunsetDisplay = document.getElementById('sunset-display');
+
   // 建立 date → hotel 及 date → rainBackup 對照表（從 ITINERARY 資料中提取）
   const hotelMap = {};
   const rainBackupMap = {};
-  ITINERARY.forEach(phase => {
-    phase.days.forEach(day => {
-      if (day.hotel) hotelMap[day.date] = day.hotel;
-      if (day.rainBackup) rainBackupMap[day.date] = day.rainBackup;
-    });
+  forEachDay(day => {
+    if (day.hotel) hotelMap[day.date] = day.hotel;
+    if (day.rainBackup) rainBackupMap[day.date] = day.rainBackup;
   });
 
   let currentHotel = null;
