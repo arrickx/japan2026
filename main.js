@@ -1647,10 +1647,7 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
   }
 
   overlay.addEventListener('click', (e) => {
-    const isClose = e.target === overlay
-      || e.target.classList.contains('spot-popup-close')
-      || e.target.closest('.spot-popup-close');
-    if (isClose) overlay.classList.remove('open');
+    if (e.target === overlay) overlay.classList.remove('open');
   });
 
   document.addEventListener('keydown', (e) => {
@@ -1939,7 +1936,6 @@ function buildSpotPopupHtml(h) {
     <div class="spot-popup-header">
       <span class="spot-popup-emoji">${h.emoji || '📍'}</span>
       <div class="spot-popup-title">${h.title}</div>
-      <button class="spot-popup-close" type="button" aria-label="關閉">✕</button>
       <div class="spot-popup-tags">${tagsHtml}</div>
     </div>
     <div class="spot-popup-body">
@@ -1971,7 +1967,6 @@ function renderMemoSection() {
 
   popup.innerHTML = `
     <div class="memo-popup-header">
-      <button class="spot-popup-close" type="button" aria-label="關閉">✕</button>
       <div class="memo-popup-title">📋 核心物流、預訂備忘與出行細節</div>
       <div class="memo-popup-subtitle">飯店停車、大巴代訂、零錢母嬰與行李策略</div>
     </div>
@@ -2104,9 +2099,9 @@ function setupHotelFab() {
   const rainFab = document.getElementById('rain-fab');
   if (rainFab) rainFab.classList.add('hidden');
 
-  // 日落標籤元素
-  const sunsetBadge = document.getElementById('sunset-badge');
-  const sunsetDisplay = document.getElementById('sunset-display');
+  // 頂部標題與 Flag 元素
+  const siteFlag = document.getElementById('site-flag');
+  const siteTitle = document.getElementById('site-title');
 
   // 建立 date → hotel 及 date → rainBackup 對照表（從 ITINERARY 資料中提取）
   const hotelMap = {};
@@ -2118,7 +2113,7 @@ function setupHotelFab() {
 
   let currentHotel = null;
 
-  // 更新 FAB 與日落標籤
+  // 更新 FAB 與日落標籤（展開卡片時直接替代頂部標題，節省空間）
   function updateFab(hotel, hasAnyOpenCard, dateStr) {
     if (memoFab) {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
@@ -2128,26 +2123,28 @@ function setupHotelFab() {
       rainFab.classList.toggle('hidden', !hasRain || !hasAnyOpenCard);
     }
 
-    // 更新日落標籤（先顯示回退值，再按需 fetch API 精確值）
-    if (sunsetBadge && sunsetDisplay) {
+    // 展開卡片時替代頂部「🇯🇵 日本旅行 2026」為「🌅 18:04 日落 · 東京」
+    if (siteFlag && siteTitle) {
       const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
       if (sunsetInfo && hasAnyOpenCard) {
-        sunsetBadge.style.display = '';
-        sunsetDisplay.textContent = `🌅 ${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
-        // 若尚未從 API 取得，觸發懶加載（僅 1 次請求，緩存後不重複）
+        siteFlag.textContent = '🌅';
+        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
+        siteTitle.classList.add('sunset-active');
+        // 若尚未從 API 取得，觸發懶加載
         if (!sunsetInfo.fromApi && dateStr) {
           fetchSunsetForDate(dateStr).then(updated => {
             if (updated && updated.fromApi) {
-              // 確認當前仍在顯示同一天
               const stillOpen = document.querySelector('.day-card.open');
               if (stillOpen?.getAttribute('data-date') === dateStr) {
-                sunsetDisplay.textContent = `🌅 ${updated.time} 日落 · ${updated.city}`;
+                siteTitle.textContent = `${updated.time} 日落 · ${updated.city}`;
               }
             }
           });
         }
       } else {
-        sunsetBadge.style.display = 'none';
+        siteFlag.textContent = '🇯🇵';
+        siteTitle.textContent = '日本旅行 2026';
+        siteTitle.classList.remove('sunset-active');
       }
     }
 
