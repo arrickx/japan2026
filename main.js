@@ -1497,49 +1497,54 @@ const ITINERARY = [
       {
         date: '9/16',
         dayNum: 'Day 17',
-        title: '東京迪士尼樂園',
-        summary: '迪士尼樂園 · 錯峰午餐 · 嬰兒中心',
-        illustration: './images/disney.jpg',
+        title: '銀座零距離掃貨與伴手禮採購',
+        summary: '全天集中購物 · 木村家現烤麵包 · 戰利品隨時回酒店',
+        illustration: './images/ginza_night.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '08:30',
-            name: '🏰 避堵出行前往迪士尼',
-            desc: '08:30 從銀座打車前往迪士尼（車程極短，約 20–25 分鐘，避開早高峰）或搭乘臨近地鐵前往。',
-            address: '千葉県浦安市舞浜 1-1（東京迪士尼樂園）',
-            mapLink: 'https://maps.google.com/?q=Tokyo+Disneyland',
+            time: '10:00',
+            name: '🛍️ 全天銀座零距離掃貨與伴手禮採購',
+            desc: '全天集中購物日。利用 Courtyard Ginza 萬怡酒店的地利優勢，隨時將採購好的戰利品提回房間存放，推車輕鬆暢逛商圈。',
+            address: '東京都中央区銀座 6-14-10',
+            mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
             notes: '',
-          },
-          {
-            time: '09:30',
-            name: '🎠 樂園遊玩与 Parent Swap 輪流看管機制',
-            desc: '執行輪流看管策略：兩人陪同嬰兒遊玩溫和項目，另外兩人排隊成人項目，隨後交換。',
-            address: '',
-            mapLink: '',
-            notes: '🎢 Parent Swap 提示：可向工作人員申請輪流看管服務，大人輪流體驗熱門項目免排兩次隊。',
           },
           {
             time: '11:15',
-            name: '🍱 提前錯峰午餐',
-            desc: '提前於 11:15 前往園內主題餐廳排隊，錯開迪士尼正午就餐高峰。',
+            name: '🍱 錯峰午餐 / 開門殺多重精選方案',
+            desc: '11:15 錯峰享用午餐，避開正午排隊高峰：',
             address: '',
             mapLink: '',
             notes: '',
-          },
-          {
-            time: '12:30',
-            name: '🍼 嬰兒中心 (Baby Center) 休息補給',
-            desc: '利用明日世界或卡通城的嬰兒中心 (Baby Center) 餵輔食、換尿布、沖泡奶粉。',
-            address: '',
-            mapLink: '',
-            notes: '',
+            options: [
+              {
+                badge: '🍞 首選 (現烤麵包/寶寶友好)',
+                title: '銀座木村家 (Ginza Kimuraya 3F Grill)',
+                desc: '點主菜即享 1 樓直達的現烤紅豆包與各類軟麵包免費無限續（極適合 1 歲寶寶吃軟麵包當主食）。',
+                mapLink: 'https://maps.google.com/?q=Ginza+Kimuraya+Main+Store',
+                isPrimary: true
+              },
+              {
+                badge: '🥩 備選 A (高性價比炸物)',
+                title: '銀座三越 とんかつ あんず (Anzu)',
+                desc: '前往銀座三越百貨 11F 享用特選炸豬排定食，肉質鮮嫩無障礙推車友好。',
+                mapLink: 'https://maps.google.com/?q=Tonkatsu+Anzu+Ginza+Mitsukoshi'
+              },
+              {
+                badge: '🍤 備選 B (名店天婦羅)',
+                title: '松屋銀座 天婦羅 綱八 (Tsunahachi)',
+                desc: '前往松屋銀座 8F 享用午市限定現炸天婦羅套餐。',
+                mapLink: 'https://maps.google.com/?q=Tempura+Tsunahachi+Matsuya+Ginza'
+              }
+            ]
           },
           {
             time: '14:30',
-            name: '🎭 樹蔭休整 / 室內劇場表演',
-            desc: '安排在樹蔭下休息或在室內劇場觀看精采表演。視成人體力与嬰兒狀態決定離園時間，隨後返回銀座休息。',
-            address: '',
-            mapLink: '',
+            name: '☕ 逛街休整與回酒店存放戰利品',
+            desc: '午後隨時將採購的重物與伴手禮提回 Courtyard Ginza 酒店存放，讓寶寶休整補充水分。',
+            address: '東京都中央区銀座 6-14-10',
+            mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
             notes: '',
           },
         ],
