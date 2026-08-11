@@ -1499,7 +1499,7 @@ const ITINERARY = [
         dayNum: 'Day 17',
         title: '銀座零距離掃貨與伴手禮採購',
         summary: '全天集中購物 · 木村家現烤麵包 · 戰利品隨時回酒店',
-        illustration: './images/ginza_night.jpg',
+        illustration: './images/ginza_shopping.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
