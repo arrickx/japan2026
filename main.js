@@ -606,7 +606,7 @@ const ITINERARY = [
       {
         date: '9/5',
         dayNum: 'Day 6',
-        title: '札幌美食與啤酒博物館',
+        title: '札幌文化體驗與烤肉',
         summary: 'Ario 採購 · 啤酒博物館烤肉 · 湯咖哩',
         illustration: './images/sapporo_bbq.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
@@ -615,47 +615,54 @@ const ITINERARY = [
           {
             time: '10:00',
             name: '🛒 Ario 札幌母嬰補給',
-            desc: '驅車前往 Ario 札幌（與啤酒博物館共用停車場）。在商場內逛阿卡醬本鋪 (Akachan Honpo) 集中採購輔食與紙尿褲，採購完畢直接放回車內。',
+            desc: '驅車前往 Ario 札幌（出示烤肉消費憑證享免費停車）。在商場內阿卡醬本鋪 (Akachan Honpo) 集中採購輔食與紙尿褲，採購完畢直接放回車內。',
             address: '北海道札幌市東区北7条東9丁目 2-20',
             mapLink: 'https://maps.google.com/?q=Ario+Sapporo',
             notes: '',
           },
           {
-            time: '13:00',
-            name: '🥩 札幌啤酒博物館成吉思汗烤肉',
-            desc: '步行 2 分鐘進入 Sapporo Beer Museum (札幌啤酒博物館) 享用已預訂的成吉思汗烤肉午餐。',
+            time: '11:15',
+            name: '🥩 成吉思汗錯峰開門殺：札幌啤酒博物館',
+            desc: '准時進入 Sapporo Beer Museum (札幌啤酒博物館) 享用已預訂的烤肉午餐。',
             address: '北海道札幌市東区北7条東9丁目 2-10',
             mapLink: 'https://maps.google.com/?q=Sapporo+Beer+Museum',
             notes: '',
           },
           {
             time: '15:00',
-            name: '🚗 園區散步與回酒店休整',
-            desc: '園區內輕鬆散步消食後，驅車返回 FAV LUX 札幌酒店停車。',
+            name: '🚗 回酒店休整与寶寶睡眠',
+            desc: '返回 FAV LUX 札幌酒店停車，回房間休整，讓寶寶睡高品質下午覺。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
             mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
             notes: '',
           },
           {
-            time: '15:30',
-            name: '😴 回房休息与下午觉',
-            desc: '15:30–17:30 回房間休整，讓寶寶睡一個高質量的下午覺，全員恢復體力。',
+            time: '17:45',
+            name: '🍲 湯咖哩晚餐 (Sho-rin 首選 / RAMAI 備選)',
+            desc: '17:45 步行前往薄野核心區享用經典湯咖哩：',
             address: '',
             mapLink: '',
             notes: '',
-          },
-          {
-            time: '17:45',
-            name: '🍲 Asian Bar RAMAI 湯咖哩晚餐',
-            desc: '全員步行 6 分鐘前往 Asian Bar RAMAI (札幌中央店) 享用湯咖哩晚餐。',
-            address: '北海道札幌市中央区南4条西10丁目 1005-4',
-            mapLink: 'https://maps.google.com/?q=Asian+Bar+RAMAI+Sapporo+Chuo',
-            notes: '',
+            options: [
+              {
+                badge: '🌟 首選名店 (老牌經典)',
+                title: '湯咖哩 Sho-rin (すすきの本店)',
+                desc: '步行前往薄野核心區。享用札幌經典湯咖哩（招牌嫩雞腿與香酥炸西蘭花，湯底濃郁且分店歷史悠久）。',
+                mapLink: 'https://maps.google.com/?q=Soup+Curry+Sho-rin+Susukino',
+                isPrimary: true
+              },
+              {
+                badge: '🍲 備選方案 (Plan B / 推車極友好)',
+                title: 'Asian Bar RAMAI (札幌中央店)',
+                desc: '步行 6 分鐘，平地無障礙、寬敞卡座半包廂，對推車極友好。',
+                mapLink: 'https://maps.google.com/?q=Asian+Bar+RAMAI+Sapporo+Chuo'
+              }
+            ]
           },
           {
             time: '19:30',
-            name: '🍰 薄野罐裝蛋糕宵夜与漫步',
-            desc: '飯後散步 10 分鐘前往薄野 Pâtisserie OKASHI GAKU 自動販賣機購買罐裝蛋糕作宵夜，隨後漫步回酒店。',
+            name: '🍰 薄野罐裝蛋糕宵夜',
+            desc: '飯後散步前往薄野 Pâtisserie OKASHI GAKU 自動販賣機購買罐裝蛋糕作宵夜。',
             address: '北海道札幌市中央区南4条西2丁目 10-17',
             mapLink: 'https://maps.google.com/?q=Patisserie+OKASHI+GAKU+Sapporo',
             notes: '',
@@ -666,7 +673,7 @@ const ITINERARY = [
       {
         date: '9/6',
         dayNum: 'Day 7',
-        title: '分頭行動與小樽運河遊船',
+        title: '分頭行動、小樽運河遊船與小樽名物晚宴',
         summary: '分頭行動 · 運河遊船 · 小樽晚宴',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
@@ -675,52 +682,45 @@ const ITINERARY = [
           {
             time: '10:00',
             name: '🔀 分頭行動開始',
-            desc: 'Team A 與 Team B 按興趣及帶娃需求分頭出發。',
-            address: '',
-            mapLink: '',
-            notes: '',
-          },
-          {
-            time: '10:15',
-            name: '🏰 Team B: 白色戀人工廠',
-            desc: '親仔組遊覽白色戀人工廠夢幻園區（歐式庭園、城堡鐘樓與童趣展覽）。',
-            address: '北海道札幌市西区宮の沢2条2丁目 11-36',
-            mapLink: 'https://maps.google.com/?q=Shiroi+Koibito+Park',
-            notes: '',
-          },
-          {
-            time: '10:30',
-            name: '🥃 Team A: 余市威士忌酒廠 (Nikka Whisky)',
-            desc: '品酒組搭乘 JR 函館本線前往余市蒸餾所，體驗日本威士忌發源地風采與試飲。',
-            address: '北海道余市郡余市町黒川町 7-6',
-            mapLink: 'https://maps.google.com/?q=Nikka+Whisky+Yoichi+Distillery',
-            notes: '🎟️ 提醒：需提前 1 個月搶票預約品鑑。',
-          },
-          {
-            time: '13:30',
-            name: '🤝 小樽站匯合與停車方案 (首選觀光車場 / 備選車場)',
-            desc: 'Team A 乘 JR 返回小樽站，與駕車抵達的 Team B 匯合。Alphard 建議停放於運河周邊大型露天平面停車場。',
+            desc: 'Team A 與 Team B 按興趣及帶娃需求分頭出發：',
             address: '',
             mapLink: '',
             notes: '',
             options: [
               {
-                badge: '👑 最推薦 (碼頭對面)',
+                badge: '🏰 Team B 帶娃親仔組',
+                title: '白色戀人工廠 (Shiroi Koibito Park)',
+                desc: '駕駛 Alphard 前往白色戀人工廠。遊玩後，經「札幌西 IC」上高速前往小樽。',
+                mapLink: 'https://maps.google.com/?q=Shiroi+Koibito+Park',
+                isPrimary: true
+              },
+              {
+                badge: '🥃 Team A 品酒組',
+                title: '余市威士忌酒廠 (Nikka Whisky Distillery)',
+                desc: '搭乘 JR 函館本線前往 Nikka Whisky Yoichi Distillery (余市威士忌酒廠) 進行品鑑。<br/>⚠️ <strong>預約提醒：需提前預約品鑑。</strong>',
+                mapLink: 'https://maps.google.com/?q=Nikka+Whisky+Yoichi+Distillery'
+              }
+            ]
+          },
+          {
+            time: '13:30',
+            name: '🤝 小樽匯合與停車方案',
+            desc: '13:30 Team A 乘 JR 返回小樽站，與 Team B 匯合。Alphard 停放於運河周邊大型露天 Times 停車場。',
+            address: '',
+            mapLink: '',
+            notes: '',
+            options: [
+              {
+                badge: '🅿️ 首選觀光車場 (碼頭對面)',
                 title: '小樽市觀光停車場 (小樽市観光駐車場)',
-                desc: '大型露天平面車場，緊鄰小樽運河遊覽船碼頭（步行僅 1 分鐘），車位極多，是首選停車點。',
+                desc: '大型露天平面車場，緊鄰小樽運河遊覽船碼頭（步行僅 1 分鐘），車位極多。',
                 mapLink: 'https://maps.google.com/?q=Otaru+City+Tourism+Parking',
                 isPrimary: true
               },
               {
-                badge: '🅿️ 備選 1 (倉庫旁)',
-                title: '三井 Repark 小樽運河倉庫第 1 / 第 2 停車場',
-                desc: '就在小樽市觀光停車場隔壁，也是露天平面車場，24 小時營業。',
-                mapLink: 'https://maps.google.com/?q=Mitsui+Repark+Otaru+Canal+Warehouse+Parking'
-              },
-              {
-                badge: '🅿️ 備選 2 (黃金中點)',
-                title: 'Times 小樽色內 1 丁目 (タイムズ小樽色内1丁目)',
-                desc: '位於色內銀行街幾何中心點。往北走 3 分鐘到運河，往南走 5 分鐘到堺町通，往西走 8 分鐘到「若鶏時代 なると 本店」。',
+                badge: '🅿️ 備選 Times 車場',
+                title: 'Times 小樽色內 1 丁目',
+                desc: '位於色內銀行街幾何中心點，往北 3 分鐘到運河，往西 8 分鐘到若鶏時代なると本店。',
                 mapLink: 'https://maps.google.com/?q=Times+Otaru+Ironai+1-chome'
               }
             ]
@@ -728,7 +728,7 @@ const ITINERARY = [
           {
             time: '14:00',
             name: '🚣‍♂️ 特色體驗：小樽運河遊覽船 (Otaru Canal Cruise)',
-            desc: '14:00–14:40 體驗 40 分鐘環河巡航，水面視角遠比岸上開闊，且能讓全員坐在船上休整，免去推車在石板路走動顛簸。',
+            desc: '14:00–14:40 體驗 40 分鐘環河巡航，水面視角極佳，推車可存放在售票處專用通道，提供中文語音講解。',
             address: '北海道小樽市港町 5-4',
             mapLink: 'https://maps.google.com/?q=Otaru+Canal+Cruise',
             notes: '',
@@ -747,58 +747,59 @@ const ITINERARY = [
           },
           {
             time: '14:45',
-            name: '🍰 堺町通漫步與 LeTAO 下午茶',
-            desc: '14:45–16:15 沿石板路漫步參觀玻璃工坊，前往 LeTAO 本店 3F 展望台看街景並享用雙層芝士蛋糕下午茶。',
-            address: '北海道小樽市堺町 7-16（LeTAO 本店）',
-            mapLink: 'https://maps.google.com/?q=LeTAO+Main+Store+Otaru',
+            name: '🍰 堺町通漫步與午後休整/打卡 (LeTAO 首選 / Cafe Baal 備選)',
+            desc: '14:45–16:15 沿堺町通商業街及小樽街區漫步休整：',
+            address: '',
+            mapLink: '',
             notes: '',
-          },
-          {
-            time: '16:30',
-            name: '🚗 運河沿岸散步與取車準備晚餐',
-            desc: '16:30–16:45 運河沿岸散步放風，前往 Times 停車場取車，準備前往晚餐。',
-            address: '北海道小樽市港町 5（Times 小樽運河前停車場）',
-            mapLink: 'https://maps.google.com/?q=Otaru+Canal+Times+Parking',
-            notes: '',
+            options: [
+              {
+                badge: '🍰 經典首選 (3F 展望台)',
+                title: 'LeTAO 本店 (雙層芝士蛋糕下午茶)',
+                desc: '前往 LeTAO 本店 3F 展望台看街景並享用雙層芝士蛋糕下午茶。',
+                mapLink: 'https://maps.google.com/?q=LeTAO+Main+Store+Otaru',
+                isPrimary: true
+              },
+              {
+                badge: '☕ 特色打卡 (高分咖啡館)',
+                title: 'Cafe Baal (小樽站/三角市場附近)',
+                desc: '位於小樽站/三角市場附近，招牌牛排丼、生義大利麵及咖啡甜點口碑極佳，氛圍舒適。',
+                mapLink: 'https://maps.google.com/?q=Cafe+Baal+Otaru'
+              }
+            ]
           },
           {
             time: '17:00',
-            name: '🍗 小樽晚宴方案：若鶏時代 なると 本店 (早去戰術 / 備選預案)',
-            desc: '【為什麼在小樽吃】：小樽百載名物「炸半雞定食」+ 鮮極壽司，在地體驗極強，自帶 21 車位免費專屬停車場，Alphard 隨到隨停。',
+            name: '🍗 小樽晚宴方案 (首選なると本店 / 備選預案)',
+            desc: '17:00–18:30 小樽晚宴多重精選方案：',
             address: '',
             mapLink: '',
             options: [
               {
-                badge: '首選戰術',
-                title: '若鶏時代 なると 本店 (早去免排隊)',
-                desc: '若提前電話未訂到位切勿放棄！店內有 270 席位絕大部分放現場。只需在 16:45–17:00 到店取號避開 17:30 高峰，通常等 5–15 分鐘即可入座榻榻米包廂。',
+                badge: '👑 首選戰術 (16:45-17:00 取號)',
+                title: '若鶏時代 なると 本店 (炸半雞定食與壽司)',
+                desc: '16:45–17:00 現場取號，享用炸半雞定食與壽司，避開 17:30 高峰。自帶 21 車位免費停車場。',
                 mapLink: 'https://maps.google.com/?q=Naruto+Main+Store+Otaru',
                 isPrimary: true
               },
               {
-                badge: '備選 1',
+                badge: '🍣 備選 1 (海景榻榻米包廂)',
                 title: '政寿司 ぜん庵 (Masazushi Zenan)',
-                desc: '小樽頂級海景壽司，位於運河邊，環境極佳有榻榻米，推車友好（建議提前官網預訂）。',
+                desc: '小樽頂級海景壽司，位於運河邊，榻榻米包廂極佳（建議提前官網預訂）。',
                 mapLink: 'https://maps.google.com/?q=Otaru+Masazushi+Zenan'
               },
               {
-                badge: '備選 2',
-                title: '小樽倉庫No.1 (Otaru Soko No.1)',
-                desc: '運河沿岸紅磚倉庫德式/和洋餐廳，空間極巨大推車暢行無阻，氣氛輕鬆不怕寶寶鬧，提供烤肉、海鮮丼與披薩。',
+                badge: '🍺 備選 2 (寬暢紅磚倉庫)',
+                title: '小樽倉庫 No.1 (Otaru Soko No.1)',
+                desc: '寬暢紅磚倉庫德式餐廳，空間極大推車暢行無阻，提供烤肉、海鮮與披薩。',
                 mapLink: 'https://maps.google.com/?q=Otaru+Soko+No.1'
-              },
-              {
-                badge: '備選 3',
-                title: '魚真 (Uomasa)',
-                desc: '本地高分海鮮居酒屋，榻榻米包廂寬敞，海鮮極鮮，自帶免費停車場。',
-                mapLink: 'https://maps.google.com/?q=Uomasa+Otaru'
               }
             ]
           },
           {
             time: '18:45',
             name: '🚗 高速返程：札樽自動車道返回札幌',
-            desc: '18:45 驅車經札樽自動車道（高速約 40 分鐘）返回札幌 FAV LUX 酒店入庫，寶寶可在車上完成夜間睡眠過渡。',
+            desc: '18:45 驅車經札樽自動車道（高速約 40 分鐘）返回札幌入住。',
             address: '',
             mapLink: '',
             notes: '',
@@ -809,47 +810,47 @@ const ITINERARY = [
       {
         date: '9/7',
         dayNum: 'Day 8',
-        title: '北海道神宮與場外海鮮',
-        summary: '北海道神宮 · 場外市場帝王蟹 · 狸小路',
+        title: '森林朝聖、海鮮激戰區與北海道頂級回轉壽司',
+        summary: '北海道神宮 · 場外市場帝王蟹 · Toriton 迴轉壽司',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
         activities: [
           {
             time: '09:15',
-            name: '⛩️ 神宮晨間禪意與現烤茶點輕早餐',
-            desc: '09:15 全家稍作整理出發避開高峰。驅車前往円山公園与北海道神宮，在參道樹蔭下慢逛散步，直接在神宮內的六花亭茶屋享用現烤名物「判官さま」配熱茶（表面金黃微焦的軟糯紅豆餅）作為輕早餐。',
+            name: '⛩️ 神宮森林朝聖与判官さま茶點',
+            desc: '09:15–10:45 駕車前往円山公園與北海道神宮。在神宮境內茶屋小坐，享用現烘名物「判官さま」糯米餅配熱茶，開啟輕盈晨間模式。',
             address: '北海道札幌市中央区宮ケ丘 474',
             mapLink: 'https://maps.google.com/?q=Hokkaido+Shrine',
             notes: '',
           },
           {
             time: '11:00',
-            name: '🚗 驅車前往場外市場停車場',
-            desc: '11:00 驅車 8 分鐘直達 札幌場外市場 (Sapporo Outer Market) 大型免費露天停車場。',
+            name: '🚗 直達札幌場外市場',
+            desc: '11:00 驅車 8 分鐘極效直達札幌場外市場（免費地面停車位充足）。',
             address: '北海道札幌市中央区北11条西21丁目 2-1（場外市場バス駐車場）',
             mapLink: 'https://maps.google.com/?q=Sapporo+Outer+Market+Bus+Parking',
             notes: '',
           },
           {
             time: '11:15',
-            name: '🦀 頂級海鮮與帝王蟹大餐 (首選 UME堂 / 備選 おもひで食堂)',
-            desc: '📍 位置說明：札幌場外市場店舖均集中在同一區塊，停好車後步行 1 分鐘均可到達。',
+            name: '🦀 頂級海鮮與帝王蟹主戰場 (UME堂首選 / おもひで食堂備選)',
+            desc: '11:15 札幌場外市場頂級海鮮體驗：',
             address: '',
             mapLink: '',
             notes: '',
             options: [
               {
-                badge: '🌟 首選名店 (9折券)',
+                badge: '🌟 首選戰術 (9折券)',
                 title: '根室杉山水産 UME堂 (うめぇ堂)',
-                desc: '根室 50 年水產老廠直營，現場挑選活帝王蟹/毛蟹，公開稱重當面蒸烤拆解，透明無宰客；店內平地無障礙，推車輕鬆推入。<br/>🎫 <strong>結帳出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener" style="color:#c0534a;text-decoration:underline;">樂吃購 9 折優惠券</a> 享專屬折扣！</strong>',
+                desc: '主打活蟹即選即烤，全平地空間極度推車友好。<br/>🎫 <strong>結帳出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener" style="color:#c0534a;text-decoration:underline;">樂吃購 9 折優惠券</a> 享專屬折扣！</strong>',
                 mapLink: 'https://maps.google.com/?q=Nemuro+Sugiyama+Suisan+Umedo+Sapporo',
                 isPrimary: true
               },
               {
-                badge: '🍣 備選名店 (Plan B)',
-                title: 'おもひで食堂 (北海道特産品銷售)',
-                desc: '同商圈緊鄰店舖，由活蟹直營工廠運營，內設 8 個大型活水槽。除活帝王蟹/毛蟹蒸烤外，還提供活生蠔/帆立貝刺身与鐵盒蒸海鮮，海鮮丼免費附贈螃蟹湯。1F 平地無障礙，若 UME 堂排隊可無縫切換。',
+                badge: '🍣 備選預案 (Plan B)',
+                title: 'おもひで食堂 (活蟹直營)',
+                desc: '活蟹商直營，鮮甜程度極高，點蟹免費贈送螃蟹味噌湯。',
                 mapLink: 'https://maps.google.com/?q=Omohide+Shokudo+Sapporo'
               }
             ]
@@ -857,7 +858,7 @@ const ITINERARY = [
           {
             time: '13:00',
             name: '🚗 返回酒店停放車輛',
-            desc: '驅車返回 FAV LUX 札幌酒店停車（前台掃碼享單次 24 小時優惠）。',
+            desc: '13:00 驅車返回 FAV LUX 札幌酒店停車（掃碼享單次 24 小時優惠）。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
             mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
             notes: '',
@@ -865,9 +866,17 @@ const ITINERARY = [
           {
             time: '13:30',
             name: '🛍️ 狸小路漫步与特色拿鐵外帶',
-            desc: '全員從酒店步行 3–5 分鐘無縫接入狸小路商店街与地下街 (Pole Town / Aurora Town) 慢逛採購。順路前往附近的 Baristart Coffee 外帶自選北海道牧場鮮奶（如美瑛/澤田農場 Jersey 純奶）特調拿鐵，推著推車邊走邊喝。',
+            desc: '13:30–16:00 全員從酒店步行 3–5 分鐘無縫接入狸小路商店街與地下街 (Pole Town / Aurora Town) 慢逛採購。順路前往附近的 Baristart Coffee 外帶自選北海道牧場鮮奶（如美瑛/澤田農場 Jersey 純奶）特調拿鐵，推著推車邊走邊喝。推車隨時可回酒店存放戰利品或讓寶寶休息。',
             address: '北海道札幌市中央区南4条西4丁目 1-2（Baristart Coffee）',
             mapLink: 'https://maps.google.com/?q=Baristart+Coffee+Sapporo',
+            notes: '',
+          },
+          {
+            time: '16:30',
+            name: '🍣 Toriton 旋轉壽司 錯峰王者戰術',
+            desc: '16:30–17:30 駕駛 Alphard 或打車前往 Toriton 旋轉壽司 (伏見店或豐平店)。<br/>💡 <strong>策略核心：</strong>此店作為北海道人氣首選，晚高峰排隊通常 1.5 小時起步。必須在 16:30 - 17:00 提前卡位，利用中午海鮮大餐後的餘熱進行輕量級晚晚餐，幾乎無需等位即可全家入座寬敞卡座，享受最高效率的舌尖洗禮！',
+            address: '北海道札幌市中央区南11条西19丁目 1-1（伏見店）',
+            mapLink: 'https://maps.google.com/?q=Toriton+Fushimi+Sapporo',
             notes: '',
           },
         ],
