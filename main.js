@@ -1208,9 +1208,30 @@ const ITINERARY = [
             time: '17:30',
             name: '🍽️ 晚間餐飲三套靈活預案',
             desc: '湯之川溫泉街周邊極少適合全家晚餐的餐廳，提供三套靈活方案：',
-            address: '北海道函館市宇賀浦町 14-4（函太郎 宇賀浦本店）',
-            mapLink: 'https://maps.google.com/?q=Kantaro+Sushi+Ugaura+Hakodate',
+            address: '',
+            mapLink: '',
             notes: '',
+            options: [
+              {
+                badge: '🍣 方案 A (海景迴轉壽司/首選)',
+                title: '函太郎 壽司 (宇賀浦本店)',
+                desc: '17:30 驅車 8 分鐘前往，緊鄰津輕海峽海景極美，卡座寬敞對推車極度友好。',
+                mapLink: 'https://maps.google.com/?q=Kantaro+Sushi+Ugaura+Hakodate',
+                isPrimary: true
+              },
+              {
+                badge: '🥩 方案 B (百年老店壽喜燒)',
+                title: '阿佐利 本店 (Asari Head Store)',
+                desc: '若飯店前台已協助代訂成功，18:00 驅車前往享用百年老字號黑毛和牛壽喜燒（獨立包廂）。',
+                mapLink: 'https://maps.google.com/?q=Asari+Sukiyaki+Hakodate'
+              },
+              {
+                badge: '🏪 方案 C (輕鬆外帶熟食)',
+                title: '湯之川 Convenience Store 外帶晚餐',
+                desc: '若不想出行，傍晚驅車前往湯之川 Lawson / Seicomart 採購北海道特色便當、炸雞與牛奶，在海景房內放鬆享用。',
+                mapLink: 'https://maps.google.com/?q=Lawson+Hakodate+Yunokawa'
+              }
+            ]
           },
         ],
       },
