@@ -27,11 +27,11 @@ const SUNSET_COORDS = {
 
 // 靜態回退值（萬一 API 掛了也有保底數據）
 const SUNSET_FALLBACK = {
-  '8/31': '18:06', '9/1': '18:04', '9/2': '18:03', '9/3': '18:01',
-  '9/4': '18:01', '9/5': '17:59', '9/6': '17:57', '9/7': '17:55',
-  '9/8': '17:52', '9/9': '17:51', '9/10': '17:51', '9/11': '17:49',
-  '9/12': '17:47', '9/13': '17:46', '9/14': '17:48', '9/15': '17:47',
-  '9/16': '17:45', '9/17': '17:44', '9/18': '17:42',
+  '8/31': '6:06 PM', '9/1': '6:04 PM', '9/2': '6:03 PM', '9/3': '6:01 PM',
+  '9/4': '6:01 PM', '9/5': '5:59 PM', '9/6': '5:57 PM', '9/7': '5:55 PM',
+  '9/8': '5:52 PM', '9/9': '5:51 PM', '9/10': '5:51 PM', '9/11': '5:49 PM',
+  '9/12': '5:47 PM', '9/13': '5:46 PM', '9/14': '5:48 PM', '9/15': '5:47 PM',
+  '9/16': '5:45 PM', '9/17': '5:44 PM', '9/18': '5:42 PM',
 };
 
 // API 動態緩存（先用靜態回退值填充，API 成功後會覆蓋）
@@ -40,16 +40,14 @@ Object.keys(SUNSET_COORDS).forEach(k => {
   SUNSET_TABLE[k] = { time: SUNSET_FALLBACK[k] || '--:--', city: SUNSET_COORDS[k].city };
 });
 
-// 將 "6:11:54 PM" 轉為 "18:11"
+// 將 "6:11:54 PM" 簡化格式為 "6:11 PM"
 function parseSunsetTime(str) {
   const match = str.match(/^(\d{1,2}):(\d{2}):\d{2}\s*(AM|PM)$/i);
   if (!match) return null;
-  let h = parseInt(match[1], 10);
+  const h = parseInt(match[1], 10);
   const m = match[2];
   const ampm = match[3].toUpperCase();
-  if (ampm === 'PM' && h !== 12) h += 12;
-  if (ampm === 'AM' && h === 12) h = 0;
-  return `${String(h).padStart(2, '0')}:${m}`;
+  return `${h}:${m} ${ampm}`;
 }
 
 // 按需獲取單日日落時間（展開那天才 fetch，緩存後不重複請求）
@@ -95,7 +93,7 @@ const ITINERARY = [
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
-            time: '13:35',
+            time: '1:35 PM',
             name: '✈️ 抵達羽田機場 (HND)',
             desc: '搭乘 NH 7545 抵達。完成入關與行李提取（預計需 1.5 小時）。',
             address: '',
@@ -103,15 +101,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '15:00',
+            time: '3:00 PM',
             name: '🚌 搭機場大巴前往涉谷',
-            desc: '購買 15:15 或 15:45 班次的機場巴士，目的地：涉谷 (Shibuya)。',
+            desc: '購買 3:15 PM 或 3:45 PM 班次的機場巴士，目的地：涉谷 (Shibuya)。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '16:00',
+            time: '4:00 PM',
             name: '🏨 抵達涉谷站 · 步行至酒店',
             desc: '在涉谷 Fukuras 下車，通過無障礙人行天橋直達 Sakura Stage 的 Hyatt House 酒店，推行李約 5 分鐘可達。',
             address: '渋谷区桜丘町 1-4（Hyatt House Tokyo Shibuya）',
@@ -119,7 +117,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:30',
+            time: '4:30 PM',
             name: '🛎️ 辦理入住，安頓行李',
             desc: '',
             address: '',
@@ -127,15 +125,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:15',
+            time: '5:15 PM',
             name: '🍽️ 錯峰晚餐：つるとんたん 烏冬麵 (Scramble Square 13F)',
-            desc: '17:15 避開晚高峰，前往涉谷站 Scramble Square 13F 享用知名名店「つるとんたん (TsuruTonTan)」創意大碗烏冬麵。電梯直達 13F 全程平路，麵質軟爛適合寶寶，兼具高空景色。',
+            desc: '5:15 PM 避開晚高峰，前往涉谷站 Scramble Square 13F 享用知名名店「つるとんたん (TsuruTonTan)」創意大碗烏冬麵。電梯直達 13F 全程平路，麵質軟爛適合寶寶，兼具高空景色。',
             address: '東京都渋谷区渋谷 2-24-12（渋谷スクランブルスクエア 13F）',
             mapLink: 'https://maps.google.com/?q=Tsurutontan+UDON+NOODLE+Brasserie+Shibuya',
             notes: '',
           },
           {
-            time: '18:00',
+            time: '6:00 PM',
             name: '🌆 Fukuras 17F 屋頂花園（SHIBU NIWA）',
             desc: '坐直梯至酒店天橋對面的 Fukuras 17F 屋頂花園。免費入場、無需預約、嬰兒車可直達，可俯瞰涉谷十字路口夜景。',
             address: '東京都渋谷区道玄坂 1-2-3 渋谷フクラス 17F',
@@ -143,7 +141,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '19:00',
+            time: '7:00 PM',
             name: '🛒 MEGA Don Quijote 涉谷本店',
             desc: '前往採購首日嬰兒用品與生活補給（尿布、零食、飲料等）。',
             address: '東京都渋谷区宇田川町 28-6',
@@ -151,7 +149,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '20:30',
+            time: '8:30 PM',
             name: '🌙 返回酒店休息',
             desc: '早些休息，適應時差，為明天做好準備。',
             address: '',
@@ -183,15 +181,15 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '09:15',
+            time: '9:15 AM',
             name: '🚇 避開早高峰：搭乘銀座線前往淺草站',
-            desc: '09:15 之後搭乘地鐵銀座線前往淺草站，徹底避開地鐵通勤人潮。<br/>🎫 <strong>提示：本日有預訂傳統服飾拍照及化妝 (Klook 預訂)。</strong>',
+            desc: '9:15 AM 之後搭乘地鐵銀座線前往淺草站，徹底避開地鐵通勤人潮。<br/>🎫 <strong>提示：本日有預訂傳統服飾拍照及化妝 (Klook 預訂)。</strong>',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '⛩️ 雷門・淺草寺',
             desc: '抵達雷門，走仲見世通旁邊的平行街道避開密集人流。',
             address: '東京都台東区浅草 2-3-1',
@@ -209,37 +207,37 @@ const ITINERARY = [
                 '寶藏門・五重塔 — 進入本堂前的巨大山門，塔高 53 公尺可遠眺',
                 '淺草神社（三社祭本社）— 緊鄰淺草寺，安靜清幽，遊客少',
               ],
-              tip: '💡 10:00 前到達人最少。推車建議走仲見世通側邊的平行小街，寬敞舒適。',
+              tip: '💡 10:00 AM 前到達人最少。推車建議走仲見世通側邊的平行小街，寬敞舒適。',
             },
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🍱 錯峰午餐：Tokyo Mizumachi 沿河餐廳',
-            desc: '準時於 11:15 入座 Tokyo Mizumachi 沿河餐廳（錯開正午就餐高峰），推車可直接推入桌旁。',
+            desc: '準時於 11:15 AM 入座 Tokyo Mizumachi 沿河餐廳（錯開正午就餐高峰），推車可直接推入桌旁。',
             address: '東京都墨田区向島 1 丁目（Tokyo Mizumachi）',
             mapLink: 'https://maps.google.com/?q=Tokyo+Mizumachi+Asakusa',
             notes: '',
           },
           {
-            time: '12:30',
+            time: '12:30 PM',
             name: '☕ 河畔慢逛與寶寶推車小憩',
-            desc: '12:30–13:45 沿隅田公園及 Mizumachi 散步至晴空塔下。路面極為平整，非常適合寶寶在推車內睡下午覺，大人可在沿岸咖啡館休整。',
+            desc: '12:30 PM–1:45 PM 沿隅田公園及 Mizumachi 散步至晴空塔下。路面極為平整，非常適合寶寶在推車內睡下午覺，大人可在沿岸咖啡館休整。',
             address: '東京都墨田区向島 1 丁目（隅田公園）',
             mapLink: 'https://maps.google.com/?q=Sumida+Park+Tokyo',
             notes: '',
           },
           {
-            time: '13:45',
+            time: '1:45 PM',
             name: '🚃 錯峰移動：前往原宿/明治神宮',
-            desc: '13:45–14:30 乘地鐵（銀座線至表參道，約 20 分鐘一車直達）或 GO App 打車前往原宿/明治神宮，避開晚高峰。',
+            desc: '1:45 PM–2:30 PM 乘地鐵（銀座線至表參道，約 20 分鐘一車直達）或 GO App 打車前往原宿/明治神宮，避開晚高峰。',
             address: '東京都渋谷区神宮前 1 丁目（JR 原宿站 表參道口）',
             mapLink: 'https://maps.google.com/?q=Harajuku+Station+Omotesando+Exit',
             notes: '',
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '🌿 明治神宮 (南參道入口 · 原宿口)',
-            desc: '14:30–16:30 由原宿南參道入口進入（路面最平坦無台階），漫步參拜，時間充裕且採光極佳。',
+            desc: '2:30 PM–4:30 PM 由原宿南參道入口進入（路面最平坦無台階），漫步參拜，時間充裕且採光極佳。',
             address: '東京都渋谷区代々木神園町 1-1（明治神宮 南參道鳥居・原宿口）',
             mapLink: 'https://maps.google.com/?q=Meiji+Jingu+Harajuku+Entrance',
             notes: '',
@@ -258,17 +256,17 @@ const ITINERARY = [
             },
           },
           {
-            time: '16:30',
+            time: '4:30 PM',
             name: '🛍️ 表參道/原宿區域輕鬆慢逛',
-            desc: '16:30–17:30 在表參道/原宿區域輕鬆慢逛。17:30 晚高峰前 GO App 打車返回酒店或就近晚餐。',
+            desc: '4:30 PM–5:30 PM 在表參道/原宿區域輕鬆慢逛。5:30 PM 晚高峰前 GO App 打車返回酒店或就近晚餐。',
             address: '東京都渋谷区神宮前',
             mapLink: 'https://maps.google.com/?q=Omotesando+Harajuku+Tokyo',
             notes: '',
           },
           {
-            time: '17:30',
+            time: '5:30 PM',
             name: '🍽️ 原宿/涉谷 Tabelog 嚴選晚宴 (包廂/推車/多人家宴)',
-            desc: '17:30–19:30 避開地鐵晚高峰，精選 3 家高分 (Tabelog 3.5+)、空間寬敞、對推車與寶寶極友善的餐廳：',
+            desc: '5:30 PM–7:30 PM 避開地鐵晚高峰，精選 3 家高分 (Tabelog 3.5+)、空間寬敞、對推車與寶寶極友善的餐廳：',
             address: '',
             mapLink: '',
             notes: '',
@@ -289,7 +287,7 @@ const ITINERARY = [
               {
                 badge: '🍱 標誌性老店炸豬排 (Tabelog 3.59)',
                 title: '舞泉豬排 表參道本店 (Maisen Omotesando)',
-                desc: '位於表參道巷內，由舊錢湯改建的歷史名店。空間寬敞且設有包廂/和室，提供軟爛蒸蛋與嬰兒餐具，推車出入方便。<br/>⚠️ <strong>預約需求：建議提前預訂二樓包廂或 17:30 錯峰用餐。</strong>',
+                desc: '位於表參道巷內，由舊錢湯改建的歷史名店。空間寬敞且設有包廂/和室，提供軟爛蒸蛋與嬰兒餐具，推車出入方便。<br/>⚠️ <strong>預約需求：建議提前預訂二樓包廂或 5:30 PM 錯峰用餐。</strong>',
                 mapLink: 'https://maps.google.com/?q=Tonkatsu+Maisen+Aoyama'
               }
             ]
@@ -307,7 +305,7 @@ const ITINERARY = [
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
-            time: '08:30',
+            time: '8:30 AM',
             name: '🌅 舒緩起床與悠閒早餐',
             desc: '全家不設過早鬧鐘，於酒店內或附近咖啡廳悠閒早餐、喂奶及處理寶寶護理。',
             address: '',
@@ -315,7 +313,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '10:15',
+            time: '10:15 AM',
             name: '🚕 打車直達新豐洲',
             desc: '從涉谷 Hyatt House 叫車前往 Shin-Toyosu（新豐洲），車程約 20–25 分鐘，費用約 ¥4,000。',
             address: '',
@@ -323,9 +321,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:00',
+            time: '11:00 AM',
             name: '🌊 teamLab Planets TOKYO（豐洲・涉水版）',
-            desc: '參觀水上沉浸式光影展，建議預約 11:00 場次。',
+            desc: '參觀水上沉浸式光影展，建議預約 11:00 AM 場次。',
             address: '東京都江東区豊洲 6-1-16',
             mapLink: 'https://maps.google.com/?q=teamLab+Planets+Tokyo+Toyosu',
             notes: '⚠️ 水區提示：館內有水深至小腿處展區（人造溪流）需赤腳行走。請備好小毛巾，大人可將褲管捲起。',
@@ -344,7 +342,7 @@ const ITINERARY = [
             },
           },
           {
-            time: '13:15',
+            time: '1:15 PM',
             name: '🍱 豐洲千客萬來・江戶美食街',
             desc: '打車 3 分鐘或步行前往「豐洲千客萬來」，享用錯峰午餐（海鮮丼、鰻魚飯或日式定食）。餐後乘直梯上 8F 免費足湯庭園遠眺海景。',
             address: '東京都江東区豊洲 6-5-1',
@@ -352,7 +350,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '14:45',
+            time: '2:45 PM',
             name: '🏬 LaLaport 豐洲海濱公園',
             desc: '移步至相鄰的 Urban Dock LaLaport 豐洲，利用頂配母嬰室洗漱休整，大人在沿海咖啡廳小憩，寶寶可在推車內做下午覺。',
             address: '東京都江東区豊洲 2-4-9',
@@ -360,7 +358,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:30',
+            time: '4:30 PM',
             name: '🚕 晚高峰前打車返回',
             desc: '叫車返回涉谷 Hyatt House 休息。',
             address: '',
@@ -379,7 +377,7 @@ const ITINERARY = [
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         activities: [
           {
-            time: '09:15',
+            time: '9:15 AM',
             name: '🚃 避開早高峰・一車直達 (JR 湘南新宿線)',
             desc: '從「涉谷站」搭乘 JR 湘南新宿線 (往逗子方向)，一車直達「鎌倉站」（約 52 分鐘，無需換乘）。',
             address: 'JR 涉谷站',
@@ -387,9 +385,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '10:15',
+            time: '10:15 AM',
             name: '⛩️ 抵達鎌倉站 · 小町通與鶴岡八幡宮漫步',
-            desc: '10:15 抵達鎌倉站。步行漫步小町通 (Komachi-dori) 嚐古風小吃，順路遊覽鶴岡八幡宮。',
+            desc: '10:15 AM 抵達鎌倉站。步行漫步小町通 (Komachi-dori) 嚐古風小吃，順路遊覽鶴岡八幡宮。',
             address: '神奈川県鎌倉市小町 1 丁目（小町通）',
             mapLink: 'https://maps.google.com/?q=Komachi-dori+Kamakura',
             notes: '',
@@ -403,11 +401,11 @@ const ITINERARY = [
                 '舞殿與大石段 — 鶴岡八幡宮地標大石階，可遠眺整條若宮大路參道',
                 '神池與段葛 — 參道中央植滿櫻花與杜鵑的段葛步道，古意盎然',
               ],
-              tip: '💡 小町通上午 10:00 後店家陸續開門，此時遊人相對較少最舒適。',
+              tip: '💡 小町通上午 10:00 AM 後店家陸續開門，此時遊人相對較少最舒適。',
             },
           },
           {
-            time: '11:30',
+            time: '11:30 AM',
             name: '🍱 錯峰午餐 (榻榻米庭園和食)',
             desc: '在鎌倉站 / 小町通周邊享用榻榻米 (Tatami) 庭園和食，方便將寶寶抱下地休息。',
             address: '神奈川県鎌倉市小町周邊',
@@ -415,7 +413,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '13:00',
+            time: '1:00 PM',
             name: '🚕 🚊 極效移動：打車避暑 或 體驗江之電',
             desc: '【選項 A（打車避暑）】：於鎌倉站叫計程車 (Taxi，約 10 分鐘 / 1,500 日元直達高德院門前)。\n【選項 B（江之電）】：搭乘「江之電」至「長谷站」（3 站約 6 分鐘）後步行 7 分鐘直達高德院 (鎌倉大佛)。',
             address: '神奈川県鎌倉市長谷 4-2-28 (高德院)',
@@ -423,9 +421,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '13:15',
+            time: '1:15 PM',
             name: '🗿 鎌倉大佛 (高德院) 與 長谷寺海景',
-            desc: '13:15–14:30 參拜觀賞露天青銅大佛，隨後步行 5 分鐘前往長谷寺 (Hasedera)（推車停門口，換背帶登階梯俯瞰相模灣海景）。',
+            desc: '1:15 PM–2:30 PM 參拜觀賞露天青銅大佛，隨後步行 5 分鐘前往長谷寺 (Hasedera)（推車停門口，換背帶登階梯俯瞰相模灣海景）。',
             address: '神奈川県鎌倉市長谷 3-11-2 (長谷寺)',
             mapLink: 'https://maps.google.com/?q=Hasedera+Temple+Kamakura',
             notes: '⚠️ 推車提示：高德院平坦可推車；長谷寺登高俯瞰海景需推車停門口，換背帶登階梯。',
@@ -444,7 +442,7 @@ const ITINERARY = [
             },
           },
           {
-            time: '14:45',
+            time: '2:45 PM',
             name: '🏀 江之電經典海岸線与灌籃高手平交道',
             desc: '於長谷站搭乘「江之電」電車（4 站約 10 分鐘）直達 鎌倉高校前站，拍照打卡《灌籃高手》經典平交道與海景。',
             address: '神奈川県鎌倉市腰越 1-1（鎌倉高校前平交道）',
@@ -459,11 +457,11 @@ const ITINERARY = [
                 '經典平交道拍照 — 站在行人安全區域，等候江之電電車經過與大海同框',
                 '七里濱海岸線散步 — 沿海沙灘步道，遠眺江之島與湘南波浪',
               ],
-              tip: '💡 請勿站在車道上拍照，注意避讓交通。下午 15:00–16:00 順光海景拍照最藍！',
+              tip: '💡 請勿站在車道上拍照，注意避讓交通。下午 3:00 PM–4:00 PM 順光海景拍照最藍！',
             },
           },
           {
-            time: '16:10',
+            time: '4:10 PM',
             name: '🍮 極效順路：江之島布丁 (Enoshima Pudding)',
             desc: '繼續搭乘江之電（2 站約 5 分鐘）至 江之島站 (Enoshima Station)，出站步行 4 分鐘至 江之島布丁 (Enoshima Pudding / 江の島プリン) 享用獨家大麥布丁與軟冰淇淋。',
             address: '神奈川県藤沢市片瀬海岸 1-11-27',
@@ -471,7 +469,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:45',
+            time: '4:45 PM',
             name: '🚟 特色體驗：湘南懸空單軌電車 (Shonan Monorail)',
             desc: '步行 2 分鐘至隔壁【湘南江之島站】，搭乘懸掛式單軌電車前往【大船站】(Ofuna Station)（約 14 分鐘）。',
             address: '神奈川県藤沢市片瀬 3-15-1 (湘南江の島駅)',
@@ -490,7 +488,7 @@ const ITINERARY = [
             },
           },
           {
-            time: '17:15',
+            time: '5:15 PM',
             name: '🚆 一車直達回涉谷 (JR 湘南新宿線)',
             desc: '於大船站無縫換乘 JR 湘南新宿線（約 40 分鐘，一車直達）返回涉谷站。',
             address: 'JR 大船站',
@@ -498,9 +496,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '18:15',
+            time: '6:15 PM',
             name: '🏨 返抵涉谷 Hyatt House 徹底休息蓄能',
-            desc: '18:15 返抵涉谷 Hyatt House 徹底休息蓄能，準備明天 (Day 5) 全家行李大轉運飛往北海道。',
+            desc: '6:15 PM 返抵涉谷 Hyatt House 徹底休息蓄能，準備明天 (Day 5) 全家行李大轉運飛往北海道。',
             address: '東京都渋谷区桜丘町 1-4（Hyatt House Tokyo Shibuya）',
             mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya',
             notes: '',
@@ -528,7 +526,7 @@ const ITINERARY = [
         driving: { distance: '約 45 公里 / 50 分鐘', route: '道央自動車道', rest: null, tips: ['夜間取車注意控制車速，機場周邊道路較暗', '停 Paraca 時注意不要誤入機械立體車位（Alphard 車高 1.95m）'] },
         activities: [
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🏨 涉谷退房與移動',
             desc: '辦理退房，推大行李經由人行天橋步行至涉谷站 (Shibuya Fukuras) 乘車點。',
             address: '',
@@ -536,7 +534,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:45',
+            time: '11:45 AM',
             name: '🚌 搭機場大巴前往羽田',
             desc: '乘坐由酒店前台代訂好的機場巴士直達羽田機場 (HND)。',
             address: '',
@@ -544,7 +542,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '12:30',
+            time: '12:30 PM',
             name: '✈️ 羽田抵達與大件行李托運',
             desc: '抵達羽田機場，前往 JAL First Class 專屬櫃台優先托運大件行李。',
             address: '',
@@ -552,7 +550,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '13:00',
+            time: '1:00 PM',
             name: '🍱 JAL Diamond Premier Lounge 休息',
             desc: '在休息室享用咖哩包和輕食，全員充能休息。',
             address: '',
@@ -560,7 +558,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:40',
+            time: '4:40 PM',
             name: '🛫 飛往新千歲 (CTS)',
             desc: '搭乘 JAL 523 航班飛往新千歲機場。',
             address: '',
@@ -568,7 +566,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '18:20',
+            time: '6:20 PM',
             name: '🛬 抵達新千歲 · 提取行李',
             desc: '抵達新千歲機場，完成行李提取流程。',
             address: '北海道千歳市美々（新千歲機場）',
@@ -576,7 +574,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '19:15',
+            time: '7:15 PM',
             name: '🚌 前往豐田租車營業所',
             desc: '全員直接前往 1F 豐田租車櫃台，搭乘免費接駁車前往營業所。',
             address: '北海道千歳市美々（新千歲機場 1F 豐田租車櫃台）',
@@ -585,7 +583,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '20:00',
+            time: '8:00 PM',
             name: '🚗 辦理取車手續 (Toyota Rent-a-Car)',
             desc: '核對 W3 級 Alphard、確認 1 個安全座椅、現場辦理 ETC 卡租借與 HEP 通行證。',
             address: '北海道千歳市美々 758-134（Toyota Rent a Car Poplar）',
@@ -593,7 +591,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '21:00',
+            time: '9:00 PM',
             name: '🏨 驅車抵達札幌 · 入住 FAV LUX 札幌',
             desc: '驅車前往札幌市區，辦理入住。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
@@ -613,7 +611,7 @@ const ITINERARY = [
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['Paraca 折扣券為一次性出庫券，停回後全家步行'] },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🛒 Ario 札幌母嬰補給',
             desc: '驅車前往 Ario 札幌（出示烤肉消費憑證享免費停車）。在商場內阿卡醬本鋪 (Akachan Honpo) 集中採購輔食與紙尿褲，採購完畢直接放回車內。',
             address: '北海道札幌市東区北7条東9丁目 2-20',
@@ -621,7 +619,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🥩 成吉思汗錯峰開門殺：札幌啤酒博物館',
             desc: '准時進入 Sapporo Beer Museum (札幌啤酒博物館) 享用已預訂的烤肉午餐。',
             address: '北海道札幌市東区北7条東9丁目 2-10',
@@ -629,7 +627,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '15:00',
+            time: '3:00 PM',
             name: '🚗 回酒店休整与寶寶睡眠',
             desc: '返回 FAV LUX 札幌酒店停車，回房間休整，讓寶寶睡高品質下午覺。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
@@ -637,9 +635,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:45',
+            time: '5:45 PM',
             name: '🍲 湯咖哩晚餐 (Sho-rin 首選 / RAMAI 備選)',
-            desc: '17:45 步行前往薄野核心區享用經典湯咖哩：',
+            desc: '5:45 PM 步行前往薄野核心區享用經典湯咖哩：',
             address: '',
             mapLink: '',
             notes: '',
@@ -660,7 +658,7 @@ const ITINERARY = [
             ]
           },
           {
-            time: '19:30',
+            time: '7:30 PM',
             name: '🍰 薄野罐裝蛋糕宵夜',
             desc: '飯後散步前往薄野 Pâtisserie OKASHI GAKU 自動販賣機購買罐裝蛋糕作宵夜。',
             address: '北海道札幌市中央区南4条西2丁目 10-17',
@@ -680,7 +678,7 @@ const ITINERARY = [
         driving: { distance: '單程約 40 公里 / 45 分鐘', route: '札樽自動車道', rest: null, tips: ['札樽高速沿海路段側風較大，雙手穩住方向盤', '若鶏時代なると本店自帶 21 車位免費車場，小樽運河 Times 車位充足'] },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🔀 分頭行動開始',
             desc: 'Team A 與 Team B 按興趣及帶娃需求分頭出發：',
             address: '',
@@ -703,9 +701,9 @@ const ITINERARY = [
             ]
           },
           {
-            time: '13:30',
+            time: '1:30 PM',
             name: '🤝 小樽匯合與停車方案',
-            desc: '13:30 Team A 乘 JR 返回小樽站，與 Team B 匯合。Alphard 停放於運河周邊大型露天 Times 停車場。',
+            desc: '1:30 PM Team A 乘 JR 返回小樽站，與 Team B 匯合。Alphard 停放於運河周邊大型露天 Times 停車場。',
             address: '',
             mapLink: '',
             notes: '',
@@ -726,9 +724,9 @@ const ITINERARY = [
             ]
           },
           {
-            time: '14:00',
+            time: '2:00 PM',
             name: '🚣‍♂️ 特色體驗：小樽運河遊覽船 (Otaru Canal Cruise)',
-            desc: '14:00–14:40 體驗 40 分鐘環河巡航，水面視角極佳，推車可存放在售票處專用通道，提供中文語音講解。',
+            desc: '2:00 PM–2:40 PM 體驗 40 分鐘環河巡航，水面視角極佳，推車可存放在售票處專用通道，提供中文語音講解。',
             address: '北海道小樽市港町 5-4',
             mapLink: 'https://maps.google.com/?q=Otaru+Canal+Cruise',
             notes: '',
@@ -742,13 +740,13 @@ const ITINERARY = [
                 '中央橋與淺草橋巡航 — 穿過小樽運河最精華的兩座古橋',
                 '中文語音講解 — 提供中文語音導覽，深度了解小樽港開埠歷史',
               ],
-              tip: '💡 推車可免費寄存在售票處專用通道。建議提前預約 14:00 班次，光線最柔和！',
+              tip: '💡 推車可免費寄存在售票處專用通道。建議提前預約 2:00 PM 班次，光線最柔和！',
             },
           },
           {
-            time: '14:45',
+            time: '2:45 PM',
             name: '🍰 堺町通漫步與午後休整/打卡 (LeTAO 首選 / Cafe Baal 備選)',
-            desc: '14:45–16:15 沿堺町通商業街及小樽街區漫步休整：',
+            desc: '2:45 PM–4:15 PM 沿堺町通商業街及小樽街區漫步休整：',
             address: '',
             mapLink: '',
             notes: '',
@@ -769,16 +767,16 @@ const ITINERARY = [
             ]
           },
           {
-            time: '17:00',
+            time: '5:00 PM',
             name: '🍗 小樽晚宴方案 (首選なると本店 / 備選預案)',
-            desc: '17:00–18:30 小樽晚宴多重精選方案：',
+            desc: '5:00 PM–6:30 PM 小樽晚宴多重精選方案：',
             address: '',
             mapLink: '',
             options: [
               {
-                badge: '👑 首選戰術 (16:45-17:00 取號)',
+                badge: '👑 首選戰術 (4:45 PM-5:00 PM 取號)',
                 title: '若鶏時代 なると 本店 (炸半雞定食與壽司)',
-                desc: '16:45–17:00 現場取號，享用炸半雞定食與壽司，避開 17:30 高峰。自帶 21 車位免費停車場。',
+                desc: '4:45 PM–5:00 PM 現場取號，享用炸半雞定食與壽司，避開 5:30 PM 高峰。自帶 21 車位免費停車場。',
                 mapLink: 'https://maps.google.com/?q=Naruto+Main+Store+Otaru',
                 isPrimary: true
               },
@@ -797,9 +795,9 @@ const ITINERARY = [
             ]
           },
           {
-            time: '18:45',
+            time: '6:45 PM',
             name: '🚗 高速返程：札樽自動車道返回札幌',
-            desc: '18:45 驅車經札樽自動車道（高速約 40 分鐘）返回札幌入住。',
+            desc: '6:45 PM 驅車經札樽自動車道（高速約 40 分鐘）返回札幌入住。',
             address: '',
             mapLink: '',
             notes: '',
@@ -817,25 +815,25 @@ const ITINERARY = [
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
         activities: [
           {
-            time: '09:15',
+            time: '9:15 AM',
             name: '⛩️ 神宮森林朝聖与判官さま茶點',
-            desc: '09:15–10:45 駕車前往円山公園與北海道神宮。在神宮境內茶屋小坐，享用現烘名物「判官さま」糯米餅配熱茶，開啟輕盈晨間模式。',
+            desc: '9:15 AM–10:45 AM 駕車前往円山公園與北海道神宮。在神宮境內茶屋小坐，享用現烘名物「判官さま」糯米餅配熱茶，開啟輕盈晨間模式。',
             address: '北海道札幌市中央区宮ケ丘 474',
             mapLink: 'https://maps.google.com/?q=Hokkaido+Shrine',
             notes: '',
           },
           {
-            time: '11:00',
+            time: '11:00 AM',
             name: '🚗 直達札幌場外市場',
-            desc: '11:00 驅車 8 分鐘極效直達札幌場外市場（免費地面停車位充足）。',
+            desc: '11:00 AM 驅車 8 分鐘極效直達札幌場外市場（免費地面停車位充足）。',
             address: '北海道札幌市中央区北11条西21丁目 2-1（場外市場バス駐車場）',
             mapLink: 'https://maps.google.com/?q=Sapporo+Outer+Market+Bus+Parking',
             notes: '',
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🦀 頂級海鮮與帝王蟹主戰場 (UME堂首選 / おもひで食堂備選)',
-            desc: '11:15 札幌場外市場頂級海鮮體驗：',
+            desc: '11:15 AM 札幌場外市場頂級海鮮體驗：',
             address: '',
             mapLink: '',
             notes: '',
@@ -856,25 +854,25 @@ const ITINERARY = [
             ]
           },
           {
-            time: '13:00',
+            time: '1:00 PM',
             name: '🚗 返回酒店停放車輛',
-            desc: '13:00 驅車返回 FAV LUX 札幌酒店停車（掃碼享單次 24 小時優惠）。',
+            desc: '1:00 PM 驅車返回 FAV LUX 札幌酒店停車（掃碼享單次 24 小時優惠）。',
             address: '北海道札幌市中央区南3条西7丁目 13-1',
             mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo',
             notes: '',
           },
           {
-            time: '13:30',
+            time: '1:30 PM',
             name: '🛍️ 狸小路漫步与特色拿鐵外帶',
-            desc: '13:30–16:00 全員從酒店步行 3–5 分鐘無縫接入狸小路商店街與地下街 (Pole Town / Aurora Town) 慢逛採購。順路前往附近的 Baristart Coffee 外帶自選北海道牧場鮮奶（如美瑛/澤田農場 Jersey 純奶）特調拿鐵，推著推車邊走邊喝。推車隨時可回酒店存放戰利品或讓寶寶休息。',
+            desc: '1:30 PM–4:00 PM 全員從酒店步行 3–5 分鐘無縫接入狸小路商店街與地下街 (Pole Town / Aurora Town) 慢逛採購。順路前往附近的 Baristart Coffee 外帶自選北海道牧場鮮奶（如美瑛/澤田農場 Jersey 純奶）特調拿鐵，推著推車邊走邊喝。推車隨時可回酒店存放戰利品或讓寶寶休息。',
             address: '北海道札幌市中央区南4条西4丁目 1-2（Baristart Coffee）',
             mapLink: 'https://maps.google.com/?q=Baristart+Coffee+Sapporo',
             notes: '',
           },
           {
-            time: '16:30',
+            time: '4:30 PM',
             name: '🍣 Toriton 旋轉壽司 錯峰王者戰術',
-            desc: '16:30–17:30 駕駛 Alphard 或打車前往 Toriton 旋轉壽司 (伏見店或豐平店)。<br/>💡 <strong>策略核心：</strong>此店作為北海道人氣首選，晚高峰排隊通常 1.5 小時起步。必須在 16:30 - 17:00 提前卡位，利用中午海鮮大餐後的餘熱進行輕量級晚晚餐，幾乎無需等位即可全家入座寬敞卡座，享受最高效率的舌尖洗禮！',
+            desc: '4:30 PM–5:30 PM 駕駛 Alphard 或打車前往 Toriton 旋轉壽司 (伏見店或豐平店)。<br/>💡 <strong>策略核心：</strong>此店作為北海道人氣首選，晚高峰排隊通常 1.5 小時起步。必須在 4:30 PM - 5:00 PM 提前卡位，利用中午海鮮大餐後的餘熱進行輕量級晚晚餐，幾乎無需等位即可全家入座寬敞卡座，享受最高效率的舌尖洗禮！',
             address: '北海道札幌市中央区南11条西19丁目 1-1（伏見店）',
             mapLink: 'https://maps.google.com/?q=Toriton+Fushimi+Sapporo',
             notes: '',
@@ -897,7 +895,7 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '08:30',
+            time: '8:30 AM',
             name: '🏨 札幌退房与驅車出發',
             desc: '札幌退房，滿載行李驅車前往美瑛（總車程約 2.5 小時）。',
             address: '',
@@ -905,7 +903,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '09:30',
+            time: '9:30 AM',
             name: '☕ 砂川高速綠洲短休 (Sunagawa Highway Oasis)',
             desc: '行駛約 1 小時後，停靠砂川高速綠洲休息區，全員伸展休整、補給水份。',
             address: '北海道砂川市北光 102',
@@ -913,7 +911,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:00',
+            time: '11:00 AM',
             name: '🌊 白金青池与白須瀑布',
             desc: '遊覽夢幻「白金青池」与磅礴「白須瀑布」。',
             address: '北海道上川郡美瑛町白金（白金青池）',
@@ -921,15 +919,15 @@ const ITINERARY = [
             notes: '⚠️ 路況提示：青池沿湖步道多為泥土與樹根，強烈建議使用嬰兒背帶代替推車。',
           },
           {
-            time: '13:30',
+            time: '1:30 PM',
             name: '🍱 美瑛町內錯峰午餐',
-            desc: '13:30 之後在美瑛町內享用午餐，避開中午排隊高峰。',
+            desc: '1:30 PM 之後在美瑛町內享用午餐，避開中午排隊高峰。',
             address: '北海道上川郡美瑛町',
             mapLink: 'https://maps.google.com/?q=Biei+Town',
             notes: '',
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '🐄 美瑛放牧酪農場 (Biei Farm)',
             desc: '驅車 10 分鐘前往美瑛放牧酪農場。在起伏的綠丘中觀賞牛群，享用鮮牛奶和軟冰淇淋。',
             address: '北海道上川郡美瑛町新田 第1',
@@ -937,7 +935,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '15:30',
+            time: '3:30 PM',
             name: '🌸 四季彩之丘花海巡游',
             desc: '順路前往四季彩之丘，租用拖拉機巴士巡游彩虹花海（預留 1.5 小時，時間充裕）。',
             address: '北海道上川郡美瑛町新星 第三',
@@ -945,7 +943,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:45',
+            time: '4:45 PM',
             name: '🚗 離開美瑛南下富良野',
             desc: '驅車半小時南下前往富良野。',
             address: '',
@@ -953,7 +951,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:15',
+            time: '5:15 PM',
             name: '🏨 入住 Fenix West 卸行李',
             desc: '抵達富良野，至 Fenix West 辦理 Check-in 卸下行李。',
             address: '北海道富良野市北の峰町 14-38（Fenix West）',
@@ -961,15 +959,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:45',
+            time: '5:45 PM',
             name: '🍲 Kumagera (くまげら) 經典晚餐',
             desc: '驅車 10 分鐘前往富良野市中心的 Kumagera 享用特色晚餐。',
             address: '北海道富良野市日の出町 3-22',
             mapLink: 'https://maps.google.com/?q=Kumagera+Furano',
-            notes: '⚠️ 提醒：富良野餐館普遍打烊極早，17:45 就餐極其穩妥省心！',
+            notes: '⚠️ 提醒：富良野餐館普遍打烊極早，5:45 PM 就餐極其穩妥省心！',
           },
           {
-            time: '19:00',
+            time: '7:00 PM',
             name: '🍈 Co-op Sapporo 富良野店水果補給',
             desc: '順路在隔壁的 Co-op Sapporo 富良野店採購鮮奶、哈密瓜和水果補給。',
             address: '北海道富良野市若葉町 2-1',
@@ -977,7 +975,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '19:45',
+            time: '7:45 PM',
             name: '🌙 輕鬆返回 Fenix West 房間休息',
             desc: '輕鬆返回房間休息，零趕路與丟單壓力。',
             address: '北海道富良野市北の峰町 14-38',
@@ -1002,7 +1000,7 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '08:30',
+            time: '8:30 AM',
             name: '🏨 退房与驅車前往雙農場',
             desc: '退房，驅車 10 分鐘前往富田農場與相鄰的哈密瓜農場 (Tomita Melon House)。',
             address: '北海道空知郡中富良野町宮町 1-41（富田農場）',
@@ -1010,31 +1008,31 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '08:40',
+            time: '8:40 AM',
             name: '🌸 薰衣草溫室与現切哈密瓜享用',
-            desc: '08:40–09:40 欣賞溫室薰衣草和秋季花田，在哈密瓜農場享用現切哈密瓜。',
+            desc: '8:40 AM–9:40 AM 欣賞溫室薰衣草和秋季花田，在哈密瓜農場享用現切哈密瓜。',
             address: '北海道空知郡中富良野町宮町 3-57（Tomita Melon House）',
             mapLink: 'https://maps.google.com/?q=Tomita+Melon+House+Furano',
             notes: '',
           },
           {
-            time: '11:00',
+            time: '11:00 AM',
             name: '🚗 準時出發南下登別 · 車上簡餐',
-            desc: '11:00 準時出發南下（車程約 2.5 小時）。不在中途安排拉麵堂食，午餐在農場戶外熟食區打包哈密瓜披薩和男爵土豆在車上解決。',
+            desc: '11:00 AM 準時出發南下（車程約 2.5 小時）。不在中途安排拉麵堂食，午餐在農場戶外熟食區打包哈密瓜披薩和男爵土豆在車上解決。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '13:45',
+            time: '1:45 PM',
             name: '♨️ 抵達登別瀧乃家 · 無縫入住',
-            desc: '13:45 抵達登別瀧乃家，無縫銜接 14:00 起的溫泉旅館入住服務。',
+            desc: '1:45 PM 抵達登別瀧乃家，無縫銜接 2:00 PM 起的溫泉旅館入住服務。',
             address: '北海道登別市登別温泉町 162',
             mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu',
             notes: '',
           },
           {
-            time: '18:00',
+            time: '6:00 PM',
             name: '🍱 一泊兩食 · D Type 部屋食尊享',
             desc: '在 D Type 房型內享受「部屋食（房間內用餐）」，品嚐頂級會席料理。',
             address: '',
@@ -1059,7 +1057,7 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '09:30',
+            time: '9:30 AM',
             name: '🌋 登別地獄谷漫步',
             desc: '遊覽登別地獄谷壯麗火山地貌与蒸汽噴泉。',
             address: '北海道登別市登別温泉町 60',
@@ -1080,15 +1078,15 @@ const ITINERARY = [
             },
           },
           {
-            time: '11:30',
+            time: '11:30 AM',
             name: '🚗 驅車前往函館',
-            desc: '11:30 驅車前往函館（總車程約 2.5–3 小時）。',
+            desc: '11:30 AM 驅車前往函館（總車程約 2.5–3 小時）。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '13:00',
+            time: '1:00 PM',
             name: '☕ 八雲休息站休整 (Yakumo PA)',
             desc: '行駛約 1.5 小時後，停靠 Yakumo PA (八雲休息站) 舒展休整、補給水份。',
             address: '北海道二海郡八雲町浜松 368-8',
@@ -1096,15 +1094,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '🏨 潮騷亭 Check-in · 湯之川溫泉',
-            desc: '14:30–15:15 直達湯之川「平成館 潮騷亭」辦理 Check-in 卸行李。',
+            desc: '2:30 PM–3:15 PM 直達湯之川「平成館 潮騷亭」辦理 Check-in 卸行李。',
             address: '北海道函館市湯川町 1 丁目 2-30',
             mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '',
           },
           {
-            time: '15:30',
+            time: '3:30 PM',
             name: '🧱 金森紅磚倉庫群漫步',
             desc: '驅車 15–20 分鐘前往金森紅磚倉庫群 (Kanemori Red Brick Warehouse) 漫步購物。',
             address: '北海道函館市末広町 14-12',
@@ -1112,12 +1110,12 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '16:30',
+            time: '4:30 PM',
             name: '🚡 函館山纜車觀夜景 (Mount Hakodate Ropeway)',
             desc: '車輛停放於山麓站停車場，全員換乘纜車 (Ropeway) 登函館山觀賞日落與百萬夜景。',
             address: '北海道函館市元町 19-7（山麓站）',
             mapLink: 'https://maps.google.com/?q=Mount+Hakodate+Ropeway',
-            notes: '⚠️ 禁行提示：每日 17:00–22:00 登山道對私家車禁行！請停山麓站露天停車場乘纜車登頂（推車可上）。',
+            notes: '⚠️ 禁行提示：每日 5:00 PM–10:00 PM 登山道對私家車禁行！請停山麓站露天停車場乘纜車登頂（推車可上）。',
             highlight: {
               emoji: '🌃',
               title: '函館山百萬夜景',
@@ -1129,19 +1127,19 @@ const ITINERARY = [
                 '夜景全景 360° — 沿展望台繞行一圈，函館港與津輕海峽盡收眼底',
                 '纜車本身 — 3 分鐘登頂的纜車體驗，夜間透過玻璃看山腰燈光也很美',
               ],
-              tip: '💡 17:00–22:00 私家車禁行登山道，必須停山麓站乘纜車。建議 17:30 前到山麓站排隊，避開日落後的人潮高峰。',
+              tip: '💡 5:00 PM–10:00 PM 私家車禁行登山道，必須停山麓站乘纜車。建議 5:30 PM 前到山麓站排隊，避開日落後的人潮高峰。',
             },
           },
           {
-            time: '18:30',
+            time: '6:30 PM',
             name: '🍲 函館市區晚餐',
-            desc: '18:30–20:00 下山後直接在函館市區/金森倉庫周邊享用晚餐（如 阿佐利壽喜燒 或市區高分海鮮餐廳）。',
+            desc: '6:30 PM–8:00 PM 下山後直接在函館市區/金森倉庫周邊享用晚餐（如 阿佐利壽喜燒 或市區高分海鮮餐廳）。',
             address: '北海道函館市宝来町 10-11（阿佐利本店）',
             mapLink: 'https://maps.google.com/?q=Asari+Sukiyaki+Hakodate',
             notes: '',
           },
           {
-            time: '20:30',
+            time: '8:30 PM',
             name: '♨️ 返回潮騷亭泡湯休息',
             desc: '輕鬆驅車 15 分鐘返回潮騷亭，憑已拿到的鑰匙直接回房泡湯休息，零趕路壓力。',
             address: '北海道函館市湯川町 1 丁目 2-30',
@@ -1161,15 +1159,15 @@ const ITINERARY = [
         driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
         activities: [
           {
-            time: '08:30',
+            time: '8:30 AM',
             name: '☕ 舒緩起床與悠閒早餐',
-            desc: '08:30–10:00 不急不趕，全家睡到自然醒，在潮騷亭或周邊享用早餐與愜意休整，徹底避免趕早市排隊的勞頓與被宰風險。',
+            desc: '8:30 AM–10:00 AM 不急不趕，全家睡到自然醒，在潮騷亭或周邊享用早餐與愜意休整，徹底避免趕早市排隊的勞頓與被宰風險。',
             address: '北海道函館市湯川町 1 丁目 2-30',
             mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate',
             notes: '',
           },
           {
-            time: '10:30',
+            time: '10:30 AM',
             name: '⭐ 五稜郭公園与五稜郭塔登頂',
             desc: '前往 Goryokaku (五稜郭) 參觀星形要塞公園並登五稜郭塔俯瞰星形全景。',
             address: '北海道函館市五稜郭町 43-9',
@@ -1186,18 +1184,18 @@ const ITINERARY = [
                 '星形護城河散步 — 沿要塞外圍的五角形護城河漫步，推車完全友善',
                 '函館奉行所（部分復原）— 要塞中心的江戶時代官廳建築，免費入場',
               ],
-              tip: '💡 塔內無障礙電梯完善，推車可直接推上展望台。早上 10:30 前人最少，下午人潮逐漸增多。',
+              tip: '💡 塔內無障礙電梯完善，推車可直接推上展望台。早上 10:30 AM 前人最少，下午人潮逐漸增多。',
             },
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🍜 錯峰午餐：味彩拉麵 / 幸運小丑漢堡',
-            desc: '準時在 11:15 入座五稜郭塔旁的 麺厨房あじさい (味彩拉麵 本店) 或旁邊的 幸運小丑漢堡 (五稜郭公園前店)。',
+            desc: '準時在 11:15 AM 入座五稜郭塔旁的 麺厨房あじさい (味彩拉麵 本店) 或旁邊的 幸運小丑漢堡 (五稜郭公園前店)。',
             address: '北海道函館市五稜郭町 29-22（味彩拉麵本店）',
             notes: '',
           },
           {
-            time: '13:30',
+            time: '1:30 PM',
             name: '♨️ 返回潮騷亭泡湯休整',
             desc: '返回平成館 潮騷亭，下午在酒店內徹底休息泡湯，讓寶寶在榻榻米房間內補覺。',
             address: '北海道函館市湯川町 1 丁目 2-30',
@@ -1205,7 +1203,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:30',
+            time: '5:30 PM',
             name: '🍽️ 晚間餐飲三套靈活預案',
             desc: '湯之川溫泉街周邊極少適合全家晚餐的餐廳，提供三套靈活方案：',
             address: '',
@@ -1215,14 +1213,14 @@ const ITINERARY = [
               {
                 badge: '🍣 方案 A (海景迴轉壽司/首選)',
                 title: '函太郎 壽司 (宇賀浦本店)',
-                desc: '17:30 驅車 8 分鐘前往，緊鄰津輕海峽海景極美，卡座寬敞對推車極度友好。',
+                desc: '5:30 PM 驅車 8 分鐘前往，緊鄰津輕海峽海景極美，卡座寬敞對推車極度友好。',
                 mapLink: 'https://maps.google.com/?q=Kantaro+Sushi+Ugaura+Hakodate',
                 isPrimary: true
               },
               {
                 badge: '🥩 方案 B (百年老店壽喜燒)',
                 title: '阿佐利 本店 (Asari Head Store)',
-                desc: '若飯店前台已協助代訂成功，18:00 驅車前往享用百年老字號黑毛和牛壽喜燒（獨立包廂）。',
+                desc: '若飯店前台已協助代訂成功，6:00 PM 驅車前往享用百年老字號黑毛和牛壽喜燒（獨立包廂）。',
                 mapLink: 'https://maps.google.com/?q=Asari+Sukiyaki+Hakodate'
               },
               {
@@ -1251,15 +1249,15 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '09:30',
+            time: '9:30 AM',
             name: '🚗 函館出發北上洞爺湖',
-            desc: '09:30 函館退房，驅車向北前往洞爺湖（總車程約 2.5 小時）。',
+            desc: '9:30 AM 函館退房，驅車向北前往洞爺湖（總車程約 2.5 小時）。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '10:30',
+            time: '10:30 AM',
             name: '☕ 七飯町道之站短休 (Nanae Rest Area)',
             desc: '行駛 1 小時後，在七飯町道之站 (道の駅 なないろ・ななえ) 稍作 15 分鐘休整、補給水份。',
             address: '北海道亀田郡七飯町峠下 380-2',
@@ -1267,9 +1265,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🌋 有珠山纜車与錯峰午餐 (Mount Usu Ropeway)',
-            desc: '提早在 11:15 抵達有珠山周邊享用簡易定食，隨後登上有珠山纜車俯瞰洞爺湖与昭和新山。',
+            desc: '提早在 11:15 AM 抵達有珠山周邊享用簡易定食，隨後登上有珠山纜車俯瞰洞爺湖与昭和新山。',
             address: '北海道有珠郡壮瞥町昭和新山 184-5',
             mapLink: 'https://maps.google.com/?q=Mount+Usu+Ropeway+Hokkaido',
             notes: '',
@@ -1284,11 +1282,11 @@ const ITINERARY = [
                 '昭和新山（纜車站旁）— 1943 年從麥田中突然崛起的火山錐，世界奇觀',
                 '山頂餐廳 — 邊吃邊俯瞰洞爺湖，天氣好時視野無限延伸',
               ],
-              tip: '💡 上午 11:00–13:00 是山頂能見度最佳時段，下午容易起霧。纜車設施完善，推車可上展望台。',
+              tip: '💡 上午 11:00 AM–1:00 PM 是山頂能見度最佳時段，下午容易起霧。纜車設施完善，推車可上展望台。',
             },
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '📸 洞爺湖 Sairo 展望台 (Sairo Observatory)',
             desc: '驅車至 Sairo 展望台停留拍照，全景遠眺洞爺湖、中島及羊蹄山。',
             address: '北海道虻田郡洞爺湖町成香 3-5',
@@ -1296,7 +1294,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '15:30',
+            time: '3:30 PM',
             name: '🏨 入住洞爺湖萬世閣 (Toya Manseikaku)',
             desc: '辦理 Check-in 入住洞爺湖萬世閣。',
             address: '北海道虻田郡洞爺湖町洞爺湖温泉 21',
@@ -1304,17 +1302,17 @@ const ITINERARY = [
             notes: '🅿️ 停車提醒：入場時請向工作人員說明 Alphard 為高頂車，以分配高頂車位。',
           },
           {
-            time: '18:00',
+            time: '6:00 PM',
             name: '🍲 洞爺湖晚餐與預案提示',
-            desc: '洞爺湖溫泉街晚間餐廳絕大多數在 19:30–20:00 即停止營業。',
+            desc: '洞爺湖溫泉街晚間餐廳絕大多數在 7:30 PM–8:00 PM 即停止營業。',
             address: '北海道虻田郡洞爺湖町洞爺湖温泉 21',
             mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel',
-            notes: '🍽️ 晚餐提醒：最遲 18:30 前前往望羊蹄/仙堂庵用餐，或提前向萬世閣加購自助晚餐。',
+            notes: '🍽️ 晚餐提醒：最遲 6:30 PM 前前往望羊蹄/仙堂庵用餐，或提前向萬世閣加購自助晚餐。',
           },
           {
-            time: '20:45',
+            time: '8:45 PM',
             name: '🎆 洞爺湖花火大會 (Lake Toya Fireworks)',
-            desc: '20:45 湖畔漫步道或客房內觀賞洞爺湖長期花火大會。',
+            desc: '8:45 PM 湖畔漫步道或客房內觀賞洞爺湖長期花火大會。',
             address: '',
             mapLink: '',
             notes: '',
@@ -1337,31 +1335,31 @@ const ITINERARY = [
         },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🌊 洞爺湖退房与支笏湖散步',
-            desc: '10:00 洞爺湖退房，驅車前往支笏湖 (Lake Shikotsu) 湖畔散步放電。',
+            desc: '10:00 AM 洞爺湖退房，驅車前往支笏湖 (Lake Shikotsu) 湖畔散步放電。',
             address: '北海道千歳市支笏湖温泉',
             mapLink: 'https://maps.google.com/?q=Lake+Shikotsu+Hokkaido',
             notes: '',
           },
           {
-            time: '16:15',
+            time: '4:15 PM',
             name: '⛽ 新千歲加油站加滿油',
-            desc: '16:15 抵達新千歲機場周邊 ENEOS 加油站加滿油。',
+            desc: '4:15 PM 抵達新千歲機場周邊 ENEOS 加油站加滿油。',
             address: '北海道千歳市美々 758-134（ENEOS 新千歲空港店）',
             mapLink: 'https://maps.google.com/?q=Eneos+New+Chitose+Airport',
             notes: '',
           },
           {
-            time: '17:00',
+            time: '5:00 PM',
             name: '🚗 辦理還車与 HEP 結算',
-            desc: '17:00 準時還車：前往 Toyota Rent a Car (新千歲空港 Suzuran 店) 辦理還車，並根據 ETC 記錄結算 HEP 通行證。',
+            desc: '5:00 PM 準時還車：前往 Toyota Rent a Car (新千歲空港 Suzuran 店) 辦理還車，並根據 ETC 記錄結算 HEP 通行證。',
             address: '北海道千歳市美々 758-134',
             mapLink: 'https://maps.google.com/?q=Toyota+Rent+a+Car+Suzuran+New+Chitose+Airport',
             notes: '',
           },
           {
-            time: '17:30',
+            time: '5:30 PM',
             name: '🚌 接駁車抵達新千歲機場',
             desc: '搭乘營業所免費接駁車抵達新千歲機場航站樓。',
             address: '',
@@ -1369,7 +1367,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '17:45',
+            time: '5:45 PM',
             name: '🧳 托運与大件行李寄存',
             desc: '前往 JAL First Class 櫃台嘗試提前托運。若櫃台拒絕提前托運，果斷前往 1F/2F 寄存大件行李。',
             address: '新千歲機場國內線航站樓 1F/2F',
@@ -1377,15 +1375,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '18:15',
+            time: '6:15 PM',
             name: '🛍️ 航站樓深度體驗与 Royce\' 巧克力工廠',
-            desc: '18:15–20:30 國內線航站樓 2–3F 免稅購物、遊覽 Royce\' 巧克力工廠。',
+            desc: '6:15 PM–8:30 PM 國內線航站樓 2–3F 免稅購物、遊覽 Royce\' 巧克力工廠。',
             address: '新千歲機場國內線 3F Royce Chocolate World',
             mapLink: 'https://maps.google.com/?q=Royce+Chocolate+World+New+Chitose+Airport',
             notes: '',
           },
           {
-            time: '19:30',
+            time: '7:30 PM',
             name: '🍼 換裝哄睡防線（深夜大轉運）',
             desc: '在機場母嬰室內，提前為一歲寶寶完成餵奶、更換拉拉褲並換上純棉睡衣。',
             address: '',
@@ -1393,7 +1391,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '21:10',
+            time: '9:10 PM',
             name: '🛫 搭 JAL 528 飛回羽田 (HND)',
             desc: '搭乘 JAL 528 航班飛往羽田機場。',
             address: '',
@@ -1401,16 +1399,16 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '22:55',
+            time: '10:55 PM',
             name: '🚕 抵羽田 · 打車直達 Courtyard Ginza',
-            desc: '22:55 抵達羽田機場。分乘 2 輛標準出租車直達 Courtyard Ginza（銀座萬怡），車程約 20 分鐘。',
+            desc: '10:55 PM 抵達羽田機場。分乘 2 輛標準出租車直達 Courtyard Ginza（銀座萬怡），車程約 20 分鐘。',
             address: '東京都中央区銀座 6-14-10（Courtyard Ginza）',
             mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
             notes: '',
           },
           {
-            time: '00:15',
-            name: '🏨 00:15 抵達銀座萬怡 · Late Check-in 入住',
+            time: '12:15 AM',
+            name: '🏨 12:15 AM 抵達銀座萬怡 · Late Check-in 入住',
             desc: '抵達酒店，辦理 Late Check-in。今日起 🏨 按鈕將自動導航回 Courtyard Ginza！',
             address: '東京都中央区銀座 6-14-10',
             mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
@@ -1438,7 +1436,7 @@ const ITINERARY = [
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '09:30',
+            time: '9:30 AM',
             name: '😴 上午：自然醒與休整 (接檔深夜航班)',
             desc: '昨夜抵達較晚，今日全家不設鬧鐘，睡到自然醒，恢復體力。利用 Courtyard Ginza 箭步可達的極致地利優勢，完全免除電車勞頓。',
             address: '',
@@ -1446,15 +1444,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:15',
-            name: '🍱 11:15 步行享用 Lunch Special',
-            desc: '中午 11:15 步行前往附近享用高性價比 Lunch Special（如銀座三越/松屋百貨高層定食或周邊名店）。',
+            time: '11:15 AM',
+            name: '🍱 11:15 AM 步行享用 Lunch Special',
+            desc: '中午 11:15 AM 步行前往附近享用高性價比 Lunch Special（如銀座三越/松屋百貨高層定食或周邊名店）。',
             address: '東京都中央区銀座 4-6-16（銀座三越周邊）',
             mapLink: 'https://maps.google.com/?q=Ginza+Mitsukoshi',
             notes: '',
           },
           {
-            time: '13:30',
+            time: '1:30 PM',
             name: '🛍️ 下午：集中購物日',
             desc: '集中採購名品、伴手禮、藥妝。由於住在銀座核心區，買好的戰利品可以隨時讓家人提回酒店房間放妥，徹底解放雙手和推車空間。',
             address: '東京都中央区銀座 6-10-1（GINZA SIX / 百貨商圈）',
@@ -1462,7 +1460,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '18:00',
+            time: '6:00 PM',
             name: '🍽️ 傍晚：銀座漫步與優雅晚餐',
             desc: '在銀座周邊輕鬆漫步，找一家環境優雅的餐廳享用晚餐。',
             address: '東京都中央区銀座',
@@ -1481,15 +1479,15 @@ const ITINERARY = [
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '08:30',
+            time: '8:30 AM',
             name: '🚗 包車酒店出發',
-            desc: '08:30 包車直接在 Courtyard Ginza 樓下接駁，推車折疊放入後備箱。',
+            desc: '8:30 AM 包車直接在 Courtyard Ginza 樓下接駁，推車折疊放入後備箱。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '10:30',
+            time: '10:30 AM',
             name: '🗻 大石公園 (Oishi Park)',
             desc: '遊覽大石公園，遠眺富士山全景与河口湖畔花海。',
             address: '山梨県南都留郡富士河口湖町大石 2585',
@@ -1497,15 +1495,15 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🍜 景區錯峰午餐：名物餺餂麵 (Hoto)',
-            desc: '提早在 11:15 享用軟爛的名物「餺餂 (Hoto) 麵」。',
+            desc: '提早在 11:15 AM 享用軟爛的名物「餺餂 (Hoto) 麵」。',
             address: '山梨県南都留郡富士河口湖町船津 6677（ほうとう不動 河口湖南店）',
             mapLink: 'https://maps.google.com/?q=Hoto+Fudou+Kawaguchiko',
             notes: '',
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '🌊 忍野八海散步与返程',
             desc: '游覽忍野八海清澈湧泉池。隨後乘車返回東京。',
             address: '山梨県南都留郡忍野村忍草',
@@ -1524,7 +1522,7 @@ const ITINERARY = [
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🛍️ 全天銀座零距離掃貨與伴手禮採購',
             desc: '全天集中購物日。利用 Courtyard Ginza 萬怡酒店的地利優勢，隨時將採購好的戰利品提回房間存放，推車輕鬆暢逛商圈。',
             address: '東京都中央区銀座 6-14-10',
@@ -1532,9 +1530,9 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '11:15',
+            time: '11:15 AM',
             name: '🍱 錯峰午餐 / 開門殺多重精選方案',
-            desc: '11:15 錯峰享用午餐，避開正午排隊高峰：',
+            desc: '11:15 AM 錯峰享用午餐，避開正午排隊高峰：',
             address: '',
             mapLink: '',
             notes: '',
@@ -1561,7 +1559,7 @@ const ITINERARY = [
             ]
           },
           {
-            time: '14:30',
+            time: '2:30 PM',
             name: '☕ 逛街休整與回酒店存放戰利品',
             desc: '午後隨時將採購的重物與伴手禮提回 Courtyard Ginza 酒店存放，讓寶寶休整補充水分。',
             address: '東京都中央区銀座 6-14-10',
@@ -1580,7 +1578,7 @@ const ITINERARY = [
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🌿 皇居外苑与日比谷公園漫步',
             desc: '全天在皇居外苑或日比谷公園區域輕鬆漫步放鬆。',
             address: '東京都千代田区皇居外苑 1-1',
@@ -1588,7 +1586,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '14:00',
+            time: '2:00 PM',
             name: '🛒 查漏補缺最後採購',
             desc: '在銀座/日比谷商圈進行最後一次查漏補缺的採購。',
             address: '東京都千代田区有楽町 1-1-2（東京寶塚/Midtown Hibiya）',
@@ -1596,7 +1594,7 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '18:00',
+            time: '6:00 PM',
             name: '🧳 行李打包与封箱休整',
             desc: '晚餐後返回酒店，完成 4 件 24 寸行李箱与推車的整理打包封箱。',
             address: '',
@@ -1615,7 +1613,7 @@ const ITINERARY = [
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
-            time: '10:00',
+            time: '10:00 AM',
             name: '🔍 最終清點与退房準備',
             desc: '最終清點 4 件 24 寸行李箱与推車，辦理退房。',
             address: '東京都中央区銀座 6-14-10',
@@ -1623,25 +1621,25 @@ const ITINERARY = [
             notes: '',
           },
           {
-            time: '14:00',
+            time: '2:00 PM',
             name: '🚌 酒店直登機場大巴前往羽田',
-            desc: '由前台代訂好 14:15 或 14:45 的機場大巴，由酒店正門直接登車前往羽田機場 (HND)。',
+            desc: '由前台代訂好 2:15 PM 或 2:45 PM 的機場大巴，由酒店正門直接登車前往羽田機場 (HND)。',
             address: '東京都中央区銀座 6-14-10（Courtyard Ginza 正門）',
             mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
             notes: '',
           },
           {
-            time: '15:00',
+            time: '3:00 PM',
             name: '✈️ 抵達羽田機場 · 托運与值機',
-            desc: '15:00 順暢抵達羽田機場，前往 JAL / 全日空櫃台辦理行李托運及值機手續。',
+            desc: '3:00 PM 順暢抵達羽田機場，前往 JAL / 全日空櫃台辦理行李托運及值機手續。',
             address: '',
             mapLink: '',
             notes: '',
           },
           {
-            time: '17:40',
+            time: '5:40 PM',
             name: '🛫 搭 NH 7544 返回紐約 · 圓滿完結',
-            desc: '17:40 搭乘 NH 7544 航班返回紐約，為 19 天精彩的日本之旅劃上圓滿句號！🎉',
+            desc: '5:40 PM 搭乘 NH 7544 航班返回紐約，為 19 天精彩的日本之旅劃上圓滿句號！🎉',
             address: '',
             mapLink: '',
             notes: '',
@@ -1654,6 +1652,18 @@ const ITINERARY = [
 
 // ============================================================
 // 通用工具函數
+
+/** 將 24 小時制時間字串轉為 12 小時制 (例如 "17:30" -> "5:30 PM", "08:30" -> "8:30 AM") */
+function formatTime12h(str) {
+  if (!str) return '';
+  return str.replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b(?!\s*(?:AM|PM))/gi, (match, hStr, mStr) => {
+    let h = parseInt(hStr, 10);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12;
+    if (h === 0) h = 12;
+    return `${h}:${mStr} ${ampm}`;
+  });
+}
 // ============================================================
 
 /** 遍歷所有行程天數 */
@@ -1839,7 +1849,7 @@ function renderItinerary() {
         li.innerHTML = `
           <div class="activity-name-row">
             <div class="activity-name${act.highlight ? ' has-highlight' : ''}">${act.name}${infoBtn}</div>
-            ${act.time ? `<span class="activity-time">${act.time}</span>` : ''}
+            ${act.time ? `<span class="activity-time">${formatTime12h(act.time)}</span>` : ''}
           </div>
           ${descHtml}
           ${addressHtml}
