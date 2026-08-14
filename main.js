@@ -1854,7 +1854,7 @@ function renderItinerary() {
           ${notesHtml}
         `;
 
-        // 渲染 備選方案 左右滑動卡片（若有）
+        // 渲染 備選方案 左右滑動卡片（點擊卡片直接導航，不需額外按鈕）
         if (act.options && act.options.length) {
           const optionsWrapper = document.createElement('div');
           optionsWrapper.className = 'options-carousel-wrapper';
@@ -1862,19 +1862,29 @@ function renderItinerary() {
           let cardsHtml = '';
           act.options.forEach(opt => {
             const isPri = opt.isPrimary ? ' primary' : ' secondary';
-            const linkHtml = opt.mapLink
-              ? `<a href="${opt.mapLink}" target="_blank" rel="noopener" class="option-link">📍 導航/地圖 ➔</a>`
-              : '';
-            cardsHtml += `
-              <div class="option-card${isPri}">
-                <div>
-                  <span class="option-badge">${opt.badge}</span>
+            const navHint = opt.mapLink ? `<span class="option-nav-hint">📍 導航 ➔</span>` : '';
+            if (opt.mapLink) {
+              cardsHtml += `
+                <a class="option-card${isPri} has-link" href="${opt.mapLink}" target="_blank" rel="noopener">
+                  <div class="option-header-row">
+                    <span class="option-badge">${opt.badge}</span>
+                    ${navHint}
+                  </div>
+                  <div class="option-title">${opt.title}</div>
+                  <div class="option-desc">${opt.desc}</div>
+                </a>
+              `;
+            } else {
+              cardsHtml += `
+                <div class="option-card${isPri}">
+                  <div class="option-header-row">
+                    <span class="option-badge">${opt.badge}</span>
+                  </div>
                   <div class="option-title">${opt.title}</div>
                   <div class="option-desc">${opt.desc}</div>
                 </div>
-                ${linkHtml}
-              </div>
-            `;
+              `;
+            }
           });
 
           optionsWrapper.innerHTML = `

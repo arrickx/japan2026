@@ -901,11 +901,22 @@ body {
   box-shadow: 0 2px 8px rgba(180, 100, 60, 0.08);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
-.option-card:active {
+.option-card.has-link {
+  cursor: pointer;
+}
+
+.option-card.has-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(180, 100, 60, 0.14);
+}
+
+.option-card.has-link:active {
   transform: scale(0.98);
 }
 
@@ -915,13 +926,25 @@ body {
   box-shadow: 0 3px 10px rgba(232, 122, 93, 0.15);
 }
 
+.option-card.primary.has-link:hover {
+  border-color: #d85c3e;
+  box-shadow: 0 6px 18px rgba(232, 122, 93, 0.22);
+}
+
+.option-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
 .option-badge {
   display: inline-block;
   font-size: 0.68rem;
   font-weight: 700;
   padding: 2px 8px;
   border-radius: 6px;
-  margin-bottom: 6px;
 }
 
 .option-card.primary .option-badge {
@@ -932,6 +955,26 @@ body {
 .option-card.secondary .option-badge {
   background: #f4eae4;
   color: #7a5c4d;
+}
+
+.option-nav-hint {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #c0534a;
+  background: #fff3ef;
+  border: 1px solid #f5d0c4;
+  border-radius: 6px;
+  padding: 2px 6px;
+  line-height: 1.2;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.option-card.has-link:hover .option-nav-hint {
+  background: #e8685a;
+  color: #ffffff;
+  border-color: #e8685a;
 }
 
 .option-title {
@@ -946,27 +989,6 @@ body {
   font-size: 0.79rem;
   color: #5c4a40;
   line-height: 1.48;
-  margin-bottom: 8px;
-  flex: 1;
-}
-
-.option-link {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #c0534a;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  align-self: flex-start;
-  background: #fff5f2;
-  border: 1px solid #f5d5c8;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-.option-link:hover {
-  background: #ffebe5;
 }
 
 
