@@ -1832,8 +1832,6 @@ function renderItinerary() {
             : `<div class="activity-address">${act.address}</div>`
           : '';
 
-        const mapBtn = '';
-
         const descHtml = act.desc
           ? `<div class="activity-desc">${act.desc}</div>`
           : '';
@@ -1853,7 +1851,6 @@ function renderItinerary() {
           </div>
           ${descHtml}
           ${addressHtml}
-          ${mapBtn}
           ${notesHtml}
         `;
 
