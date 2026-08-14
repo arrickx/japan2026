@@ -2112,11 +2112,25 @@ function setupRatePopup() {
   });
 }
 
-// 根據瀏覽器當前日期自動展開對應行程卡
+/** 解析時間字串（如 "1:35 PM", "11:15 AM", "17:30"）為當天分鐘數 */
+function parseTimeToMinutes(timeStr) {
+  if (!timeStr) return null;
+  const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
+  if (!match) return null;
+  let h = parseInt(match[1], 10);
+  const m = parseInt(match[2], 10);
+  const ampm = match[3] ? match[3].toUpperCase() : null;
+  if (ampm === 'PM' && h !== 12) h += 12;
+  if (ampm === 'AM' && h === 12) h = 0;
+  return h * 60 + m;
+}
+
+// 根據瀏覽器當前日期與時間自動展開對應行程卡並精準滾動至下一行程
 function autoExpandToday() {
   const now = new Date();
   const todayMonth = now.getMonth() + 1; // 1–12
   const todayDay = now.getDate();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
   document.querySelectorAll('.day-card').forEach(card => {
     const dateStr = card.getAttribute('data-date'); // e.g. "8/31"
@@ -2125,7 +2139,33 @@ function autoExpandToday() {
     if (m === todayMonth && d === todayDay) {
       card.classList.add('open');
       card.querySelector('.day-header')?.setAttribute('aria-expanded', 'true');
-      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+
+      // 尋找當天「下一個即將到來的行程」或「最後一個行程」
+      const items = Array.from(card.querySelectorAll('.activity-item'));
+      let targetEl = null;
+
+      if (items.length > 0) {
+        for (const item of items) {
+          const timeEl = item.querySelector('.activity-time');
+          const itemMinutes = timeEl ? parseTimeToMinutes(timeEl.textContent) : null;
+          if (itemMinutes !== null && itemMinutes >= currentMinutes) {
+            targetEl = item;
+            break;
+          }
+        }
+        // 若當天所有行程已過，鎖定最後一個行程
+        if (!targetEl) {
+          targetEl = items[items.length - 1];
+        }
+      }
+
+      setTimeout(() => {
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 250);
     }
   });
 }
