@@ -833,7 +833,7 @@ const ITINERARY = [
           {
             time: '11:15 AM',
             name: '🦀 頂級海鮮與帝王蟹主戰場 (UME堂首選 / おもひで食堂備選)',
-            desc: '11:15 AM 札幌場外市場頂級海鮮體驗：',
+            desc: '🎫 <strong>專屬優惠：</strong>前往 UME堂 結帳可出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener" style="color:#c0534a;font-weight:700;text-decoration:underline;">樂吃購 9 折優惠券</a> 享即時折扣！',
             address: '',
             mapLink: '',
             notes: '',
@@ -841,7 +841,7 @@ const ITINERARY = [
               {
                 badge: '🌟 首選戰術 (9折券)',
                 title: '根室杉山水産 UME堂 (うめぇ堂)',
-                desc: '主打活蟹即選即烤，全平地空間極度推車友好。<br/>🎫 <strong>結帳出示 <a href="https://hokkaido.letsgojp.com/coupon/409826/" target="_blank" rel="noopener" style="color:#c0534a;text-decoration:underline;">樂吃購 9 折優惠券</a> 享專屬折扣！</strong>',
+                desc: '主打活蟹即選即烤，全平地空間極度推車友好，點選活帝王蟹享現場稱重料理。',
                 mapLink: 'https://maps.google.com/?q=Nemuro+Sugiyama+Suisan+Umedo+Sapporo',
                 isPrimary: true
               },
