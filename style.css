@@ -954,4 +954,129 @@ body {
   line-height: 1.48;
 }
 
+/* ===== 卡片頭部微型天氣標籤 ===== */
+.day-weather-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 8px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #8c6050;
+  background: #fff3ec;
+  border: 1px solid #f2d2c4;
+  border-radius: 12px;
+  vertical-align: middle;
+}
+
+.day-weather-badge.is-alert {
+  color: #c83828;
+  background: #ffebe6;
+  border-color: #f6b0a0;
+  box-shadow: 0 1px 6px rgba(200, 56, 40, 0.15);
+}
+
+/* ===== 卡片內 3 日天氣預報膠囊條 ===== */
+.weather-3day-container {
+  padding: 14px 18px 0;
+}
+
+.weather-3day-bar {
+  background: #fffcf8;
+  border: 1.5px dashed #f2cfc0;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.weather-3day-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #945842;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.weather-capsule-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.weather-capsule-row::-webkit-scrollbar {
+  display: none;
+}
+
+.weather-capsule {
+  flex: 1;
+  min-width: 92px;
+  background: #ffffff;
+  border: 1.2px solid #f4dbcf;
+  border-radius: 10px;
+  padding: 6px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  box-shadow: 0 1px 4px rgba(180, 100, 60, 0.05);
+  transition: transform 0.15s ease;
+}
+
+.weather-capsule.is-alert {
+  background: #fff7f4;
+  border-color: #f4ab98;
+  box-shadow: 0 2px 8px rgba(216, 69, 48, 0.14);
+}
+
+.capsule-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #725244;
+  white-space: nowrap;
+}
+
+.capsule-city {
+  color: #a07260;
+  font-weight: 600;
+}
+
+.capsule-main {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 1px 0;
+}
+
+.capsule-emoji {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.capsule-prob {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #5c463c;
+  white-space: nowrap;
+}
+
+.weather-capsule.is-alert .capsule-prob {
+  color: #c83828;
+}
+
+.capsule-temp {
+  font-size: 0.68rem;
+  color: #927568;
+  font-weight: 500;
+}
+
+
 
