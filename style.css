@@ -959,12 +959,39 @@ body {
   line-height: 1.48;
 }
 
-/* ===== 卡片頭部微型天氣標籤 ===== */
+/* ===== 卡片頭部天氣標籤 ===== */
 .day-weather-badge {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  margin-left: 8px;
+  gap: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: all 0.18s ease;
+}
+
+.day-weather-badge:empty {
+  display: none !important;
+}
+
+/* 未展開狀態：極簡 emoji 單行展示，不佔寬度，不折行 */
+.day-card:not(.open) .day-weather-badge {
+  font-size: 0.95rem;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.day-card:not(.open) .day-weather-badge .badge-detail {
+  display: none;
+}
+
+/* 展開狀態：主標題 + 詳細天氣 “☔ 86% 降雨預警”（可點擊） */
+.day-card.open .day-weather-badge {
   padding: 2px 8px;
   font-size: 0.72rem;
   font-weight: 700;
@@ -973,33 +1000,33 @@ body {
   background: #fff3ec;
   border: 1px solid #f2d2c4;
   border-radius: 12px;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  transition: background 0.15s, transform 0.1s, border-color 0.15s, box-shadow 0.15s;
 }
 
-.day-weather-badge:active {
+.day-card.open .day-weather-badge:active {
   transform: scale(0.95);
   background: #ffe3d5;
 }
 
-.day-weather-badge.is-alert {
+.day-card.open .day-weather-badge.is-alert {
   color: #c83828;
   background: #ffebe6;
   border-color: #f6b0a0;
   box-shadow: 0 1px 6px rgba(200, 56, 40, 0.15);
 }
 
-.day-weather-badge.is-alert:active {
+.day-card.open .day-weather-badge.is-alert:active {
   background: #ffdcd3;
 }
 
-.day-weather-badge.active {
+.day-card.open .day-weather-badge.active {
   border-color: #d84530;
   background: #ffe6de;
   box-shadow: 0 2px 8px rgba(216, 69, 48, 0.2);
+}
+
+.day-card.open .day-weather-badge .badge-detail {
+  display: inline;
+  margin-left: 2px;
 }
 
 /* ===== 卡片內 3 日天氣預報膠囊條（預設隱藏，點擊天氣標籤才展開） ===== */

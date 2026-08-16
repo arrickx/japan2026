@@ -76,10 +76,11 @@ async function fetchSunsetForDate(dateKey) {
 }
 
 // ============================================================
-// Open-Meteo 天氣與降雨預報系統（支援日本 JMA 氣象模型，免 Key）
+// Open-Meteo 天氣與降雨預報系統（支援日本 JMA 氣象模型，單次 Batch 高速請求）
 // ============================================================
 
 const WEATHER_CACHE = {};
+let batchWeatherPromise = null;
 
 /** WMO 天氣代碼轉換為 Emoji 圖示 */
 function getWeatherEmoji(code, prob = 0) {
@@ -97,11 +98,68 @@ function getWeatherEmoji(code, prob = 0) {
   return '⛅';
 }
 
-/** 獲取特定城市座標的天氣預報（含記憶體緩存） */
+/**
+ * 一次性 Batch 請求所有天數的城市天氣（只需 1 個 HTTP GET 請求，耗時約 0.3~0.5s）
+ */
+async function fetchAllCitiesWeatherBatch() {
+  if (batchWeatherPromise) return batchWeatherPromise;
+
+  batchWeatherPromise = (async () => {
+    try {
+      const coordMap = new Map();
+      Object.values(SUNSET_COORDS).forEach(c => {
+        const key = `${c.lat.toFixed(4)},${c.lng.toFixed(4)}`;
+        if (!coordMap.has(key)) {
+          coordMap.set(key, { lat: c.lat, lng: c.lng });
+        }
+      });
+
+      const uniqueCoords = Array.from(coordMap.values());
+      const lats = uniqueCoords.map(c => c.lat.toFixed(4)).join(',');
+      const lngs = uniqueCoords.map(c => c.lng.toFixed(4)).join(',');
+
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=7`;
+
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
+      const dataList = await res.json();
+      const items = Array.isArray(dataList) ? dataList : [dataList];
+
+      uniqueCoords.forEach((coord, idx) => {
+        const data = items[idx];
+        if (data && data.daily && data.daily.time) {
+          const key = `${coord.lat.toFixed(4)},${coord.lng.toFixed(4)}`;
+          WEATHER_CACHE[key] = data.daily.time.map((time, dIdx) => ({
+            date: time,
+            code: data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0,
+            prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[dIdx] ?? 0 : 0,
+            rain: data.daily.precipitation_sum ? data.daily.precipitation_sum[dIdx] ?? 0 : 0,
+            tempMax: data.daily.temperature_2m_max ? Math.round(data.daily.temperature_2m_max[dIdx]) : null,
+            tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[dIdx]) : null,
+          }));
+        }
+      });
+      return true;
+    } catch (err) {
+      console.warn('Batch weather fetch fallback:', err.message);
+      return false;
+    }
+  })();
+
+  return batchWeatherPromise;
+}
+
+/** 獲取特定城市座標的天氣預報（優先從 Batch 緩存讀取） */
 async function fetchCityWeather(lat, lng) {
   const cacheKey = `${lat.toFixed(4)},${lng.toFixed(4)}`;
   if (WEATHER_CACHE[cacheKey]) {
     return WEATHER_CACHE[cacheKey];
+  }
+
+  // 若 Batch 請求尚未完成，等待 Batch 請求
+  if (batchWeatherPromise) {
+    await batchWeatherPromise;
+    if (WEATHER_CACHE[cacheKey]) return WEATHER_CACHE[cacheKey];
   }
 
   try {
@@ -1859,15 +1917,15 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const maxProb = Math.max(...forecasts.map(f => f.prob));
   const todayForecast = forecasts[0];
 
-  // 更新卡片頭部的小標籤
+  // 更新卡片頭部的小標籤（未展開時僅顯示 emoji，展開時顯示完整預警文字）
   if (badge) {
     if (hasAnyAlert) {
       badge.className = 'day-weather-badge is-alert';
-      badge.innerHTML = `☔ ${maxProb}% 降雨預警`;
+      badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}% 降雨預警</span>`;
       badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
     } else {
       badge.className = 'day-weather-badge';
-      badge.innerHTML = `${todayForecast.emoji} ${todayForecast.prob}%`;
+      badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${todayForecast.prob}%</span>`;
       badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
     }
   }
@@ -2175,6 +2233,19 @@ function renderItinerary() {
   });
 }
 
+/**
+ * 頁面載入時：單次 Batch 請求拉取全行程天氣，並一鍵填入所有卡片！
+ */
+async function initWeatherSystem() {
+  await fetchAllCitiesWeatherBatch();
+
+  const allDays = [];
+  forEachDay(day => allDays.push(day));
+  for (const day of allDays) {
+    load3DayWeatherForCard(day.date, false);
+  }
+}
+
 let cachedRate = null; // 全局儲存 JPY 匯率
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -2182,6 +2253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRainSection();
   renderMemoSection();
   autoExpandToday();
+  initWeatherSystem();
   fetchRate();
   setupHotelFab();
   setupRatePopup();
