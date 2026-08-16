@@ -428,14 +428,7 @@ body {
   margin-bottom: 3px;
 }
 
-/* ===== 頁腳 ===== */
-.footer-note {
-  text-align: center;
-  font-size: 0.82rem;
-  color: #c0a090;
-  margin-top: 28px;
-  letter-spacing: 0.05em;
-}
+
 
 /* ===== 核心物流與預訂備忘內容 ===== */
 .memo-grid {
