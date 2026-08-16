@@ -309,9 +309,13 @@ body {
 .day-title-group { flex: 1; }
 
 .day-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 1rem;
   font-weight: 700;
   color: #3a2e28;
+  line-height: 1.3;
 }
 
 .day-summary {
@@ -963,9 +967,8 @@ body {
 .day-weather-badge {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  margin-left: 6px;
-  vertical-align: middle;
+  justify-content: center;
+  gap: 3px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -974,6 +977,14 @@ body {
 
 .day-weather-badge:empty {
   display: none !important;
+}
+
+.badge-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: translateY(-0.5px);
 }
 
 /* 未展開狀態：極簡 emoji 單行展示，不佔寬度，不折行 */
