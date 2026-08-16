@@ -1000,7 +1000,7 @@ body {
 /* ===== 卡片內 3 日天氣預報膠囊條（預設隱藏，點擊天氣標籤才展開） ===== */
 .weather-3day-container {
   display: none;
-  padding: 14px 18px 0;
+  padding: 14px 18px;
 }
 
 .weather-3day-container.open {
@@ -1030,7 +1030,7 @@ body {
   font-size: 0.74rem;
   font-weight: 700;
   color: #945842;
-  margin-bottom: 8px;
+  margin: 0 0 8px 0;
   display: flex;
   align-items: center;
   gap: 4px;
