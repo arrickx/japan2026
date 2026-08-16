@@ -1818,15 +1818,23 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
 
 /**
  * 按需為展開的卡片加載未來 3 天天氣預報
+ * @param {string} dateStr - e.g. "8/31"
+ * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄
  */
-async function load3DayWeatherForCard(dateStr) {
+async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const safeId = dateStr.replace('/', '-');
   const container = document.getElementById(`weather-3day-${safeId}`);
   const badge = document.getElementById(`weather-badge-${safeId}`);
   if (!container) return;
 
-  // 避免重複渲染
-  if (container.getAttribute('data-loaded') === 'true') return;
+  // 如果已經加載過資料
+  if (container.getAttribute('data-loaded') === 'true') {
+    if (autoOpen) {
+      container.classList.add('open');
+      badge?.classList.add('active');
+    }
+    return;
+  }
 
   const forecasts = await get3DayForecastForDate(dateStr);
   if (!forecasts || !forecasts.length) return;
@@ -1842,9 +1850,11 @@ async function load3DayWeatherForCard(dateStr) {
     if (hasAnyAlert) {
       badge.className = 'day-weather-badge is-alert';
       badge.innerHTML = `☔ ${maxProb}% 降雨預警`;
+      badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
     } else {
       badge.className = 'day-weather-badge';
       badge.innerHTML = `${todayForecast.emoji} ${todayForecast.prob}%`;
+      badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
     }
   }
 
@@ -1878,6 +1888,11 @@ async function load3DayWeatherForCard(dateStr) {
       <div class="weather-capsule-row">${capsulesHtml}</div>
     </div>
   `;
+
+  if (autoOpen) {
+    container.classList.add('open');
+    badge?.classList.add('active');
+  }
 }
 
 // ============================================================
@@ -1896,7 +1911,6 @@ function renderItinerary() {
       <div class="phase-label">🗺️ ${phase.phase}（${phase.phaseDates}）</div>
       <div class="phase-line"></div>
     `;
-    container.appendChild(phaseEl);
     container.appendChild(phaseEl);
 
     // 每天的卡片
@@ -1934,11 +1948,36 @@ function renderItinerary() {
       const body = document.createElement('div');
       body.className = 'day-body';
 
-      // 3 日天氣預報容器（展開時按需加載）
+      // 3 日天氣預報容器（預設隱藏，點擊天氣標籤才展開）
       const weatherBox = document.createElement('div');
       weatherBox.className = 'weather-3day-container';
       weatherBox.id = `weather-3day-${day.date.replace('/', '-')}`;
       body.appendChild(weatherBox);
+
+      // 點擊天氣標籤時切換展開/收合 3 天天氣預報
+      const badge = header.querySelector('.day-weather-badge');
+      if (badge) {
+        badge.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const isCardOpen = card.classList.contains('open');
+          if (!isCardOpen) {
+            document.querySelectorAll('.day-card').forEach(c => {
+              c.classList.remove('open');
+              c.querySelector('.day-header')?.setAttribute('aria-expanded', 'false');
+            });
+            card.classList.add('open');
+            header.setAttribute('aria-expanded', 'true');
+          }
+
+          const isWeatherOpen = weatherBox.classList.contains('open');
+          if (weatherBox.getAttribute('data-loaded') !== 'true') {
+            await load3DayWeatherForCard(day.date, true);
+          } else {
+            weatherBox.classList.toggle('open', !isWeatherOpen);
+            badge.classList.toggle('active', !isWeatherOpen);
+          }
+        });
+      }
 
       // 插圖放在展開內容頂部（點擊可原地順滑放大 / 收合）
       if (day.illustration) {
