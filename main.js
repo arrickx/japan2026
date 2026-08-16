@@ -165,8 +165,22 @@ async function get3DayForecastForDate(startDateStr) {
     const isAlert = prob >= 50;
     const emoji = getWeatherEmoji(dayWeather.code, prob);
 
+    // 解析真實 API 預報日期（例如 "2026-08-16" -> "8/16"）
+    let realDateStr = dayWeather.date || '';
+    if (realDateStr.includes('-')) {
+      const parts = realDateStr.split('-');
+      if (parts.length === 3) {
+        realDateStr = `${parseInt(parts[1], 10)}/${parseInt(parts[2], 10)}`;
+      }
+    }
+
+    const relLabels = ['今天', '明天', '後天'];
+    const relLabel = relLabels[offset] || `+${offset}天`;
+
     return {
-      date: day.date,
+      date: realDateStr || day.date,
+      itineraryDate: day.date,
+      relLabel: relLabel,
       dayNum: day.dayNum,
       city: coords.city,
       emoji: emoji,
@@ -1866,11 +1880,12 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
     const tempInfo = f.tempMax !== null && f.tempMin !== null
       ? `<div class="capsule-temp">${f.tempMin}° ~ ${f.tempMax}°</div>`
       : '';
+    const relTag = f.relLabel ? `<span class="capsule-rel">(${f.relLabel})</span>` : '';
 
     capsulesHtml += `
       <div class="weather-capsule${alertClass}">
         <div class="capsule-header">
-          <span class="capsule-date">${f.date}</span>
+          <span class="capsule-date">${f.date} ${relTag}</span>
           <span class="capsule-city">${f.city}</span>
         </div>
         <div class="capsule-main">
@@ -1884,7 +1899,7 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
 
   container.innerHTML = `
     <div class="weather-3day-bar">
-      <div class="weather-3day-title">⛅ 3日天氣與降雨預報（各城市座標獨立精準查詢）：</div>
+      <div class="weather-3day-title">⛅ 實時 3 日天氣預報（日本氣象廳 JMA 模型 · 各城市獨立座標）：</div>
       <div class="weather-capsule-row">${capsulesHtml}</div>
     </div>
   `;
