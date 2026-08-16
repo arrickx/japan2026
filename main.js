@@ -2220,7 +2220,7 @@ function renderItinerary() {
           header.setAttribute('aria-expanded', 'true');
           load3DayWeatherForCard(day.date);
           setTimeout(() => {
-            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 50);
         }
 

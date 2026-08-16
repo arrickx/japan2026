@@ -969,7 +969,7 @@ body {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  transition: all 0.18s ease;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 
 .day-weather-badge:empty {
@@ -1037,17 +1037,15 @@ body {
 
 .weather-3day-container.open {
   display: block;
-  animation: fadeInDown 0.25s ease;
+  animation: fadeIn 0.2s ease;
 }
 
-@keyframes fadeInDown {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
