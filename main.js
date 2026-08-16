@@ -1917,11 +1917,11 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const maxProb = Math.max(...forecasts.map(f => f.prob));
   const todayForecast = forecasts[0];
 
-  // 更新卡片頭部的小標籤（未展開時僅顯示 emoji，展開時顯示完整預警文字）
+  // 更新卡片頭部的小標籤（未展開時僅顯示 emoji，展開時顯示百分比按鈕）
   if (badge) {
     if (hasAnyAlert) {
       badge.className = 'day-weather-badge is-alert';
-      badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}% 降雨預警</span>`;
+      badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}%</span>`;
       badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
     } else {
       badge.className = 'day-weather-badge';
