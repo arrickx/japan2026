@@ -1694,14 +1694,14 @@ const ITINERARY = [
       {
         date: '9/16',
         dayNum: 'Day 17',
-        title: '銀座零距離掃貨與伴手禮採購',
+        title: '銀座購物與伴手禮',
         summary: '全天集中購物 · 木村家現烤麵包 · 戰利品隨時回酒店',
         illustration: './images/ginza_shopping.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
           {
             time: '10:00 AM',
-            name: '🛍️ 全天銀座零距離掃貨與伴手禮採購',
+            name: '🛍️ 銀座全日暢購與伴手禮採購',
             desc: '全天集中購物日。利用 Courtyard Ginza 萬怡酒店的地利優勢，隨時將採購好的戰利品提回房間存放，推車輕鬆暢逛商圈。',
             address: '東京都中央区銀座 6-14-10',
             mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
