@@ -2426,14 +2426,17 @@ function setupRatePopup() {
     });
   });
 
-  // 手機觸控滑動微調 JPY 金額（每滑動 ~14px 微調 ±100 JPY）
-  if (inputGroup) {
+  // 全螢幕手勢：支援在虛化背景或金額框上任意滑動微調 JPY（每滑動 ~14px 微調 ±100 JPY）
+  const overlay = document.getElementById('rate-overlay');
+  if (overlay) {
     let touchStartX = 0;
     let touchStartY = 0;
     let startVal = 0;
     let isDragging = false;
+    let lastDragTime = 0;
 
-    inputGroup.addEventListener('touchstart', (e) => {
+    overlay.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.rate-preset')) return;
       if (e.touches.length === 1) {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
@@ -2442,8 +2445,10 @@ function setupRatePopup() {
       }
     }, { passive: true });
 
-    inputGroup.addEventListener('touchmove', (e) => {
+    overlay.addEventListener('touchmove', (e) => {
       if (e.touches.length !== 1) return;
+      if (e.target.closest('.rate-preset')) return;
+
       const currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
       const deltaX = currentX - touchStartX;
@@ -2452,8 +2457,9 @@ function setupRatePopup() {
 
       if (Math.abs(delta) > 6) {
         isDragging = true;
+        lastDragTime = Date.now();
         if (e.cancelable) e.preventDefault();
-        inputGroup.classList.add('is-sliding');
+        inputGroup?.classList.add('is-sliding');
 
         // 每滑動約 14px 調整 100 JPY
         const stepCount = Math.trunc(delta / 14);
@@ -2466,14 +2472,22 @@ function setupRatePopup() {
     }, { passive: false });
 
     const endTouch = () => {
-      inputGroup.classList.remove('is-sliding');
+      inputGroup?.classList.remove('is-sliding');
       if (isDragging) {
         jpyInput.blur();
       }
     };
 
-    inputGroup.addEventListener('touchend', endTouch);
-    inputGroup.addEventListener('touchcancel', endTouch);
+    overlay.addEventListener('touchend', endTouch);
+    overlay.addEventListener('touchcancel', endTouch);
+
+    // 點擊虛化背景時：若剛才執行過滑動手勢，則攔截關閉；若是純點擊則正常關閉
+    overlay.addEventListener('click', (e) => {
+      if (Date.now() - lastDragTime < 300) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
   }
 }
 
