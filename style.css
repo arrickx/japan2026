@@ -170,6 +170,9 @@ body {
   font-family: inherit;
   text-align: right;
   -moz-appearance: textfield;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: text;
 }
 .rate-input::-webkit-inner-spin-button,
 .rate-input::-webkit-outer-spin-button {
