@@ -1072,6 +1072,7 @@ body {
 
 .weather-capsule-row {
   display: flex;
+  justify-content: flex-start;
   gap: 8px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -1083,8 +1084,9 @@ body {
 }
 
 .weather-capsule {
-  flex: 1;
-  min-width: 92px;
+  flex: 0 0 calc((100% - 16px) / 3);
+  max-width: calc((100% - 16px) / 3);
+  box-sizing: border-box;
   background: #ffffff;
   border: 1.2px solid #f4dbcf;
   border-radius: 10px;
