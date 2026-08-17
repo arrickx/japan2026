@@ -460,12 +460,6 @@ body {
 
 
 /* ===== 核心物流與預訂備忘內容 ===== */
-.memo-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .memo-block {
   background: #fff;
   border: 1.5px solid #f2cfc0;

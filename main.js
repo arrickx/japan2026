@@ -2225,10 +2225,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderItinerary();
   renderRainSection();
   renderMemoSection();
+  setupHotelFab();
   autoExpandToday();
   initWeatherSystem();
   fetchRate();
-  setupHotelFab();
   setupRatePopup();
   setupModalOverlay('spot-overlay');
 });
