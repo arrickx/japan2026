@@ -97,8 +97,8 @@ body {
   position: relative;
   background: #fffbf8;
   border: 2px solid #f5d5c8;
-  padding: 28px 24px 22px;
-  width: min(88vw, 360px);
+  padding: 26px 20px 22px;
+  width: min(92vw, 370px);
   max-height: none;
   overflow-y: visible;
   box-shadow: 0 12px 40px rgba(180, 100, 80, 0.18);
@@ -116,7 +116,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
@@ -154,16 +154,16 @@ body {
 }
 
 .rate-currency-label {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #c27860;
 }
 
 .rate-input {
-  width: 80px;
+  width: 72px;
   border: none;
   outline: none;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #333;
   background: transparent;
@@ -181,10 +181,10 @@ body {
 }
 
 .rate-result {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #333;
-  min-width: 55px;
+  min-width: 80px;
   text-align: right;
 }
 
