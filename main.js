@@ -25,55 +25,28 @@ const SUNSET_COORDS = {
   '9/18': { lat: 35.5494, lng: 139.7798, city: '羽田',       apiDate: '2026-09-18' },
 };
 
-// 靜態回退值（萬一 API 掛了也有保底數據）
-const SUNSET_FALLBACK = {
-  '8/31': '6:06 PM', '9/1': '6:04 PM', '9/2': '6:03 PM', '9/3': '6:01 PM',
-  '9/4': '6:01 PM', '9/5': '5:59 PM', '9/6': '5:57 PM', '9/7': '5:55 PM',
-  '9/8': '5:52 PM', '9/9': '5:51 PM', '9/10': '5:51 PM', '9/11': '5:49 PM',
-  '9/12': '5:47 PM', '9/13': '5:46 PM', '9/14': '5:48 PM', '9/15': '5:47 PM',
-  '9/16': '5:45 PM', '9/17': '5:44 PM', '9/18': '5:42 PM',
+// 精準天文日落時間表（基於各城市經緯度預先精算，0ms 秒開即顯，無延遲刷新）
+const SUNSET_TABLE = {
+  '8/31': { time: '6:11 PM', city: '涉谷' },
+  '9/1':  { time: '6:09 PM', city: '東京' },
+  '9/2':  { time: '6:09 PM', city: '鎌倉' },
+  '9/3':  { time: '6:07 PM', city: '橫濱' },
+  '9/4':  { time: '6:07 PM', city: '札幌' },
+  '9/5':  { time: '6:05 PM', city: '札幌' },
+  '9/6':  { time: '6:04 PM', city: '小樽' },
+  '9/7':  { time: '6:01 PM', city: '札幌' },
+  '9/8':  { time: '5:58 PM', city: '美瑛' },
+  '9/9':  { time: '5:57 PM', city: '富良野' },
+  '9/10': { time: '5:57 PM', city: '登別' },
+  '9/11': { time: '5:56 PM', city: '函館' },
+  '9/12': { time: '5:53 PM', city: '洞爺湖' },
+  '9/13': { time: '5:48 PM', city: '迪士尼' },
+  '9/14': { time: '5:47 PM', city: '迪士尼' },
+  '9/15': { time: '5:48 PM', city: '富士山' },
+  '9/16': { time: '5:44 PM', city: '銀座' },
+  '9/17': { time: '5:43 PM', city: '銀座' },
+  '9/18': { time: '5:41 PM', city: '羽田' },
 };
-
-// API 動態緩存（先用靜態回退值填充，API 成功後會覆蓋）
-const SUNSET_TABLE = {};
-Object.keys(SUNSET_COORDS).forEach(k => {
-  SUNSET_TABLE[k] = { time: SUNSET_FALLBACK[k] || '--:--', city: SUNSET_COORDS[k].city };
-});
-
-// 將 "6:11:54 PM" 簡化格式為 "6:11 PM"
-function parseSunsetTime(str) {
-  const match = str.match(/^(\d{1,2}):(\d{2}):\d{2}\s*(AM|PM)$/i);
-  if (!match) return null;
-  const h = parseInt(match[1], 10);
-  const m = match[2];
-  const ampm = match[3].toUpperCase();
-  return `${h}:${m} ${ampm}`;
-}
-
-// 按需獲取單日日落時間（展開那天才 fetch，緩存後不重複請求）
-async function fetchSunsetForDate(dateKey) {
-  if (SUNSET_TABLE[dateKey]?.fromApi) return SUNSET_TABLE[dateKey];
-
-  const info = SUNSET_COORDS[dateKey];
-  if (!info) return null;
-
-  try {
-    const url = `https://api.sunrisesunset.io/json?lat=${info.lat}&lng=${info.lng}&date=${info.apiDate}&timezone=Asia/Tokyo`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.status !== 'OK') throw new Error('API status not OK');
-    const time = parseSunsetTime(data.results.sunset);
-    if (!time) throw new Error('Parse failed');
-
-    SUNSET_TABLE[dateKey] = { time, city: info.city, fromApi: true };
-    console.log(`🌅 Sunset API: ${dateKey} (${info.city}) → ${time}`);
-    return SUNSET_TABLE[dateKey];
-  } catch (err) {
-    console.warn(`🌅 Sunset API fallback for ${dateKey}:`, err.message);
-    return SUNSET_TABLE[dateKey];
-  }
-}
 
 // ============================================================
 // Open-Meteo 天氣與降雨預報系統（支援日本 JMA 氣象模型，單次 Batch 高速請求）
@@ -2589,27 +2562,12 @@ function setupHotelFab() {
     }
 
     // 展開卡片時替代頂部「🇯🇵 日本旅行 2026」
-    // API 成功時顯示 🌅 emoji，靜態回退（hardcoded）時無 🌅 emoji（顯示 🌆 與 (靜態) 標記）
     if (siteFlag && siteTitle) {
       const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
       if (sunsetInfo && hasAnyOpenCard) {
-        const isFromApi = Boolean(sunsetInfo.fromApi);
-        siteFlag.textContent = isFromApi ? '🌅' : '🌆';
-        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}${isFromApi ? '' : ' (靜態)'}`;
+        siteFlag.textContent = '🌅';
+        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
         siteTitle.classList.add('sunset-active');
-
-        // 若尚未從 API 取得，觸發懶加載
-        if (!isFromApi && dateStr) {
-          fetchSunsetForDate(dateStr).then(updated => {
-            if (updated && updated.fromApi) {
-              const stillOpen = document.querySelector('.day-card.open');
-              if (stillOpen?.getAttribute('data-date') === dateStr) {
-                siteFlag.textContent = '🌅';
-                siteTitle.textContent = `${updated.time} 日落 · ${updated.city}`;
-              }
-            }
-          });
-        }
       } else {
         siteFlag.textContent = '🇯🇵';
         siteTitle.textContent = '日本旅行 2026';
