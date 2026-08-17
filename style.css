@@ -202,18 +202,22 @@ body {
 
 .rate-popup-presets {
   display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: space-between;
+  flex-wrap: nowrap;
   margin-bottom: 12px;
+  width: 100%;
 }
 
 .rate-preset {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
   background: #fff5f0;
-  border: 1.5px solid #f0c8b8;
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 0.78rem;
+  border: 1.2px solid #f0c8b8;
+  border-radius: 16px;
+  padding: 5px 2px;
+  font-size: 0.74rem;
   font-weight: 600;
   color: #b54040;
   cursor: pointer;
