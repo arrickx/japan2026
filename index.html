@@ -7,7 +7,7 @@
   <meta name="description" content="日本旅行 2026 行程總覽" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./style.css?v=20260816j" />
+  <link rel="stylesheet" href="./style.css?v=20260816k" />
 </head>
 <body>
 
@@ -58,9 +58,9 @@
     <div class="modal-popup rate-popup">
       <div class="rate-popup-title">💱 快速換匯計算</div>
       <div class="rate-popup-row">
-        <div class="rate-input-group">
+        <div class="rate-input-group" id="rate-input-group" title="點擊輸入或左右滑動微調 ±100">
           <span class="rate-currency-label">¥</span>
-          <input id="rate-jpy-input" class="rate-input" type="number" inputmode="numeric" value="10000" />
+          <input id="rate-jpy-input" class="rate-input" type="number" inputmode="numeric" step="100" min="0" value="10000" />
           <span class="rate-unit">JPY</span>
         </div>
         <div class="rate-arrow">→</div>
@@ -70,6 +70,7 @@
           <span class="rate-unit">USD</span>
         </div>
       </div>
+      <div class="rate-slide-hint">⇄ 左右滑動金額微調 ±100</div>
       <div class="rate-popup-presets">
         <button class="rate-preset" data-jpy="1000">¥1,000</button>
         <button class="rate-preset" data-jpy="5000">¥5,000</button>
@@ -80,6 +81,6 @@
     </div>
   </div>
 
-  <script type="module" src="./main.js?v=20260816j"></script>
+  <script type="module" src="./main.js?v=20260816k"></script>
 </body>
 </html>

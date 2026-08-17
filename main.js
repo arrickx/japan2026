@@ -2399,6 +2399,7 @@ function setupRatePopup() {
   const jpyInput = document.getElementById('rate-jpy-input');
   const usdResult = document.getElementById('rate-usd-result');
   const note = document.getElementById('rate-popup-note');
+  const inputGroup = document.getElementById('rate-input-group') || jpyInput?.parentElement;
   if (!jpyInput || !usdResult) return;
 
   function calcAndShow() {
@@ -2424,6 +2425,56 @@ function setupRatePopup() {
       calcAndShow();
     });
   });
+
+  // 手機觸控滑動微調 JPY 金額（每滑動 ~14px 微調 ±100 JPY）
+  if (inputGroup) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let startVal = 0;
+    let isDragging = false;
+
+    inputGroup.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        startVal = parseFloat(jpyInput.value) || 0;
+        isDragging = false;
+      }
+    }, { passive: true });
+
+    inputGroup.addEventListener('touchmove', (e) => {
+      if (e.touches.length !== 1) return;
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const deltaX = currentX - touchStartX;
+      const deltaY = touchStartY - currentY;
+      const delta = Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : deltaY;
+
+      if (Math.abs(delta) > 6) {
+        isDragging = true;
+        if (e.cancelable) e.preventDefault();
+        inputGroup.classList.add('is-sliding');
+
+        // 每滑動約 14px 調整 100 JPY
+        const stepCount = Math.trunc(delta / 14);
+        const newVal = Math.max(0, startVal + stepCount * 100);
+        if (parseFloat(jpyInput.value) !== newVal) {
+          jpyInput.value = newVal;
+          calcAndShow();
+        }
+      }
+    }, { passive: false });
+
+    const endTouch = () => {
+      inputGroup.classList.remove('is-sliding');
+      if (isDragging) {
+        jpyInput.blur();
+      }
+    };
+
+    inputGroup.addEventListener('touchend', endTouch);
+    inputGroup.addEventListener('touchcancel', endTouch);
+  }
 }
 
 /** 解析時間字串（如 "1:35 PM", "11:15 AM", "17:30"）為當天分鐘數 */

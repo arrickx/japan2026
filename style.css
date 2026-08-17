@@ -129,6 +129,28 @@ body {
   border: 1.5px solid #f0c8b8;
   border-radius: 12px;
   padding: 8px 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.rate-input-group {
+  touch-action: pan-y;
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.rate-input-group.is-sliding {
+  border-color: #d84530;
+  box-shadow: 0 0 0 2px rgba(216, 69, 48, 0.18);
+  background: #fff8f5;
+}
+
+.rate-slide-hint {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #b87060;
+  margin: -8px 0 12px 0;
+  letter-spacing: 0.02em;
 }
 
 .rate-currency-label {
