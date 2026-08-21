@@ -454,6 +454,25 @@ const ITINERARY = [
         summary: 'teamLab · 豐洲千客萬來 · 購物',
         illustration: './images/teamlab_toyosu.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "室內古都文化",
+            "鎌倉文華館",
+            "江之電景觀茶屋",
+            "避開泥濘石階"
+          ],
+          "intro": "若遇暴雨強降雨，取消戶外七里之濱沙灘漫步與高德院露天大佛參拜。改為前往全室內的【鎌倉文華館 鶴岡博物館 (Tsurugaoka Museum)】欣賞坂倉準三現代建築與古都文獻，隨後在小町通頂棚茶屋或由比之濱室內海景咖啡廳品茶。",
+          "address": "神奈川県鎌倉市雪ノ下 2-1-53（鶴岡八幡宮境內 文華館）",
+          "mapLink": "https://maps.google.com/?q=Kamakura+Bunkakan+Tsurugaoka+Museum",
+          "must": [
+            "鎌倉文華館鶴岡博物館 — 建築大師坂倉準三設計之現代名作，全室內空調展廳，平地推車無障礙",
+            "鶴岡八幡宮室內迴廊與御守處 — 經由鋪石平道直達，不淋雨參拜",
+            "由比之濱海景室內咖啡 / 小町通頂棚茶屋 — 舒適落座，推車可推入，雨中遠眺相模灣白浪"
+          ],
+          "tip": "💡 鶴岡八幡宮境內自文華館至參拜道均有無障礙斜坡，推車避開泥濘土路。"
+        },
         activities: [
           {
             time: '8:30 AM',
@@ -526,6 +545,25 @@ const ITINERARY = [
         summary: '小町通 · 鎌倉大佛 · 灌籃高手平交道',
         illustration: './images/kamakura.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "室內DIY體驗",
+            "日清泡麵博物館",
+            "港未來連廊",
+            "親子共創"
+          ],
+          "intro": "若遇暴雨強降雨，取消戶外山下公園與紅磚碼頭步道。改為前往全室內的【合清/日清泡麵博物館 (Cup Noodles Museum Yokohama)】，大人小孩親手彩繪並配製專屬世界唯一泡麵杯，全程通過港未來空中室內連廊移動。",
+          "address": "神奈川県横浜市中区新港 2-3-4",
+          "mapLink": "https://maps.google.com/?q=Cup+Noodles+Museum+Yokohama",
+          "must": [
+            "My CUPNOODLES Factory — 親手設計杯身、自選湯頭與 4 種經典配料，真空密封帶回家",
+            "百代發明紀念館與全室內麵條街 — 沉浸式展示安藤百福創新歷程，重現世界各地麵條風情",
+            "MARK IS 港未來室內空橋連鎖生活圈 — 下午直接經由室內步道進入大型商場輕鬆用餐與母嬰休整"
+          ],
+          "tip": "💡 泡麵博物館設有大型升降電梯與寬敞母嬰哺乳室，推車全程通行無阻。"
+        },
         activities: [
           {
             time: '9:15 AM',
@@ -674,6 +712,25 @@ const ITINERARY = [
         summary: '飛往新千歲 · 取車自駕 · 入住 FAV LUX',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "全天候頂棚",
+            "狸小路商店街",
+            "札幌工廠中庭",
+            "地下街全連通"
+          ],
+          "intro": "若抵達札幌當日遇雨，Alphard 租車直達飯店後，啟用全天候室內動線：經由札幌巨型地下街與【狸小路全頂棚商店街 (Tanukikoji)】漫步，或前往【札幌工廠 (Sapporo Factory)】巨型紅磚玻璃採光穹頂室內商場。",
+          "address": "北海道札幌市中央区北 2 条東 4 丁目（Sapporo Factory）",
+          "mapLink": "https://maps.google.com/?q=Sapporo+Factory",
+          "must": [
+            "札幌工廠紅磚巨型玻璃中庭 (Atrium) — 歷史啤酒廠改建之全室內綠植採光挑高中庭，完全無懼風雨",
+            "狸小路 1–7 丁目全天候頂棚 — 橫跨近 1 公里的全封閉式步行街，藥妝、伴手禮與北海道名產一站搞定",
+            "札幌地下步行空間 (Chi-Ka-Ho) — 從薄野一路連通至札幌車站，推車全程電梯避雨"
+          ],
+          "tip": "💡 FAV LUX 札幌步行至狸小路僅 3 分鐘，地下街各出入口皆設有箱型電梯。"
+        },
         driving: { distance: '約 45 公里 / 50 分鐘', route: '道央自動車道', rest: null, tips: ['夜間取車注意控制車速，機場周邊道路較暗', '停 Paraca 時注意不要誤入機械立體車位（Alphard 車高 1.95m）'] },
         activities: [
           {
@@ -759,6 +816,25 @@ const ITINERARY = [
         summary: 'Ario 採購 · 啤酒博物館烤肉 · 湯咖哩',
         illustration: './images/sapporo_bbq.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "童話城堡工廠",
+            "白色戀人公園",
+            "室內甜點產線",
+            "自駕直達車位"
+          ],
+          "intro": "若遇強降雨取消圓山動物園與戶外夜景，改為自駕前往【白色戀人公園 (Shiroi Koibito Park)】全室內童話城堡觀光工廠，參觀經典貓舌餅乾全自動產線、巧克力歷史展廳，並在室內英式茶沙龍品嚐限定甜點。",
+          "address": "北海道札幌市西区宮の沢 2 条 2 丁目 11-36",
+          "mapLink": "https://maps.google.com/?q=Shiroi+Koibito+Park+Sapporo",
+          "must": [
+            "Chocotopia House & 工廠產線走廊 — 隔著玻璃觀摩白色戀人烘烤、夾心與包裝全過程",
+            "室內復古巧克力博物館 — 珍藏 18 世紀歐洲精緻巧克力杯與古典包裝盒收藏",
+            "貴賓茶沙龍 Lounge — 享用現烤白色戀人熔岩芭菲與特調熱可可，推車可直接推入桌旁"
+          ],
+          "tip": "💡 園區設有大型室內地下平地停車場，停妥後直搭電梯進入展館，完全不淋雨。"
+        },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['Paraca 折扣券為一次性出庫券，停回後全家步行'] },
         activities: [
           {
@@ -826,6 +902,25 @@ const ITINERARY = [
         summary: '分頭行動 · 運河遊船 · 小樽晚宴',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "古典音樂盒館",
+            "北一硝子玻璃館",
+            "小樽藝術村",
+            "室內彩繪玻璃"
+          ],
+          "intro": "若遇雨天，將小樽戶外漫步轉為沉浸式室內工藝之旅：從小樽歷史地標【小樽音樂盒堂本館 (Otaru Music Box Museum)】到【北一硝子三號館 (煤油燈茶房)】與【小樽藝術村 (彩色玻璃美術館)】，在清脆八音盒音色與璀璨彩繪玻璃中度過。",
+          "address": "北海道小樽市住吉町 4-1（小樽音樂盒堂本館）",
+          "mapLink": "https://maps.google.com/?q=Otaru+Music+Box+Museum+Main+Building",
+          "must": [
+            "音樂盒堂本館三層挑高木造展廳 — 萬種古典音樂盒齊鳴，蒸氣鐘每 15 分鐘噴煙報時",
+            "北一硝子三號館 167 盞煤油燈咖啡廳 — 感受歷史木構建築與昏黃煤油燈搖曳的極致浪漫",
+            "小樽藝術村 彩繪玻璃美術館 — 近百年歷史的英國教堂彩繪玻璃真品室內展"
+          ],
+          "tip": "💡 音樂盒堂與北一硝子各館門口皆有鋪磚平地，館內有升降機可供推車通行。"
+        },
         driving: { distance: '單程約 40 公里 / 45 分鐘', route: '札樽自動車道', rest: null, tips: ['札樽高速沿海路段側風較大，雙手穩住方向盤', '若鶏時代なると本店自帶 21 車位免費車場，小樽運河 Times 車位充足'] },
         activities: [
           {
@@ -963,6 +1058,25 @@ const ITINERARY = [
         summary: '北海道神宮 · 場外市場帝王蟹 · Toriton 迴轉壽司',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "日歸私湯包廂",
+            "定山溪溫泉",
+            "景觀室內大浴場",
+            "全家療癒"
+          ],
+          "intro": "若遇降雨，取消戶外大通公園與定山溪戶外吊橋漫步，改為自駕前往定山溪名宿【定山溪 鶴雅 休閒度假飯店 森之謌 (Mori no Uta)】或【鹿之湯】享用「日歸私人包廂溫泉 (貸切風呂)」，聽雨聲泡天然礦物泉，中午品嚐精緻和風午餐。",
+          "address": "北海道札幌市南区定山溪温泉東 3 丁目 105",
+          "mapLink": "https://maps.google.com/?q=Jozankei+Tsuruga+Resort+Spa+Mori+no+Uta",
+          "must": [
+            "獨立景觀私湯包廂 — 全家專屬私密空間，寶寶泡湯或休息完全無拘無束",
+            "森之謌森林森呼吸室內大堂 — 巨型挑高暖爐與落地窗雨景，室內享用現烤洋菓子與咖啡",
+            "札幌場外市場室內海鮮街 — 回程順道至全室內遮棚市場品嚐炭烤帝王蟹與海膽丼"
+          ],
+          "tip": "💡 私湯包廂建議提前 2-3 天官網預約日歸 Day-use 套餐（含午餐+私湯）。"
+        },
         driving: { distance: '市區短途約 15 公里', route: null, rest: null, tips: ['北海道神宮參拜可享 2 小時免費停車，進場拿好停車券並蓋章'] },
         activities: [
           {
@@ -1038,6 +1152,25 @@ const ITINERARY = [
         summary: '青池 · 美瑛農場 · 四季彩之丘 · 富良野',
         illustration: './images/biei_furano.jpg',
         hotel: { name: 'Fenix West (富良野)', mapLink: 'https://maps.google.com/?q=Fenix+West+Furano' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "起司工坊手作",
+            "美瑛選果室內館",
+            "後藤純男美術館",
+            "北海道乳酪"
+          ],
+          "intro": "若美瑛山區遇大雨導致田園泥濘與青池視線不佳，改為前往【富良野起司工坊 (Furano Cheese Factory)】與【美瑛選果 (Biei Senka 室內特產館)】，參觀起司製作過程、品嚐現做黑芝士冰淇淋與純濃美瑛牛奶。",
+          "address": "北海道富良野市中五区（富良野起司工坊）",
+          "mapLink": "https://maps.google.com/?q=Furano+Cheese+Factory",
+          "must": [
+            "富良野起司工坊玻璃體驗廊 — 觀看紅酒起司成熟室與牛奶發酵槽，試吃多款北海道冠軍起司",
+            "手工窯烤 Pizza 工坊 — 現點現烤拿坡里雙拼起司披薩，濃郁牽絲大人小孩皆愛",
+            "後藤純男美術館 (室內景觀畫廊) — 坐在全室內二樓景觀餐廳，品嚐富良野和牛與俯瞰十勝岳雨霧景緻"
+          ],
+          "tip": "💡 起司工坊園區全平地鋪設，設有大型停車場與無障礙洗手間，雨天上下車極便利。"
+        },
         driving: { 
           distance: '總計約 210 公里 / 3.5 小時', 
           route: '札幌→美瑛 150km/2.5h、美瑛→富良野 30km/35min', 
@@ -1143,6 +1276,25 @@ const ITINERARY = [
         summary: '富田農場 · 登別瀧乃家入住 · 部屋食',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '登別 瀧乃家 (Takinoya)', mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "果汁葡萄酒工廠",
+            "登別溫泉街",
+            "瀧乃家室內水療",
+            "全天候自駕"
+          ],
+          "intro": "若富良野花田雨勢過大，參觀富田農場室內乾燥花舍後，自駕前往【富良野葡萄酒果汁工廠 (Furano Winery & Juice Factory)】室內品嚐香甜白葡萄汁，下午提早抵達登別溫泉【瀧乃家】，享受頂級和風客房與室內庭園名湯。",
+          "address": "北海道富良野市清水山（富良野葡萄酒廠）",
+          "mapLink": "https://maps.google.com/?q=Furano+Winery",
+          "must": [
+            "富良野葡萄酒廠地下酒窖 — 參觀橡木桶熟成庫，免費試飲無酒精鮮榨純葡萄汁",
+            "富田農場 花人之舍 (室內精油館) — 全日本最大乾燥花展示室，購買天然薰衣草精油與皂品",
+            "登別瀧乃家 提早 Check-in — 享受客房私人風呂與館內「玉乃湯」地熱名泉"
+          ],
+          "tip": "💡 自駕路段經道央自動車道直達登別，雨天高速行車穩定平順，飯店提供專人代客泊車。"
+        },
         driving: { 
           distance: '約 180 公里 / 2.5–3 小時', 
           route: '道東自動車道', 
@@ -1200,6 +1352,25 @@ const ITINERARY = [
         summary: '地獄谷 · 金森紅磚倉庫 · 函館夜景',
         illustration: './images/hakodate_night.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "五稜郭室內展望",
+            "金森紅磚倉庫群",
+            "星形要塞",
+            "海港文創連廊"
+          ],
+          "intro": "若函館山夜景受雨霧影響，改為登上全封閉玻璃觀景的【五稜郭塔 (Goryokaku Tower 展望台)】360 度俯瞰巨大星形要塞全景，隨後前往【金森紅磚倉庫群 (Kanemori Red Brick Warehouses)】全室內連廊慢逛洋菓子名店與文創手作。",
+          "address": "北海道函館市五稜郭町 43-9（五稜郭塔）",
+          "mapLink": "https://maps.google.com/?q=Goryokaku+Tower+Hakodate",
+          "must": [
+            "五稜郭塔 90 米室內全景展望台 — 設有強化玻璃透明地板與歷史模型展，完全無懼風雨",
+            "金森紅磚倉庫群 (BAY 函館 / 金森洋物館) — 百年紅磚老庫改造之全室內步道，推車極舒適",
+            "Pastry Snaffle's 輕乳酪蛋糕與 Petite Merveille 南瓜布丁 — 倉庫內舒適落座現吃現買"
+          ],
+          "tip": "💡 五稜郭塔與金森倉庫均有大型收費/合作平面停車場，推車進出皆有無障礙電梯。"
+        },
         driving: { 
           distance: '約 200 公里 / 2.5–3 小時', 
           route: '道央自動車道', 
@@ -1307,6 +1478,25 @@ const ITINERARY = [
         summary: '五稜郭塔俯瞰 · 潮騷亭海景泡湯',
         illustration: './images/goryokaku.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "火山地質科學館",
+            "洞爺湖萬世閣",
+            "室內溫泉水療",
+            "湖景室內泳池"
+          ],
+          "intro": "若洞爺湖戶外遊船因雨停航，自駕前往【有珠山噴火紀念公園 · 火山科學館 (Mt. Usu Volcano Science Museum)】體驗震撼室內聲光火山劇場，下午提早入住【洞爺湖萬世閣】，暢享頂樓全室內「月的湯」溫泉與室內溫水水療池。",
+          "address": "北海道虻田郡洞爺湖町洞爺湖温泉 142-5（火山科學館）",
+          "mapLink": "https://maps.google.com/?q=Usuzan+Volcano+Science+Museum",
+          "must": [
+            "有珠山火山科學館 4D 沉浸式劇場 — 體驗地殼變動與火山地質科普，室內寓教於樂",
+            "洞爺湖萬世閣 8F 星之湯 & 地下月的湯 — 全落地玻璃室內溫泉，一邊泡湯一邊遠眺雨中湖面煙雨",
+            "飯店室內溫水活水池 (B1) — 備有兒童淺水區與泳圈租借，下雨天寶寶也能盡情玩水"
+          ],
+          "tip": "💡 萬世閣提供 Alphard 1.95 米專用平地停車位，飯店直通溫泉大浴場。"
+        },
         driving: { distance: '市區零星移動約 20 公里', route: null, rest: null, tips: ['16:30 登函館山須停車於山麓纜車站，17:00–22:00 私家車禁行登山道'] },
         activities: [
           {
@@ -1392,6 +1582,25 @@ const ITINERARY = [
         summary: '有珠山纜車 · 展望台 · 湖畔煙火',
         illustration: './images/toya.jpg',
         hotel: { name: '洞爺湖萬世閣 (Toya Manseikaku)', mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "機場全室內主題樂園",
+            "哆啦A夢空中文創",
+            "Royce巧克力世界",
+            "免淋雨還車"
+          ],
+          "intro": "抵達新千歲機場還車後，提早進入日本最受歡迎的全室內航廈娛樂中心【新千歲機場 國內線 3F 娛樂王國】，暢玩【哆啦A夢空中樂園 (Wakuwaku Sky Park)】、【Royce' 巧克力世界產線】與【Hello Kitty Happy Flight】。",
+          "address": "北海道千歳市美々（新千歲機場 國內線航廈 3F）",
+          "mapLink": "https://maps.google.com/?q=Doraemon+Wakuwaku+Sky+Park+New+Chitose+Airport",
+          "must": [
+            "哆啦A夢空中樂園 (Wakuwaku Sky Park) — 銅鑼燒滑梯、任意門拍照區與專屬兒童室內遊樂區",
+            "Royce' Chocolate World — 玻璃走廊全自動巧克力工廠產線展示，購買限定生巧克力",
+            "北海道拉麵道場 (10 家名店室內街) — 一之倉、吉山商店、白樺山莊免排隊室內品嚐"
+          ],
+          "tip": "💡 新千歲機場航廈全程無障礙電梯與豪華母嬰室配備，推車可一路推到登機口。"
+        },
         driving: { 
           distance: '約 160 公里 / 2–2.5 小時', 
           route: null, 
@@ -1478,6 +1687,25 @@ const ITINERARY = [
         summary: '支笏湖 · 順暢還車 · 新千歲 · 飛羽田',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "世界市集巨型頂棚",
+            "美女與野獸室內線",
+            "小熊維尼室內乘車",
+            "雨天限定遊行"
+          ],
+          "intro": "迪士尼樂園遇雨時啟用全室內明星設施路線：穿過擁有巨型維多利亞全玻璃頂棚的【世界市集 (World Bazaar)】，主攻全室內恆溫設施【美女與野獸「城堡奇緣」】、【小熊維尼獵蜜記】與【怪獸電力公司】，傍晚觀賞雨天限定版夜間迷你遊行【Nightfall Glow】。",
+          "address": "千葉県浦安市舞浜 1-1（Tokyo Disneyland）",
+          "mapLink": "https://maps.google.com/?q=Tokyo+Disneyland+Main+Entrance",
+          "must": [
+            "世界市集 (World Bazaar) 全天候巨型頂棚大街 — 購物、拍照與遮雨大本營，完全不受風雨影響",
+            "全室內熱門乘車設施 — 美女與野獸、小熊維尼、巴斯光年星際歷險、幽靈公館全程室內排隊與乘坐",
+            "雨天限定版遊行「夜幕微光 (Nightfall Glow)」— 僅在下雨天登場的發光夢幻水滴花車遊行"
+          ],
+          "tip": "💡 園區嬰兒推車出租處提供原廠專用透明推車雨罩（約 1,000 日元），防風防雨效果極佳。"
+        },
         driving: { 
           distance: '約 100 公里 / 1 小時 20 分鐘', 
           route: null, 
@@ -1585,6 +1813,25 @@ const ITINERARY = [
         summary: '自然醒休整 · 銀座特色午餐 · 集中購物',
         illustration: './images/ginza.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "美人魚礁湖全室內王國",
+            "海底兩萬哩",
+            "辛巴達傳奇",
+            "全天候母嬰殿堂"
+          ],
+          "intro": "迪士尼海洋遇雨時直奔【美人魚礁湖 (Mermaid Lagoon Under the Sea)】——這是一座藏於巨型貝殼城堡下的 100% 全室內海底王國，配有專屬旋轉海龜、跳躍水母、室內造景餐廳與高端母嬰室；隨後順道乘坐全室內的【辛巴達傳奇之旅】與【海底兩萬哩】。",
+          "address": "千葉県浦安市舞浜 1-13（Tokyo DisneySea）",
+          "mapLink": "https://maps.google.com/?q=Tokyo+DisneySea+Main+Entrance",
+          "must": [
+            "美人魚礁湖 (Mermaid Lagoon) 全室內海底世界 — 恆溫無風雨，擁有 5 項溫和親子設施與珊瑚礁遊樂場",
+            "辛巴達傳奇之旅 (Sinbad's Storybook Voyage) — 全室內乘船遊歷，搭配亞倫·孟肯震撼原創交響樂",
+            "塞巴斯丁加力騷廚房 (室內海底餐廳) — 坐在巨大貝殼下方享用海鮮披薩與海龜漢堡，推車直接入座"
+          ],
+          "tip": "💡 美人魚礁湖是全東京迪士尼園區內最完整的室內避雨親子聖地，推車可在室內暢行。"
+        },
         activities: [
           {
             time: '9:30 AM',
@@ -1628,6 +1875,25 @@ const ITINERARY = [
         summary: '大石公園 · 富士山餺餂麵 · 忍野八海',
         illustration: './images/fuji.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "富士世界遺產中心",
+            "坂茂木格建築",
+            "御殿場室內連廊",
+            "名品名產一站式"
+          ],
+          "intro": "若富士山區遇雨霧導致山體能見度為零，改為前往由建築巨匠坂茂設計的【靜岡縣富士山世界遺產中心 (Mt. Fuji World Heritage Centre)】，沿著室內螺旋坡道欣賞 193 米倒立富士木格與沉浸式登山投影；隨後自駕前往【御殿場 Premium Outlets】頂棚連廊輕鬆逛街。",
+          "address": "静岡県富士宮市宮町 5-12（富士山世界遺產中心）",
+          "mapLink": "https://maps.google.com/?q=Mt.+Fuji+World+Heritage+Centre+Shizuoka",
+          "must": [
+            "坂茂倒立富士木格建築 — 富士檜木編織之倒錐形建築，水池倒影如明鏡",
+            "193 米室內螺旋攀登步道 — 伴隨光影與音效體驗從海平面到富士山頂的虛擬日出",
+            "御殿場 Outlets 全連廊街區 — 擁有大型立體平地停車場與有蓋步道，推車遮雨逛名品"
+          ],
+          "tip": "💡 遺產中心館內全程平緩無障礙坡道，推車可一路推上頂樓觀景台。"
+        },
         activities: [
           {
             time: '8:30 AM',
@@ -1671,6 +1937,25 @@ const ITINERARY = [
         summary: '全天集中購物 · 木村家現烤麵包 · 戰利品隨時回酒店',
         illustration: './images/ginza_shopping.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "GINZA SIX室內垂直殿堂",
+            "伊東屋12層文具樓",
+            "地下連通街",
+            "銀座三越"
+          ],
+          "intro": "銀座本身即為全天候奢華室內生活圈。遇雨時利用地下直通系統穿梭於【GINZA SIX】（蔦屋書店與挑高中庭草間彌生藝術）、【銀座伊東屋 (Itoya)】12 層文具生活大樓與【銀座三越】，全程走地下街連通道與商場天橋，完全不落地淋雨。",
+          "address": "東京都中央区銀座 6 丁目 10-1（GINZA SIX）",
+          "mapLink": "https://maps.google.com/?q=GINZA+SIX+Tokyo",
+          "must": [
+            "GINZA SIX 6F 蔦屋書店與中庭裝置藝術 — 世界最美書店之一，室內挑高設計極致奢華",
+            "銀座伊東屋 (G.Itoya) 12 層生活美學大樓 — 每層獨立主題，頂樓設有室內水耕蔬菜咖啡廳",
+            "銀座站地下連通步道 (Ginza Underground Walkway) — 直通各大百貨 B1 美食街，推車免出地面"
+          ],
+          "tip": "💡 GINZA SIX 6F 與三越 B1/9F 皆設有頂級豪華母嬰哺乳室與尿布更換台。"
+        },
         activities: [
           {
             time: '10:00 AM',
@@ -1727,6 +2012,25 @@ const ITINERARY = [
         summary: '皇居外苑漫步 · 查漏補缺 · 打包封箱',
         illustration: './images/ginza_night.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
+        rainBackup: {
+          "emoji": "☔",
+          "title": "暴雨備選預案（僅強降雨時啟用）",
+          "tags": [
+            "日本科學未來館",
+            "巨型LED地球劇場",
+            "台場DiverCity",
+            "機器人互動"
+          ],
+          "intro": "除已預訂的【TeamLab Planets】（全室內赤足光影）外，若遇雨天將戶外台場海濱公園改為前往全室內的【日本科學未來館 (Miraikan)】，參觀漂浮於空中的 Geo-Cosmos 巨型 LED 地球與 ASIMO/人型機器人互動，隨後在【DiverCity Tokyo】室內商城享用晚餐。",
+          "address": "東京都江東区青海 2 丁目 3-6（日本科學未來館）",
+          "mapLink": "https://maps.google.com/?q=Miraikan+National+Museum+of+Emerging+Science+and+Innovation",
+          "must": [
+            "Geo-Cosmos 巨型高解析度 LED 懸空地球 — 躺在 1F 室內圓形沙發仰望即時地球雲圖",
+            "機器人與未來世界互動體驗區 — 適合大小朋友親手操作與人型機器人對話",
+            "DiverCity Tokyo Plaza 全室內購物中心 — 逛鋼彈基地室內旗艦店與頂級美食街"
+          ],
+          "tip": "💡 未來館全館無障礙平坦坡道，電梯寬敞，極適合推車家庭度過舒適雨天時光。"
+        },
         activities: [
           {
             time: '10:00 AM',
@@ -2240,14 +2544,26 @@ function renderRainSection() {
   const popup = document.getElementById('rain-popup');
   if (!popup) return;
 
-  let rainData = null;
-  forEachDay(day => {
-    if (day.rainBackup && !rainData) rainData = day.rainBackup;
+  setupModalOverlay('rain-overlay', 'rain-fab', {
+    onOpen: () => {
+      const openCard = document.querySelector('.day-card.open');
+      const dateStr = openCard ? openCard.getAttribute('data-date') : null;
+      let rainData = null;
+      if (dateStr) {
+        forEachDay(day => {
+          if (day.date === dateStr && day.rainBackup) rainData = day.rainBackup;
+        });
+      }
+      if (!rainData) {
+        forEachDay(day => {
+          if (day.rainBackup && !rainData) rainData = day.rainBackup;
+        });
+      }
+      if (rainData) {
+        popup.innerHTML = buildSpotPopupHtml(rainData);
+      }
+    }
   });
-  if (!rainData) return;
-
-  popup.innerHTML = buildSpotPopupHtml(rainData);
-  setupModalOverlay('rain-overlay', 'rain-fab');
 }
 
 // ============================================================
