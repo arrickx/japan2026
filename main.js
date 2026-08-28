@@ -91,7 +91,8 @@ async function fetchAllCitiesWeatherBatch() {
       const lats = uniqueCoords.map(c => c.lat.toFixed(4)).join(',');
       const lngs = uniqueCoords.map(c => c.lng.toFixed(4)).join(',');
 
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=7`;
+      // 支援長達 16 天預報，直連日本氣象廳 JMA 數值預報模型
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16`;
 
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
@@ -136,7 +137,7 @@ async function fetchCityWeather(lat, lng) {
   }
 
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=7`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
     const data = await res.json();
@@ -160,7 +161,7 @@ async function fetchCityWeather(lat, lng) {
 }
 
 /**
- * 依目標日期獲取連續 3 天的獨立城市天氣預報
+ * 依目標日期獲取該日及後續 2 天（共 3 天）的真實日曆日期天氣預報
  * 跨城市時（如 Day 9 美瑛、Day 10 富良野、Day 11 登別）各自精準查詢所屬城市座標！
  */
 async function get3DayForecastForDate(startDateStr) {
@@ -172,14 +173,27 @@ async function get3DayForecastForDate(startDateStr) {
 
   const targetDays = allDays.slice(startIdx, Math.min(startIdx + 3, allDays.length));
 
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  
+  const tomorrow = new Date(now.getTime() + 86400000);
+  const tomorrowStr = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
+  
+  const dayAfter = new Date(now.getTime() + 86400000 * 2);
+  const dayAfterStr = `${dayAfter.getFullYear()}-${String(dayAfter.getMonth() + 1).padStart(2, '0')}-${String(dayAfter.getDate()).padStart(2, '0')}`;
+
   const forecastPromises = targetDays.map(async (day, offset) => {
     const coords = SUNSET_COORDS[day.date];
     if (!coords) return null;
 
     const weatherData = await fetchCityWeather(coords.lat, coords.lng);
-    if (!weatherData || !weatherData[offset]) {
+    // 比對真實日曆日期（coords.apiDate，例如 "2026-08-31"）
+    const matchedDay = weatherData?.find(d => d.date === coords.apiDate);
+
+    if (!matchedDay) {
       return {
         date: day.date,
+        apiDate: coords.apiDate,
         dayNum: day.dayNum,
         city: coords.city,
         emoji: '⛅',
@@ -187,39 +201,38 @@ async function get3DayForecastForDate(startDateStr) {
         rain: 0,
         tempMax: null,
         tempMin: null,
-        isAlert: false
+        isAlert: false,
+        isFuture: true,
+        relLabel: day.date
       };
     }
 
-    const dayWeather = weatherData[offset];
-    const prob = dayWeather.prob ?? 0;
+    const prob = matchedDay.prob ?? 0;
     const isAlert = prob >= 50;
-    const emoji = getWeatherEmoji(dayWeather.code, prob);
+    const emoji = getWeatherEmoji(matchedDay.code, prob);
 
-    // 解析真實 API 預報日期（例如 "2026-08-16" -> "8/16"）
-    let realDateStr = dayWeather.date || '';
-    if (realDateStr.includes('-')) {
-      const parts = realDateStr.split('-');
-      if (parts.length === 3) {
-        realDateStr = `${parseInt(parts[1], 10)}/${parseInt(parts[2], 10)}`;
-      }
+    let relLabel = day.date;
+    if (coords.apiDate === todayStr) {
+      relLabel = '今天';
+    } else if (coords.apiDate === tomorrowStr) {
+      relLabel = '明天';
+    } else if (coords.apiDate === dayAfterStr) {
+      relLabel = '後天';
     }
 
-    const relLabels = ['今天', '明天', '後天'];
-    const relLabel = relLabels[offset] || `+${offset}天`;
-
     return {
-      date: realDateStr || day.date,
-      itineraryDate: day.date,
+      date: day.date,
+      apiDate: coords.apiDate,
       relLabel: relLabel,
       dayNum: day.dayNum,
       city: coords.city,
       emoji: emoji,
       prob: prob,
-      rain: dayWeather.rain ?? 0,
-      tempMax: dayWeather.tempMax,
-      tempMin: dayWeather.tempMin,
-      isAlert: isAlert
+      rain: matchedDay.rain ?? 0,
+      tempMax: matchedDay.tempMax,
+      tempMin: matchedDay.tempMin,
+      isAlert: isAlert,
+      isFuture: false
     };
   });
 
@@ -898,7 +911,7 @@ const ITINERARY = [
       {
         date: '9/6',
         dayNum: 'Day 7',
-        title: '分頭行動、小樽運河遊船與小樽名物晚宴',
+        title: '小樽運河遊船與名物晚宴',
         summary: '分頭行動 · 運河遊船 · 小樽晚宴',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
@@ -1054,7 +1067,7 @@ const ITINERARY = [
       {
         date: '9/7',
         dayNum: 'Day 8',
-        title: '森林朝聖、海鮮激戰區與北海道頂級回轉壽司',
+        title: '北海道神宮與場外市場海鮮',
         summary: '北海道神宮 · 場外市場帝王蟹 · Toriton 迴轉壽司',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
@@ -2167,6 +2180,8 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
 
 /**
  * 按需為展開的卡片加載未來 3 天天氣預報
+ * 僅在「真實近 3 天（今天/明天/後天）」於標題旁展示 Badge；遠期天數標題保持簡潔。
+ * 
  * @param {string} dateStr - e.g. "8/31"
  * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄
  */
@@ -2175,6 +2190,20 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const container = document.getElementById(`weather-3day-${safeId}`);
   const badge = document.getElementById(`weather-badge-${safeId}`);
   if (!container) return;
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const targetApiDate = SUNSET_COORDS[dateStr]?.apiDate;
+
+  let diffDays = 999;
+  if (targetApiDate) {
+    const targetTime = new Date(targetApiDate + 'T00:00:00').getTime();
+    const todayTime = new Date(todayStr + 'T00:00:00').getTime();
+    diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
+  }
+
+  // 僅今天、明天、後天（近 3 天）屬於高精度預報窗口
+  const isNear3Days = diffDays >= 0 && diffDays <= 2;
 
   // 如果已經加載過資料
   if (container.getAttribute('data-loaded') === 'true') {
@@ -2190,54 +2219,74 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
 
   container.setAttribute('data-loaded', 'true');
 
-  const hasAnyAlert = forecasts.some(f => f.isAlert);
-  const maxProb = Math.max(...forecasts.map(f => f.prob));
   const todayForecast = forecasts[0];
+  const hasRealData = !todayForecast.isFuture;
 
-  // 更新卡片頭部的小標籤（未展開時僅顯示 emoji，展開時顯示百分比按鈕）
+  // 1. 更新卡片頭部的小標籤（僅真實近 3 天且有即時數據時亮起，其餘遠期天數保持純淨隱藏）
   if (badge) {
-    if (hasAnyAlert) {
-      badge.className = 'day-weather-badge is-alert';
-      badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}%</span>`;
-      badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
+    if (isNear3Days && hasRealData) {
+      const hasAnyAlert = forecasts.some(f => f.isAlert);
+      const maxProb = Math.max(...forecasts.map(f => f.prob));
+      badge.style.display = '';
+
+      if (hasAnyAlert) {
+        badge.className = 'day-weather-badge is-alert';
+        badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}%</span>`;
+        badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
+      } else {
+        badge.className = 'day-weather-badge';
+        badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${todayForecast.prob}%</span>`;
+        badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
+      }
     } else {
-      badge.className = 'day-weather-badge';
-      badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${todayForecast.prob}%</span>`;
-      badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
+      badge.innerHTML = '';
+      badge.style.display = 'none';
     }
   }
 
-  // 生成 3 天嵌入式膠囊
-  let capsulesHtml = '';
-  forecasts.forEach(f => {
-    const alertClass = f.isAlert ? ' is-alert' : '';
-    const alertIcon = f.isAlert ? ' ☔' : '';
-    const tempInfo = f.tempMax !== null && f.tempMin !== null
-      ? `<div class="capsule-temp">${f.tempMin}° ~ ${f.tempMax}°</div>`
-      : '';
-    const relTag = f.relLabel ? `<span class="capsule-rel">(${f.relLabel})</span>` : '';
+  // 2. 生成卡片展開後的 3 天天氣膠囊或遠期提示
+  if (hasRealData) {
+    let capsulesHtml = '';
+    forecasts.forEach(f => {
+      const alertClass = f.isAlert ? ' is-alert' : '';
+      const alertIcon = f.isAlert ? ' ☔' : '';
+      const tempInfo = f.tempMax !== null && f.tempMin !== null
+        ? `<div class="capsule-temp">${f.tempMin}° ~ ${f.tempMax}°</div>`
+        : '';
+      const relTag = f.relLabel ? `<span class="capsule-rel">(${f.relLabel})</span>` : '';
 
-    capsulesHtml += `
-      <div class="weather-capsule${alertClass}">
-        <div class="capsule-header">
-          <span class="capsule-date">${f.date} ${relTag}</span>
-          <span class="capsule-city">${f.city}</span>
+      capsulesHtml += `
+        <div class="weather-capsule${alertClass}">
+          <div class="capsule-header">
+            <span class="capsule-date">${f.date} ${relTag}</span>
+            <span class="capsule-city">${f.city}</span>
+          </div>
+          <div class="capsule-main">
+            <span class="capsule-emoji">${f.emoji}</span>
+            <span class="capsule-prob">${f.prob}%${alertIcon}</span>
+          </div>
+          ${tempInfo}
         </div>
-        <div class="capsule-main">
-          <span class="capsule-emoji">${f.emoji}</span>
-          <span class="capsule-prob">${f.prob}%${alertIcon}</span>
-        </div>
-        ${tempInfo}
+      `;
+    });
+
+    container.innerHTML = `
+      <div class="weather-3day-bar">
+        <div class="weather-3day-title">⛅ 實時 3 日天氣預報（日本氣象廳 JMA 模型 · 各城市獨立座標）：</div>
+        <div class="weather-capsule-row">${capsulesHtml}</div>
       </div>
     `;
-  });
-
-  container.innerHTML = `
-    <div class="weather-3day-bar">
-      <div class="weather-3day-title">⛅ 實時 3 日天氣預報（日本氣象廳 JMA 模型 · 各城市獨立座標）：</div>
-      <div class="weather-capsule-row">${capsulesHtml}</div>
-    </div>
-  `;
+  } else {
+    // 遠期天數優雅提示
+    container.innerHTML = `
+      <div class="weather-3day-bar">
+        <div class="weather-3day-title">📅 氣象預報提示：</div>
+        <div style="font-size: 0.8rem; color: #8a6a5c; padding: 4px 2px; display: flex; align-items: center; gap: 6px;">
+          <span>🌤️ 本日（${dateStr}）實時高精度氣象預報將於出發前 3 天自動聯動日本氣象廳 JMA 即時生成</span>
+        </div>
+      </div>
+    `;
+  }
 
   if (autoOpen) {
     container.classList.add('open');
