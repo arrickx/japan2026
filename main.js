@@ -2179,11 +2179,11 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
 // ============================================================
 
 /**
- * 判斷指定天數是否在當前的 3 天天氣有效展示窗口內
- * - 出發前（today < 2026-08-31）：將前 3 天（8/31 涉谷、9/1 東京、9/2 鎌倉）作為出發前預熱展示！
- * - 出發後（today >= 2026-08-31）：動態滾動展示 今天 / 明天 / 後天（0, 1, 2 天）
+ * 判斷是否為「當天（Today）」卡片（僅當天在標題旁展示 Weather Badge，其餘天數保持純淨）
+ * - 出發前（today < 2026-08-31）：僅首日 Day 1 (8/31 涉谷) 亮起作為出發日氣象標籤！
+ * - 出發後（today >= 2026-08-31）：僅「今日（當天）」亮起天氣標籤！
  */
-function isDateInActive3DayWindow(dateStr) {
+function isDateTodayCard(dateStr) {
   const targetApiDate = SUNSET_COORDS[dateStr]?.apiDate;
   if (!targetApiDate) return false;
 
@@ -2193,19 +2193,19 @@ function isDateInActive3DayWindow(dateStr) {
   const targetTime = new Date(targetApiDate + 'T00:00:00').getTime();
   const tripStartTime = new Date('2026-08-31T00:00:00').getTime();
 
-  // 若尚未抵達行程首日（出發前）：前 3 天（8/31, 9/1, 9/2）自動亮起行前預熱！
+  // 出發前：僅第 1 天（8/31）亮起出發日天氣！
   if (todayTime < tripStartTime) {
-    return ['8/31', '9/1', '9/2'].includes(dateStr);
+    return dateStr === '8/31';
   }
 
-  // 出發後：按真實日曆日期滾動展示 今天 / 明天 / 後天（0, 1, 2 天）
+  // 出發後：僅當天（diffDays === 0）亮起天氣！
   const diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
-  return diffDays >= 0 && diffDays <= 2;
+  return diffDays === 0;
 }
 
 /**
  * 按需為展開的卡片加載未來 3 天天氣預報
- * 僅在「活躍 3 天預報窗口（出發前預熱或出發後近3天）」展示 Badge 與膠囊；遠期天數標題保持簡潔。
+ * 標題旁僅在「當天（Today）」展示天氣 Badge；展開任意卡片均可查看該站連續 3 天天氣膠囊。
  * 
  * @param {string} dateStr - e.g. "8/31"
  * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄
@@ -2216,11 +2216,11 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const badge = document.getElementById(`weather-badge-${safeId}`);
   if (!container) return;
 
-  const isNear3Days = isDateInActive3DayWindow(dateStr);
+  const isToday = isDateTodayCard(dateStr);
 
   // 如果已經加載過資料
   if (container.getAttribute('data-loaded') === 'true') {
-    if (autoOpen || isNear3Days) {
+    if (autoOpen || isToday) {
       container.classList.add('open');
       badge?.classList.add('active');
     }
@@ -2235,9 +2235,9 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const todayForecast = forecasts[0];
   const hasRealData = !todayForecast.isFuture;
 
-  // 1. 更新卡片頭部的小標籤（在 3 天活躍窗口內且有即時數據時亮起，其餘遠期天數保持純淨隱藏）
+  // 1. 更新卡片頭部的小標籤（僅「當天」卡片亮起，其餘天數標題保持純淨清爽）
   if (badge) {
-    if (isNear3Days && hasRealData) {
+    if (isToday && hasRealData) {
       const hasAnyAlert = forecasts.some(f => f.isAlert);
       const maxProb = Math.max(...forecasts.map(f => f.prob));
       badge.style.display = '';
@@ -2290,8 +2290,8 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       </div>
     `;
 
-    // 當卡片處於 3 天活躍窗口內時，自動展示天氣膠囊欄
-    if (isNear3Days || autoOpen) {
+    // 當卡片展開時展示天氣膠囊欄
+    if (autoOpen || isToday) {
       container.classList.add('open');
       badge?.classList.add('active');
     }
