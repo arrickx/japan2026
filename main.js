@@ -2179,8 +2179,33 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
 // ============================================================
 
 /**
+ * 判斷指定天數是否在當前的 3 天天氣有效展示窗口內
+ * - 出發前（today < 2026-08-31）：將前 3 天（8/31 涉谷、9/1 東京、9/2 鎌倉）作為出發前預熱展示！
+ * - 出發後（today >= 2026-08-31）：動態滾動展示 今天 / 明天 / 後天（0, 1, 2 天）
+ */
+function isDateInActive3DayWindow(dateStr) {
+  const targetApiDate = SUNSET_COORDS[dateStr]?.apiDate;
+  if (!targetApiDate) return false;
+
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const todayTime = new Date(todayStr + 'T00:00:00').getTime();
+  const targetTime = new Date(targetApiDate + 'T00:00:00').getTime();
+  const tripStartTime = new Date('2026-08-31T00:00:00').getTime();
+
+  // 若尚未抵達行程首日（出發前）：前 3 天（8/31, 9/1, 9/2）自動亮起行前預熱！
+  if (todayTime < tripStartTime) {
+    return ['8/31', '9/1', '9/2'].includes(dateStr);
+  }
+
+  // 出發後：按真實日曆日期滾動展示 今天 / 明天 / 後天（0, 1, 2 天）
+  const diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
+  return diffDays >= 0 && diffDays <= 2;
+}
+
+/**
  * 按需為展開的卡片加載未來 3 天天氣預報
- * 僅在「真實近 3 天（今天/明天/後天）」於標題旁展示 Badge；遠期天數標題保持簡潔。
+ * 僅在「活躍 3 天預報窗口（出發前預熱或出發後近3天）」展示 Badge 與膠囊；遠期天數標題保持簡潔。
  * 
  * @param {string} dateStr - e.g. "8/31"
  * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄
@@ -2191,23 +2216,11 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const badge = document.getElementById(`weather-badge-${safeId}`);
   if (!container) return;
 
-  const now = new Date();
-  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  const targetApiDate = SUNSET_COORDS[dateStr]?.apiDate;
-
-  let diffDays = 999;
-  if (targetApiDate) {
-    const targetTime = new Date(targetApiDate + 'T00:00:00').getTime();
-    const todayTime = new Date(todayStr + 'T00:00:00').getTime();
-    diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
-  }
-
-  // 僅今天、明天、後天（近 3 天）屬於高精度預報窗口
-  const isNear3Days = diffDays >= 0 && diffDays <= 2;
+  const isNear3Days = isDateInActive3DayWindow(dateStr);
 
   // 如果已經加載過資料
   if (container.getAttribute('data-loaded') === 'true') {
-    if (autoOpen) {
+    if (autoOpen || isNear3Days) {
       container.classList.add('open');
       badge?.classList.add('active');
     }
@@ -2222,7 +2235,7 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const todayForecast = forecasts[0];
   const hasRealData = !todayForecast.isFuture;
 
-  // 1. 更新卡片頭部的小標籤（僅真實近 3 天且有即時數據時亮起，其餘遠期天數保持純淨隱藏）
+  // 1. 更新卡片頭部的小標籤（在 3 天活躍窗口內且有即時數據時亮起，其餘遠期天數保持純淨隱藏）
   if (badge) {
     if (isNear3Days && hasRealData) {
       const hasAnyAlert = forecasts.some(f => f.isAlert);
@@ -2230,11 +2243,11 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       badge.style.display = '';
 
       if (hasAnyAlert) {
-        badge.className = 'day-weather-badge is-alert';
+        badge.className = 'day-weather-badge is-alert active';
         badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${maxProb}%</span>`;
         badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
       } else {
-        badge.className = 'day-weather-badge';
+        badge.className = 'day-weather-badge active';
         badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${todayForecast.prob}%</span>`;
         badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
       }
@@ -2276,6 +2289,12 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
         <div class="weather-capsule-row">${capsulesHtml}</div>
       </div>
     `;
+
+    // 當卡片處於 3 天活躍窗口內時，自動展示天氣膠囊欄
+    if (isNear3Days || autoOpen) {
+      container.classList.add('open');
+      badge?.classList.add('active');
+    }
   } else {
     // 遠期天數優雅提示
     container.innerHTML = `
@@ -2286,11 +2305,6 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
         </div>
       </div>
     `;
-  }
-
-  if (autoOpen) {
-    container.classList.add('open');
-    badge?.classList.add('active');
   }
 }
 
