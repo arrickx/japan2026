@@ -72,22 +72,35 @@ function getWeatherEmoji(code, prob = 0) {
 }
 
 /**
- * 根據逐時降雨數據智能歸納極簡單行時段與雨勢
- * 例如："微雨(19-20點)"、"陣雨(14-16點)"、"大雨(15-18點)"
+ * 根據逐時降雨數據與氣象代碼，精準分級雨勢與時段（基於日本氣象廳 JMA 體系）
+ * 分級：微雨（毛毛雨） / 小雨 / 陣雨 / 中雨 / 大雨 / 雷雨
  */
-function describeRainSummary(hourlyRainList, totalRain) {
+function describeRainSummary(hourlyRainList, totalRain, weatherCode = 0) {
   if (!hourlyRainList || hourlyRainList.length === 0 || totalRain < 0.2) {
     return null;
   }
 
   const hours = hourlyRainList.map(item => parseInt(item.hour.split(':')[0], 10));
+  const rainAmounts = hourlyRainList.map(item => item.rain);
+  const maxHourlyRain = Math.max(...rainAmounts);
   const minHour = Math.min(...hours);
   const maxHour = Math.max(...hours);
 
+  // 雨勢層級判定（嚴格依據日本氣象廳 JMA 降水量標準與 WMO 代碼）
   let intensity = '微雨';
-  if (totalRain >= 15) intensity = '大雨';
-  else if (totalRain >= 4) intensity = '陣雨';
-  else if (totalRain >= 1.5) intensity = '小雨';
+  if (weatherCode >= 95 && weatherCode <= 99) {
+    intensity = '雷雨';
+  } else if (maxHourlyRain >= 10 || totalRain >= 20) {
+    intensity = '大雨';
+  } else if (maxHourlyRain >= 3.5 || totalRain >= 8) {
+    intensity = '中雨';
+  } else if ((weatherCode >= 80 && weatherCode <= 82) || (maxHourlyRain >= 1.8 && hours.length <= 4)) {
+    intensity = '陣雨';
+  } else if (totalRain >= 1.5 || maxHourlyRain >= 0.8) {
+    intensity = '小雨';
+  } else {
+    intensity = '微雨';
+  }
 
   const timeStr = minHour === maxHour ? `${minHour}點` : `${minHour}-${maxHour}點`;
   return `${intensity}(${timeStr})`;
@@ -139,12 +152,13 @@ async function fetchAllCitiesWeatherBatch() {
               });
             }
 
+            const code = data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0;
             const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[dIdx] ?? 0 : 0;
-            const rainSummary = describeRainSummary(hourlyRainList, totalRain);
+            const rainSummary = describeRainSummary(hourlyRainList, totalRain, code);
 
             return {
               date: time,
-              code: data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0,
+              code: code,
               prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[dIdx] ?? 0 : 0,
               rain: totalRain,
               rainSummary: rainSummary,
@@ -197,12 +211,13 @@ async function fetchCityWeather(lat, lng) {
         });
       }
 
+      const code = data.daily.weather_code ? data.daily.weather_code[idx] ?? 0 : 0;
       const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[idx] ?? 0 : 0;
-      const rainSummary = describeRainSummary(hourlyRainList, totalRain);
+      const rainSummary = describeRainSummary(hourlyRainList, totalRain, code);
 
       return {
         date: time,
-        code: data.daily.weather_code ? data.daily.weather_code[idx] ?? 0 : 0,
+        code: code,
         prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[idx] ?? 0 : 0,
         rain: totalRain,
         rainSummary: rainSummary,
