@@ -106,6 +106,12 @@ body {
   color: #b54040;
 }
 
+body:has(.modal-overlay.open),
+body.modal-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
 /* ===== 通用彈窗基類 ===== */
 .modal-overlay {
   position: fixed;
@@ -120,6 +126,8 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
+  overscroll-behavior: contain;
+  touch-action: none;
 }
 .modal-overlay.open {
   opacity: 1;
@@ -136,6 +144,8 @@ body {
   transform: scale(0.92) translateY(14px);
   transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
   -webkit-overflow-scrolling: touch;
+  touch-action: auto;
+  overscroll-behavior: contain;
 }
 .modal-overlay.open .modal-popup {
   transform: scale(1) translateY(0);

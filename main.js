@@ -2415,21 +2415,40 @@ function setupModalOverlay(overlayId, triggerId, opts = {}) {
   const trigger = triggerId ? document.getElementById(triggerId) : null;
   if (!overlay) return null;
 
+  const openModal = () => {
+    overlay.classList.add('open');
+    document.body.classList.add('modal-open');
+    opts.onOpen?.();
+  };
+
+  const closeModal = () => {
+    overlay.classList.remove('open');
+    if (!document.querySelector('.modal-overlay.open')) {
+      document.body.classList.remove('modal-open');
+    }
+  };
+
   if (trigger) {
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      overlay.classList.add('open');
-      opts.onOpen?.();
+      openModal();
     });
   }
 
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.classList.remove('open');
+    if (e.target === overlay) closeModal();
   });
+
+  // 徹底阻斷在虛化背景（blur out）滑動時對底層主頁的滾動穿透
+  overlay.addEventListener('touchmove', (e) => {
+    if (e.target === overlay) {
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && overlay.classList.contains('open')) {
-      overlay.classList.remove('open');
+      closeModal();
     }
   });
 
@@ -2995,6 +3014,7 @@ function openSpotPopup(h) {
 
   popup.innerHTML = buildSpotPopupHtml(h);
   overlay.classList.add('open');
+  document.body.classList.add('modal-open');
 }
 
 // ============================================================
@@ -3077,7 +3097,6 @@ function setupRatePopup() {
   const jpyInput = document.getElementById('rate-jpy-input');
   const usdResult = document.getElementById('rate-usd-result');
   const note = document.getElementById('rate-popup-note');
-  const inputGroup = document.getElementById('rate-input-group') || jpyInput?.parentElement;
   if (!jpyInput || !usdResult) return;
 
   function calcAndShow() {
@@ -3088,7 +3107,7 @@ function setupRatePopup() {
     if (note) note.textContent = `1 USD ≈ ${cachedRate.toFixed(2)} JPY（每日自動更新）`;
   }
 
-  // 統一事件綁定
+  // 統一事件綁定（點擊背景關閉並阻止背景滾動穿透）
   setupModalOverlay('rate-overlay', 'rate-badge', {
     onOpen: () => { calcAndShow(); setTimeout(() => jpyInput.select(), 100); }
   });
@@ -3103,70 +3122,6 @@ function setupRatePopup() {
       calcAndShow();
     });
   });
-
-  // 全螢幕手勢：支援在虛化背景或金額框上任意滑動微調 JPY（每滑動 ~14px 微調 ±100 JPY）
-  const overlay = document.getElementById('rate-overlay');
-  if (overlay) {
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let startVal = 0;
-    let isDragging = false;
-    let lastDragTime = 0;
-
-    overlay.addEventListener('touchstart', (e) => {
-      if (e.target.closest('.rate-preset')) return;
-      if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        startVal = parseFloat(jpyInput.value) || 0;
-        isDragging = false;
-      }
-    }, { passive: true });
-
-    overlay.addEventListener('touchmove', (e) => {
-      if (e.touches.length !== 1) return;
-      if (e.target.closest('.rate-preset')) return;
-
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      const deltaX = currentX - touchStartX;
-      const deltaY = touchStartY - currentY;
-      const delta = Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : deltaY;
-
-      if (Math.abs(delta) > 6) {
-        isDragging = true;
-        lastDragTime = Date.now();
-        if (e.cancelable) e.preventDefault();
-        inputGroup?.classList.add('is-sliding');
-
-        // 每滑動約 14px 調整 100 JPY
-        const stepCount = Math.trunc(delta / 14);
-        const newVal = Math.max(0, startVal + stepCount * 100);
-        if (parseFloat(jpyInput.value) !== newVal) {
-          jpyInput.value = newVal;
-          calcAndShow();
-        }
-      }
-    }, { passive: false });
-
-    const endTouch = () => {
-      inputGroup?.classList.remove('is-sliding');
-      if (isDragging) {
-        jpyInput.blur();
-      }
-    };
-
-    overlay.addEventListener('touchend', endTouch);
-    overlay.addEventListener('touchcancel', endTouch);
-
-    // 點擊虛化背景時：若剛才執行過滑動手勢，則攔截關閉；若是純點擊則正常關閉
-    overlay.addEventListener('click', (e) => {
-      if (Date.now() - lastDragTime < 300) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    }, true);
-  }
 }
 
 /** 解析時間字串（如 "1:35 PM", "11:15 AM", "17:30"）為當天分鐘數 */
