@@ -773,7 +773,7 @@ const ITINERARY = [
             desc: '參觀水上沉浸式光影展，建議預約 11:00 AM 場次。',
             address: '東京都江東区豊洲 6-1-16',
             mapLink: 'https://maps.google.com/?q=teamLab+Planets+Tokyo+Toyosu',
-            notes: '⚠️ 水區提示：館內有水深至小腿處展區（人造溪流）需赤腳行走。請備好小毛巾，大人可將褲管捲起。',
+            notes: '水區提示：館內有水深至小腿處展區（人造溪流）需赤腳行走。請備好小毛巾，大人可將褲管捲起。',
             highlight: {
               emoji: '🌊',
               title: 'teamLab Planets TOKYO',
@@ -892,7 +892,7 @@ const ITINERARY = [
             desc: '1:15 PM–2:30 PM 參拜觀賞露天青銅大佛，隨後步行 5 分鐘前往長谷寺 (Hasedera)（推車停門口，換背帶登階梯俯瞰相模灣海景）。',
             address: '神奈川県鎌倉市長谷 3-11-2 (長谷寺)',
             mapLink: 'https://maps.google.com/?q=Hasedera+Temple+Kamakura',
-            notes: '⚠️ 推車提示：高德院平坦可推車；長谷寺登高俯瞰海景需推車停門口，換背帶登階梯。',
+            notes: '推車提示：高德院平坦可推車；長谷寺登高俯瞰海景需推車停門口，換背帶登階梯。',
             highlight: {
               emoji: '🗿',
               title: '鎌倉大佛与長谷寺',
@@ -1477,7 +1477,7 @@ const ITINERARY = [
             desc: '遊覽夢幻「白金青池」与磅礴「白須瀑布」。',
             address: '北海道上川郡美瑛町白金（白金青池）',
             mapLink: 'https://maps.google.com/?q=Shirogane+Blue+Pond+Biei',
-            notes: '⚠️ 路況提示：青池沿湖步道多為泥土與樹根，強烈建議使用嬰兒背帶代替推車。',
+            notes: '路況提示：青池沿湖步道多為泥土與樹根，強烈建議使用嬰兒背帶代替推車。',
           },
           {
             time: '1:30 PM',
@@ -1525,7 +1525,7 @@ const ITINERARY = [
             desc: '驅車 10 分鐘前往富良野市中心的 Kumagera 享用特色晚餐。',
             address: '北海道富良野市日の出町 3-22',
             mapLink: 'https://maps.google.com/?q=Kumagera+Furano',
-            notes: '⚠️ 提醒：富良野餐館普遍打烊極早，5:45 PM 就餐極其穩妥省心！',
+            notes: '營業提醒：富良野餐館普遍打烊極早，5:45 PM 就餐極其穩妥省心！',
           },
           {
             time: '7:00 PM',
@@ -1661,7 +1661,7 @@ const ITINERARY = [
             desc: '遊覽登別地獄谷壯麗火山地貌与蒸汽噴泉。',
             address: '北海道登別市登別温泉町 60',
             mapLink: 'https://maps.google.com/?q=Noboribetsu+Jigokudani',
-            notes: '⚠️ 路況提示：木棧道設有台階，強烈建議使用嬰兒背帶代替推車。',
+            notes: '路況提示：木棧道設有台階，強烈建議使用嬰兒背帶代替推車。',
             highlight: {
               emoji: '🌋',
               title: '登別地獄谷 (Jigokudani)',
@@ -1714,7 +1714,7 @@ const ITINERARY = [
             desc: '車輛停放於山麓站停車場，全員換乘纜車 (Ropeway) 登函館山觀賞日落與百萬夜景。',
             address: '北海道函館市元町 19-7（山麓站）',
             mapLink: 'https://maps.google.com/?q=Mount+Hakodate+Ropeway',
-            notes: '⚠️ 禁行提示：每日 5:00 PM–10:00 PM 登山道對私家車禁行！請停山麓站露天停車場乘纜車登頂（推車可上）。',
+            notes: '禁行提示：每日 5:00 PM–10:00 PM 登山道對私家車禁行！請停山麓站露天停車場乘纜車登頂（推車可上）。',
             highlight: {
               emoji: '🌃',
               title: '函館山百萬夜景',
@@ -1936,7 +1936,7 @@ const ITINERARY = [
             desc: '辦理 Check-in 入住洞爺湖萬世閣。',
             address: '北海道虻田郡洞爺湖町洞爺湖温泉 21',
             mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel',
-            notes: '🅿️ 停車提醒：入場時請向工作人員說明 Alphard 為高頂車，以分配高頂車位。',
+            notes: '停車提醒：入場時請向工作人員說明 Alphard 為高頂車，以分配高頂車位。',
           },
           {
             time: '6:00 PM',
@@ -1944,7 +1944,7 @@ const ITINERARY = [
             desc: '洞爺湖溫泉街晚間餐廳絕大多數在 7:30 PM–8:00 PM 即停止營業。',
             address: '北海道虻田郡洞爺湖町洞爺湖温泉 21',
             mapLink: 'https://maps.google.com/?q=Toya+Manseikaku+Hotel',
-            notes: '🍽️ 晚餐提醒：最遲 6:30 PM 前前往望羊蹄/仙堂庵用餐，或提前向萬世閣加購自助晚餐。',
+            notes: '晚餐提醒：最遲 6:30 PM 前前往望羊蹄/仙堂庵用餐，或提前向萬世閣加購自助晚餐。',
           },
           {
             time: '8:45 PM',
@@ -2068,7 +2068,7 @@ const ITINERARY = [
             desc: '抵達酒店，辦理 Late Check-in。今日起 🏨 按鈕將自動導航回 Courtyard Ginza！',
             address: '東京都中央区銀座 6-14-10',
             mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel',
-            notes: '⚠️ 延時入住提示：抵達已過半夜，請務必提前電郵備註 Late Check-in，防止判定為 No Show！',
+            notes: '延時入住提示：抵達已過半夜，請務必提前電郵備註 Late Check-in，防止判定為 No Show！',
           },
         ],
       },
@@ -2763,8 +2763,9 @@ function renderItinerary() {
           ? `<div class="activity-desc">${act.desc}</div>`
           : '';
 
-        const notesHtml = act.notes
-          ? `<div class="activity-notes"><span class="notes-label">⚠️ 注意事項</span>${act.notes}</div>`
+        const cleanNotes = act.notes ? act.notes.replace(/^([\u26A0\uFE0F\u1F17F\u1F37D⚠️🅿️🍽️]\s*)+/u, '').trim() : '';
+        const notesHtml = cleanNotes
+          ? `<div class="activity-notes"><span class="notes-label">⚠️ 注意事項</span>${cleanNotes}</div>`
           : '';
 
         const infoBtn = act.highlight
