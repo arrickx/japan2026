@@ -2546,8 +2546,10 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
             <span class="capsule-city">${f.city}</span>
           </div>
           <div class="capsule-main">
-            <span class="capsule-emoji">${f.emoji}</span>
-            <span class="capsule-prob">${f.prob}%</span>${rainTag}
+            <div class="capsule-track">
+              <span class="capsule-emoji">${f.emoji}</span>
+              <span class="capsule-prob">${f.prob}%</span>${rainTag}
+            </div>
           </div>
           ${tempInfo}
         </div>
@@ -2559,6 +2561,7 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
     if (autoOpen) {
       container.classList.add('open');
       badge?.classList.add('active');
+      setupCapsuleMarquees(container);
     }
   } else {
     container.innerHTML = `
@@ -2569,6 +2572,25 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       </div>
     `;
   }
+}
+
+/** 檢測超長雨勢文字並精準啟用橫向平滑循環滾動（Marquee） */
+function setupCapsuleMarquees(container) {
+  if (!container) return;
+  requestAnimationFrame(() => {
+    const mains = container.querySelectorAll('.capsule-main');
+    mains.forEach(main => {
+      const track = main.querySelector('.capsule-track');
+      if (!track) return;
+      const overflow = track.scrollWidth - main.clientWidth;
+      if (overflow > 2) {
+        main.style.setProperty('--marquee-dist', `-${overflow + 4}px`);
+        main.classList.add('has-marquee');
+      } else {
+        main.classList.remove('has-marquee');
+      }
+    });
+  });
 }
 
 // ============================================================
@@ -2649,8 +2671,12 @@ function renderItinerary() {
           if (weatherBox.getAttribute('data-loaded') !== 'true') {
             await load3DayWeatherForCard(day.date, true);
           } else {
-            weatherBox.classList.toggle('open', !isWeatherOpen);
-            badge.classList.toggle('active', !isWeatherOpen);
+            const nextState = !isWeatherOpen;
+            weatherBox.classList.toggle('open', nextState);
+            badge.classList.toggle('active', nextState);
+            if (nextState) {
+              setupCapsuleMarquees(weatherBox);
+            }
           }
         });
       }

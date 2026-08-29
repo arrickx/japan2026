@@ -1083,12 +1083,11 @@ body {
 .weather-capsule-row {
   display: flex;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 8px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  scroll-snap-type: x proximity;
-  padding: 2px 2px 6px;
+  padding: 2px 0 4px;
 }
 
 .weather-capsule-row::-webkit-scrollbar {
@@ -1096,14 +1095,13 @@ body {
 }
 
 .weather-capsule {
-  flex: 0 0 auto;
-  width: 132px;
-  scroll-snap-align: start;
+  flex: 1 1 0;
+  min-width: 0;
   box-sizing: border-box;
   background: #ffffff;
   border: 1.2px solid #f4dbcf;
   border-radius: 12px;
-  padding: 8px 6px 10px;
+  padding: 8px 4px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1112,13 +1110,6 @@ body {
   box-shadow: 0 1px 5px rgba(180, 100, 60, 0.06);
   transition: transform 0.15s ease, border-color 0.2s ease;
   overflow: hidden;
-}
-
-@media (min-width: 480px) {
-  .weather-capsule {
-    flex: 1 1 0;
-    width: auto;
-  }
 }
 
 .weather-capsule.is-alert {
@@ -1165,11 +1156,41 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  margin: 1px 0;
-  white-space: nowrap;
+  width: 100%;
   max-width: 100%;
   overflow: hidden;
+  position: relative;
+  margin: 1px 0;
+  box-sizing: border-box;
+}
+
+.capsule-track {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.capsule-main.has-marquee {
+  justify-content: flex-start;
+  mask-image: linear-gradient(90deg, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5px, black calc(100% - 5px), transparent 100%);
+}
+
+.capsule-main.has-marquee .capsule-track {
+  animation: capsuleMarqueeLoop 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+@keyframes capsuleMarqueeLoop {
+  0%, 25% {
+    transform: translateX(1px);
+  }
+  75%, 100% {
+    transform: translateX(var(--marquee-dist, -40px));
+  }
 }
 
 .capsule-emoji {
