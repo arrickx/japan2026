@@ -351,6 +351,9 @@ body {
   font-size: 0.82rem;
   color: #9a7060;
   margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 展開狀態下隱藏副標題，精簡頭部高度並節省螢幕空間 */
@@ -1059,7 +1062,7 @@ body {
 /* ===== 卡片內 3 日天氣預報膠囊條（預設隱藏，點擊天氣標籤才展開） ===== */
 .weather-3day-container {
   display: none;
-  padding: 14px 18px;
+  padding: 4px 18px 8px;
 }
 
 .weather-3day-container.open {
@@ -1076,23 +1079,6 @@ body {
   }
 }
 
-.weather-3day-bar {
-  background: #fffcf8;
-  border: 1.5px dashed #f2cfc0;
-  border-radius: 12px;
-  padding: 10px 12px;
-}
-
-.weather-3day-title {
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: #945842;
-  margin: 0 0 8px 0;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
 .weather-capsule-row {
   display: flex;
   justify-content: flex-start;
@@ -1107,20 +1093,20 @@ body {
 }
 
 .weather-capsule {
-  flex: 0 0 calc((100% - 16px) / 3);
-  max-width: calc((100% - 16px) / 3);
+  flex: 1 1 0;
+  min-width: 90px;
   box-sizing: border-box;
   background: #ffffff;
   border: 1.2px solid #f4dbcf;
   border-radius: 10px;
-  padding: 6px 8px 8px;
+  padding: 6px 6px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 2px;
   box-shadow: 0 1px 4px rgba(180, 100, 60, 0.05);
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, border-color 0.2s ease;
 }
 
 .weather-capsule.is-alert {
@@ -1129,14 +1115,32 @@ body {
   box-shadow: 0 2px 8px rgba(216, 69, 48, 0.14);
 }
 
+.weather-capsule.is-active-seg {
+  border-color: #d96d55;
+  background: #fffaf8;
+  position: relative;
+}
+
 .capsule-header {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3px;
   font-size: 0.72rem;
   font-weight: 700;
   color: #725244;
   white-space: nowrap;
+}
+
+.capsule-seg {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #c0534a;
+  background: #fdf0ec;
+  padding: 0 3px;
+  border-radius: 3px;
+  border: 0.5px solid #f9d3c8;
 }
 
 .capsule-city {

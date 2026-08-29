@@ -2,7 +2,7 @@
 // 日落與天氣座標系統（sunrisesunset.io + Open-Meteo JMA 氣象 API）
 // ============================================================
 
-// 每天對應的精準城市坐標（用於日落與天氣獨立查詢）
+// 每天對應的精準城市坐標（包含自駕跨城日之「上午/下午」分段獨立座標）
 const SUNSET_COORDS = {
   '8/31': { lat: 35.6580, lng: 139.7016, city: '涉谷',       apiDate: '2026-08-31' },
   '9/1':  { lat: 35.6762, lng: 139.6503, city: '東京',       apiDate: '2026-09-01' },
@@ -10,17 +10,59 @@ const SUNSET_COORDS = {
   '9/3':  { lat: 35.4437, lng: 139.6380, city: '橫濱',       apiDate: '2026-09-03' },
   '9/4':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-04' },
   '9/5':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-05' },
-  '9/6':  { lat: 43.1907, lng: 140.9947, city: '小樽',       apiDate: '2026-09-06' },
+  '9/6':  { 
+    lat: 43.1907, lng: 140.9947, city: '小樽',       apiDate: '2026-09-06',
+    segments: [
+      { label: '上午', city: '札幌', lat: 43.0618, lng: 141.3545, startHour: 6, endHour: 12 },
+      { label: '下午', city: '小樽', lat: 43.1907, lng: 140.9947, startHour: 12, endHour: 24 }
+    ]
+  },
   '9/7':  { lat: 43.0618, lng: 141.3545, city: '札幌',       apiDate: '2026-09-07' },
-  '9/8':  { lat: 43.5900, lng: 142.4700, city: '美瑛',       apiDate: '2026-09-08' },
-  '9/9':  { lat: 43.3400, lng: 142.3800, city: '富良野',     apiDate: '2026-09-09' },
-  '9/10': { lat: 42.4172, lng: 141.1070, city: '登別',       apiDate: '2026-09-10' },
+  '9/8':  { 
+    lat: 43.5900, lng: 142.4700, city: '美瑛',       apiDate: '2026-09-08',
+    segments: [
+      { label: '上午', city: '札幌', lat: 43.0618, lng: 141.3545, startHour: 6, endHour: 11 },
+      { label: '下午', city: '美瑛', lat: 43.5900, lng: 142.4700, startHour: 11, endHour: 24 }
+    ]
+  },
+  '9/9':  { 
+    lat: 43.3400, lng: 142.3800, city: '富良野',     apiDate: '2026-09-09',
+    segments: [
+      { label: '上午', city: '富良野', lat: 43.3400, lng: 142.3800, startHour: 6, endHour: 12 },
+      { label: '下午', city: '登別',   lat: 42.4172, lng: 141.1070, startHour: 12, endHour: 24 }
+    ]
+  },
+  '9/10': { 
+    lat: 42.4172, lng: 141.1070, city: '登別',       apiDate: '2026-09-10',
+    segments: [
+      { label: '上午', city: '登別',   lat: 42.4172, lng: 141.1070, startHour: 6, endHour: 12 },
+      { label: '下午', city: '函館',   lat: 41.7687, lng: 140.7288, startHour: 12, endHour: 24 }
+    ]
+  },
   '9/11': { lat: 41.7687, lng: 140.7288, city: '函館',       apiDate: '2026-09-11' },
-  '9/12': { lat: 42.5700, lng: 140.8300, city: '洞爺湖',     apiDate: '2026-09-12' },
-  '9/13': { lat: 35.6329, lng: 139.8804, city: '迪士尼',     apiDate: '2026-09-13' },
-  '9/14': { lat: 35.6329, lng: 139.8804, city: '迪士尼',     apiDate: '2026-09-14' },
-  '9/15': { lat: 35.5165, lng: 138.7527, city: '富士山',     apiDate: '2026-09-15' },
-  '9/16': { lat: 35.6712, lng: 139.7650, city: '銀座',       apiDate: '2026-09-16' },
+  '9/12': { 
+    lat: 42.5700, lng: 140.8300, city: '洞爺湖',     apiDate: '2026-09-12',
+    segments: [
+      { label: '上午', city: '函館',   lat: 41.7687, lng: 140.7288, startHour: 6, endHour: 11 },
+      { label: '下午', city: '洞爺湖', lat: 42.5700, lng: 140.8300, startHour: 11, endHour: 24 }
+    ]
+  },
+  '9/13': { 
+    lat: 35.6329, lng: 139.8804, city: '迪士尼',     apiDate: '2026-09-13',
+    segments: [
+      { label: '上午', city: '洞爺湖', lat: 42.5700, lng: 140.8300, startHour: 6, endHour: 12 },
+      { label: '下午', city: '支笏湖', lat: 42.7500, lng: 141.3300, startHour: 12, endHour: 24 }
+    ]
+  },
+  '9/14': { lat: 35.6712, lng: 139.7650, city: '銀座',       apiDate: '2026-09-14' },
+  '9/15': { 
+    lat: 35.5165, lng: 138.7527, city: '富士山',     apiDate: '2026-09-15',
+    segments: [
+      { label: '上午', city: '富士山', lat: 35.5165, lng: 138.7527, startHour: 6, endHour: 15 },
+      { label: '下午', city: '銀座',   lat: 35.6712, lng: 139.7650, startHour: 15, endHour: 24 }
+    ]
+  },
+  '9/16': { lat: 35.6712, lng: 139.7650, city: '銀座',       apiDate: '2026-09-17' },
   '9/17': { lat: 35.6712, lng: 139.7650, city: '銀座',       apiDate: '2026-09-17' },
   '9/18': { lat: 35.5494, lng: 139.7798, city: '羽田',       apiDate: '2026-09-18' },
 };
@@ -54,6 +96,42 @@ const SUNSET_TABLE = {
 
 const WEATHER_CACHE = {};
 let batchWeatherPromise = null;
+
+// 嘗試從 sessionStorage 瞬時恢復緩存（0ms 秒開即顯）
+try {
+  const cachedJson = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('JP2026_WEATHER_CACHE') : null;
+  if (cachedJson) {
+    const parsed = JSON.parse(cachedJson);
+    if (parsed && parsed.timestamp && (Date.now() - parsed.timestamp < 10 * 60 * 1000) && parsed.data) {
+      Object.assign(WEATHER_CACHE, parsed.data);
+    }
+  }
+} catch (e) {
+  // Ignore storage read error
+}
+
+/** 獲取當前日本標準時間（JST） */
+function getNowJST() {
+  const now = new Date();
+  const jstFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric', month: 'numeric', day: 'numeric',
+    hour: 'numeric', minute: 'numeric', second: 'numeric',
+    hour12: false
+  });
+  const parts = jstFormatter.formatToParts(now);
+  const map = {};
+  parts.forEach(p => map[p.type] = p.value);
+  return {
+    year: parseInt(map.year, 10),
+    month: parseInt(map.month, 10),
+    day: parseInt(map.day, 10),
+    hour: parseInt(map.hour, 10),
+    minute: parseInt(map.minute, 10),
+    dateStr: `${map.month}/${map.day}`,
+    isoDate: `${map.year}-${String(map.month).padStart(2, '0')}-${String(map.day).padStart(2, '0')}`
+  };
+}
 
 /** WMO 天氣代碼轉換為 Emoji 圖示 */
 function getWeatherEmoji(code, prob = 0) {
@@ -120,6 +198,14 @@ async function fetchAllCitiesWeatherBatch() {
         if (!coordMap.has(key)) {
           coordMap.set(key, { lat: c.lat, lng: c.lng });
         }
+        if (c.segments) {
+          c.segments.forEach(s => {
+            const sKey = `${s.lat.toFixed(4)},${s.lng.toFixed(4)}`;
+            if (!coordMap.has(sKey)) {
+              coordMap.set(sKey, { lat: s.lat, lng: s.lng });
+            }
+          });
+        }
       });
 
       const uniqueCoords = Array.from(coordMap.values());
@@ -127,7 +213,7 @@ async function fetchAllCitiesWeatherBatch() {
       const lngs = uniqueCoords.map(c => c.lng.toFixed(4)).join(',');
 
       // 支援長達 16 天日預報與逐時降雨預報
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=precipitation,precipitation_probability&timezone=Asia%2FTokyo&forecast_days=16`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=weather_code,precipitation,precipitation_probability,temperature_2m&timezone=Asia%2FTokyo&forecast_days=16`;
 
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
@@ -138,23 +224,31 @@ async function fetchAllCitiesWeatherBatch() {
         const data = items[idx];
         if (data && data.daily && data.daily.time) {
           const key = `${coord.lat.toFixed(4)},${coord.lng.toFixed(4)}`;
-          WEATHER_CACHE[key] = data.daily.time.map((time, dIdx) => {
-            // 提取當天的逐時降雨小時
-            const hourlyRainList = [];
-            if (data.hourly && data.hourly.time && data.hourly.precipitation) {
-              data.hourly.time.forEach((hTime, hIdx) => {
-                if (hTime.startsWith(time)) {
-                  const p = data.hourly.precipitation[hIdx] ?? 0;
-                  if (p > 0) {
-                    hourlyRainList.push({ hour: hTime.slice(11, 16), rain: p });
-                  }
-                }
+          
+          const hourlyEntries = [];
+          if (data.hourly && data.hourly.time) {
+            data.hourly.time.forEach((hTime, hIdx) => {
+              hourlyEntries.push({
+                time: hTime,
+                hourNum: parseInt(hTime.slice(11, 13), 10),
+                code: data.hourly.weather_code?.[hIdx] ?? 0,
+                rain: data.hourly.precipitation?.[hIdx] ?? 0,
+                prob: data.hourly.precipitation_probability?.[hIdx] ?? 0,
+                temp: data.hourly.temperature_2m?.[hIdx] ?? null
               });
-            }
+            });
+          }
 
+          const dailyEntries = data.daily.time.map((time, dIdx) => {
+            // 提取當天的逐時降雨小時
+            const dayHours = hourlyEntries.filter(h => h.time.startsWith(time) && h.rain > 0);
             const code = data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0;
             const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[dIdx] ?? 0 : 0;
-            const rainSummary = describeRainSummary(hourlyRainList, totalRain, code);
+            const rainSummary = describeRainSummary(
+              dayHours.map(h => ({ hour: h.time.slice(11, 16), rain: h.rain })),
+              totalRain,
+              code
+            );
 
             return {
               date: time,
@@ -166,8 +260,23 @@ async function fetchAllCitiesWeatherBatch() {
               tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[dIdx]) : null,
             };
           });
+
+WEATHER_CACHE[key] = {
+            daily: dailyEntries,
+            hourly: hourlyEntries
+          };
         }
       });
+
+      try {
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem('JP2026_WEATHER_CACHE', JSON.stringify({
+            timestamp: Date.now(),
+            data: WEATHER_CACHE
+          }));
+        }
+      } catch (e) {}
+
       return true;
     } catch (err) {
       console.warn('Batch weather fetch fallback:', err.message);
@@ -192,28 +301,35 @@ async function fetchCityWeather(lat, lng) {
   }
 
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=precipitation,precipitation_probability&timezone=Asia%2FTokyo&forecast_days=16`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=weather_code,precipitation,precipitation_probability,temperature_2m&timezone=Asia%2FTokyo&forecast_days=16`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
     const data = await res.json();
     if (!data.daily || !data.daily.time) throw new Error('Invalid weather data');
 
-    const result = data.daily.time.map((time, idx) => {
-      const hourlyRainList = [];
-      if (data.hourly && data.hourly.time && data.hourly.precipitation) {
-        data.hourly.time.forEach((hTime, hIdx) => {
-          if (hTime.startsWith(time)) {
-            const p = data.hourly.precipitation[hIdx] ?? 0;
-            if (p > 0) {
-              hourlyRainList.push({ hour: hTime.slice(11, 16), rain: p });
-            }
-          }
+    const hourlyEntries = [];
+    if (data.hourly && data.hourly.time) {
+      data.hourly.time.forEach((hTime, hIdx) => {
+        hourlyEntries.push({
+          time: hTime,
+          hourNum: parseInt(hTime.slice(11, 13), 10),
+          code: data.hourly.weather_code?.[hIdx] ?? 0,
+          rain: data.hourly.precipitation?.[hIdx] ?? 0,
+          prob: data.hourly.precipitation_probability?.[hIdx] ?? 0,
+          temp: data.hourly.temperature_2m?.[hIdx] ?? null
         });
-      }
+      });
+    }
 
+    const dailyEntries = data.daily.time.map((time, idx) => {
+      const dayHours = hourlyEntries.filter(h => h.time.startsWith(time) && h.rain > 0);
       const code = data.daily.weather_code ? data.daily.weather_code[idx] ?? 0 : 0;
       const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[idx] ?? 0 : 0;
-      const rainSummary = describeRainSummary(hourlyRainList, totalRain, code);
+      const rainSummary = describeRainSummary(
+        dayHours.map(h => ({ hour: h.time.slice(11, 16), rain: h.rain })),
+        totalRain,
+        code
+      );
 
       return {
         date: time,
@@ -226,6 +342,7 @@ async function fetchCityWeather(lat, lng) {
       };
     });
 
+    const result = { daily: dailyEntries, hourly: hourlyEntries };
     WEATHER_CACHE[cacheKey] = result;
     return result;
   } catch (err) {
@@ -234,9 +351,44 @@ async function fetchCityWeather(lat, lng) {
   }
 }
 
+/** 依據時段計算單一時段的精確氣象與雨勢 */
+function getSegmentForecast(cacheKey, apiDate, seg) {
+  const cache = WEATHER_CACHE[cacheKey];
+  if (!cache || !cache.hourly) return null;
+  const hours = cache.hourly.filter(h => h.time.startsWith(apiDate) && h.hourNum >= seg.startHour && h.hourNum < seg.endHour);
+  if (!hours.length) return null;
+
+  const maxProb = Math.max(...hours.map(h => h.prob));
+  const totalRain = Math.round(hours.reduce((acc, h) => acc + h.rain, 0) * 10) / 10;
+  const maxTemp = Math.round(Math.max(...hours.map(h => h.temp)));
+  const minTemp = Math.round(Math.min(...hours.map(h => h.temp)));
+  const rainHours = hours.filter(h => h.rain > 0).map(h => ({ hour: `${String(h.hourNum).padStart(2, '0')}:00`, rain: h.rain }));
+  let code = 0;
+  hours.forEach(h => { if (h.code > code) code = h.code; });
+  const rainSummary = describeRainSummary(rainHours, totalRain, code);
+  const isAlert = maxProb >= 50;
+  const emoji = getWeatherEmoji(code, maxProb);
+
+  return {
+    segmentLabel: seg.label,
+    city: seg.city,
+    prob: maxProb,
+    rain: totalRain,
+    code: code,
+    emoji: emoji,
+    tempMin: minTemp,
+    tempMax: maxTemp,
+    isAlert: isAlert,
+    rainSummary: rainSummary,
+    startHour: seg.startHour,
+    endHour: seg.endHour
+  };
+}
+
 /**
  * 依目標日期獲取該日及後續 2 天（共 3 天）的真實日曆日期天氣預報
  * 跨城市時（如 Day 9 美瑛、Day 10 富良野、Day 11 登別）各自精準查詢所屬城市座標！
+ * 若當日包含上午/下午跨城市自駕，分別生成統一規格的時段膠囊！
  */
 async function get3DayForecastForDate(startDateStr) {
   const allDays = [];
@@ -247,26 +399,39 @@ async function get3DayForecastForDate(startDateStr) {
 
   const targetDays = allDays.slice(startIdx, Math.min(startIdx + 3, allDays.length));
 
-  const now = new Date();
-  const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const nowJst = getNowJST();
+  const todayStr = nowJst.isoDate;
   
-  const tomorrow = new Date(now.getTime() + 86400000);
+  const nowMs = Date.now();
+  const tomorrow = new Date(nowMs + 86400000);
   const tomorrowStr = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
   
-  const dayAfter = new Date(now.getTime() + 86400000 * 2);
+  const dayAfter = new Date(nowMs + 86400000 * 2);
   const dayAfterStr = `${dayAfter.getFullYear()}-${String(dayAfter.getMonth() + 1).padStart(2, '0')}-${String(dayAfter.getDate()).padStart(2, '0')}`;
 
-  const forecastPromises = targetDays.map(async (day, offset) => {
+  const forecastResults = [];
+
+  for (let offset = 0; offset < targetDays.length; offset++) {
+    const day = targetDays[offset];
     const coords = SUNSET_COORDS[day.date];
-    if (!coords) return null;
+    if (!coords) continue;
 
     const weatherData = await fetchCityWeather(coords.lat, coords.lng);
-    // 比對真實日曆日期（coords.apiDate，例如 "2026-08-31"）
-    const matchedDay = weatherData?.find(d => d.date === coords.apiDate);
+    const matchedDay = weatherData?.daily?.find(d => d.date === coords.apiDate);
+
+    let relLabel = '';
+    if (coords.apiDate === todayStr) {
+      relLabel = '今天';
+    } else if (coords.apiDate === tomorrowStr) {
+      relLabel = '明天';
+    } else if (coords.apiDate === dayAfterStr) {
+      relLabel = '後天';
+    }
 
     if (!matchedDay) {
-      return {
+      forecastResults.push({
         date: day.date,
+        segmentLabel: '',
         apiDate: coords.apiDate,
         dayNum: day.dayNum,
         city: coords.city,
@@ -279,41 +444,64 @@ async function get3DayForecastForDate(startDateStr) {
         isAlert: false,
         isFuture: true,
         relLabel: ''
-      };
+      });
+      continue;
     }
 
-    const prob = matchedDay.prob ?? 0;
-    const isAlert = prob >= 50;
-    const emoji = getWeatherEmoji(matchedDay.code, prob);
+    // 若該天有劃分多個自駕時段（如上午/下午跨城）
+    if (coords.segments && coords.segments.length > 0) {
+      for (const seg of coords.segments) {
+        const segCacheKey = `${seg.lat.toFixed(4)},${seg.lng.toFixed(4)}`;
+        await fetchCityWeather(seg.lat, seg.lng); // 確保已緩存
+        const segForecast = getSegmentForecast(segCacheKey, coords.apiDate, seg);
 
-    let relLabel = '';
-    if (coords.apiDate === todayStr) {
-      relLabel = '今天';
-    } else if (coords.apiDate === tomorrowStr) {
-      relLabel = '明天';
-    } else if (coords.apiDate === dayAfterStr) {
-      relLabel = '後天';
+        const isCurrentSegment = (coords.apiDate === todayStr && nowJst.hour >= seg.startHour && nowJst.hour < seg.endHour);
+
+        if (segForecast) {
+          forecastResults.push({
+            date: day.date,
+            segmentLabel: seg.label,
+            apiDate: coords.apiDate,
+            dayNum: day.dayNum,
+            city: seg.city,
+            emoji: segForecast.emoji,
+            prob: segForecast.prob,
+            rain: segForecast.rain,
+            rainSummary: segForecast.rainSummary,
+            tempMax: segForecast.tempMax,
+            tempMin: segForecast.tempMin,
+            isAlert: segForecast.isAlert,
+            isFuture: false,
+            relLabel: relLabel,
+            isCurrentSegment: isCurrentSegment
+          });
+        }
+      }
+    } else {
+      const prob = matchedDay.prob ?? 0;
+      const isAlert = prob >= 50;
+      const emoji = getWeatherEmoji(matchedDay.code, prob);
+
+      forecastResults.push({
+        date: day.date,
+        segmentLabel: '',
+        apiDate: coords.apiDate,
+        relLabel: relLabel,
+        dayNum: day.dayNum,
+        city: coords.city,
+        emoji: emoji,
+        prob: prob,
+        rain: matchedDay.rain ?? 0,
+        rainSummary: matchedDay.rainSummary || null,
+        tempMax: matchedDay.tempMax,
+        tempMin: matchedDay.tempMin,
+        isAlert: isAlert,
+        isFuture: false
+      });
     }
+  }
 
-    return {
-      date: day.date,
-      apiDate: coords.apiDate,
-      relLabel: relLabel,
-      dayNum: day.dayNum,
-      city: coords.city,
-      emoji: emoji,
-      prob: prob,
-      rain: matchedDay.rain ?? 0,
-      rainSummary: matchedDay.rainSummary || null,
-      tempMax: matchedDay.tempMax,
-      tempMin: matchedDay.tempMin,
-      isAlert: isAlert,
-      isFuture: false
-    };
-  });
-
-  const results = (await Promise.all(forecastPromises)).filter(Boolean);
-  return results;
+  return forecastResults;
 }
 
 // ============================================================
@@ -2294,7 +2482,6 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
 
   const isNear3Days = isDateInActive3DayWindow(dateStr);
 
-  // 如果已經加載過資料
   if (container.getAttribute('data-loaded') === 'true') {
     if (autoOpen) {
       container.classList.add('open');
@@ -2308,24 +2495,24 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
 
   container.setAttribute('data-loaded', 'true');
 
-  const todayForecast = forecasts[0];
-  const hasRealData = !todayForecast.isFuture;
+  const activeForecast = forecasts.find(f => f.isCurrentSegment) || forecasts[0];
+  const hasRealData = !activeForecast.isFuture;
 
-  // 1. 更新卡片頭部的小標籤（僅反映該天自身的獨立天氣，絕不受其他天數干擾）
+  // 1. 更新卡片頭部的小標籤（動態反映當前時段真實天氣）
   if (badge) {
     if (isNear3Days && hasRealData) {
-      const isDayAlert = todayForecast.isAlert; // 僅針對「該天當天」是否下雨 (降雨率 >= 50%)
-      const dayProb = todayForecast.prob;
+      const isDayAlert = activeForecast.isAlert;
+      const dayProb = activeForecast.prob;
       badge.style.display = '';
 
       if (isDayAlert) {
         badge.className = 'day-weather-badge is-alert';
         badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${dayProb}%</span>`;
-        badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
+        badge.title = `點擊展開/收合詳細天氣（當前：${activeForecast.city}${activeForecast.segmentLabel ? ' ' + activeForecast.segmentLabel : ''}）`;
       } else {
         badge.className = 'day-weather-badge';
-        badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${dayProb}%</span>`;
-        badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
+        badge.innerHTML = `<span class="badge-emoji">${activeForecast.emoji}</span><span class="badge-detail">${dayProb}%</span>`;
+        badge.title = `點擊展開/收合詳細天氣（當前：${activeForecast.city}${activeForecast.segmentLabel ? ' ' + activeForecast.segmentLabel : ''}）`;
       }
     } else {
       badge.innerHTML = '';
@@ -2333,26 +2520,29 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
     }
   }
 
-  // 2. 生成卡片展開後的 3 天天氣膠囊或遠期提示
+  // 2. 生成卡片展開後的膠囊（直接輸出膠囊列表，去除多餘外框與重複標題）
   if (hasRealData) {
     let capsulesHtml = '';
     forecasts.forEach(f => {
       const alertClass = f.isAlert ? ' is-alert' : '';
-      const alertIcon = f.isAlert ? ' ☔' : '';
+      const activeClass = f.isCurrentSegment ? ' is-active-seg' : '';
       const tempInfo = f.tempMax !== null && f.tempMin !== null
         ? `<div class="capsule-temp">${f.tempMin}° ~ ${f.tempMax}°</div>`
         : '';
-      const relTag = (f.relLabel && ['今天', '明天', '後天'].includes(f.relLabel))
+      const relTag = (f.relLabel && ['今天', '明天', '後天'].includes(f.relLabel) && !f.segmentLabel)
         ? `<span class="capsule-rel">(${f.relLabel})</span>`
+        : '';
+      const segTag = f.segmentLabel
+        ? `<span class="capsule-seg">${f.segmentLabel}</span>`
         : '';
       const rainTag = (f.isAlert || (f.rain > 0.1 && f.rainSummary))
         ? `<span class="capsule-rain-tag"> · ${f.rainSummary || '微雨'}</span>`
         : '';
 
       capsulesHtml += `
-        <div class="weather-capsule${alertClass}">
+        <div class="weather-capsule${alertClass}${activeClass}">
           <div class="capsule-header">
-            <span class="capsule-date">${f.date}</span>${relTag ? ' ' + relTag : ''}
+            <span class="capsule-date">${f.date}</span>${segTag}${relTag}
             <span class="capsule-city">${f.city}</span>
           </div>
           <div class="capsule-main">
@@ -2364,25 +2554,17 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       `;
     });
 
-    container.innerHTML = `
-      <div class="weather-3day-bar">
-        <div class="weather-3day-title">⛅ 實時 3 日天氣預報（日本氣象廳 JMA 模型 · 各城市獨立座標）：</div>
-        <div class="weather-capsule-row">${capsulesHtml}</div>
-      </div>
-    `;
+    container.innerHTML = `<div class="weather-capsule-row">${capsulesHtml}</div>`;
 
-    // 僅在使用者點擊 Weather Badge (autoOpen === true) 時才展開 3 天膠囊欄
     if (autoOpen) {
       container.classList.add('open');
       badge?.classList.add('active');
     }
   } else {
-    // 遠期天數優雅提示
     container.innerHTML = `
-      <div class="weather-3day-bar">
-        <div class="weather-3day-title">📅 氣象預報提示：</div>
-        <div style="font-size: 0.8rem; color: #8a6a5c; padding: 4px 2px; display: flex; align-items: center; gap: 6px;">
-          <span>🌤️ 本日（${dateStr}）實時高精度氣象預報將於出發前 3 天自動聯動日本氣象廳 JMA 即時生成</span>
+      <div class="weather-capsule-row">
+        <div style="font-size: 0.8rem; color: #8a6a5c; padding: 4px 6px;">
+          🌤️ 本日（${dateStr}）實時高精度氣象預報將於出發前 3 天自動聯動日本氣象廳 JMA 即時生成
         </div>
       </div>
     `;
@@ -2657,6 +2839,10 @@ function renderItinerary() {
 /**
  * 頁面載入時：單次 Batch 請求拉取全行程天氣，並一鍵填入所有卡片！
  */
+
+/**
+ * 頁面載入時：單次 Batch 請求拉取全行程天氣，並一鍵填入所有卡片！
+ */
 async function initWeatherSystem() {
   await fetchAllCitiesWeatherBatch();
 
@@ -2667,6 +2853,35 @@ async function initWeatherSystem() {
   }
 }
 
+// 每 60 秒定期心跳檢測，時段切換時自動無縫刷新
+setInterval(() => {
+  const allDays = [];
+  forEachDay(day => allDays.push(day));
+  for (const day of allDays) {
+    const safeId = day.date.replace('/', '-');
+    const container = document.getElementById(`weather-3day-${safeId}`);
+    if (container) {
+      container.removeAttribute('data-loaded');
+      load3DayWeatherForCard(day.date, container.classList.contains('open'));
+    }
+  }
+}, 60000);
+
+// 切回前台或解鎖螢幕時即刻精準校準
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    const allDays = [];
+    forEachDay(day => allDays.push(day));
+    for (const day of allDays) {
+      const safeId = day.date.replace('/', '-');
+      const container = document.getElementById(`weather-3day-${safeId}`);
+      if (container) {
+        container.removeAttribute('data-loaded');
+        load3DayWeatherForCard(day.date, container.classList.contains('open'));
+      }
+    }
+  }
+});
 let cachedRate = null; // 全局儲存 JPY 匯率
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -3106,3 +3321,6 @@ function setupHotelFab() {
     document.body.removeChild(a);
   });
 }
+
+// 腳本加載時立即在背景發起單次 Batch 天氣請求，提前緩存數據
+fetchAllCitiesWeatherBatch();
