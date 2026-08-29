@@ -1147,24 +1147,33 @@ body {
 .capsule-main {
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 2px;
   margin: 1px 0;
+  white-space: nowrap;
 }
 
 .capsule-emoji {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
 
 .capsule-prob {
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: #5c463c;
-  white-space: nowrap;
+  line-height: 1;
 }
 
 .weather-capsule.is-alert .capsule-prob {
   color: #c83828;
+}
+
+.capsule-rain-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #c83828;
+  line-height: 1;
 }
 
 .capsule-temp {
@@ -1173,22 +1182,10 @@ body {
   font-weight: 500;
 }
 
-.capsule-rain-desc {
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: #c83828;
-  background: #ffede8;
-  border-radius: 4px;
-  padding: 1px 4px;
-  line-height: 1.25;
-  margin: 2px 0;
-  text-align: center;
-  word-break: break-word;
-}
-
 .capsule-rel {
   font-size: 0.64rem;
   color: #966f5e;
   font-weight: 500;
 }
+
 

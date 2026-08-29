@@ -72,8 +72,8 @@ function getWeatherEmoji(code, prob = 0) {
 }
 
 /**
- * 根據逐時降雨數據智能歸納降雨時段與雨勢
- * 例如："傍晚微雨 (19-20點)"、"午後陣雨 (14-16點)"
+ * 根據逐時降雨數據智能歸納極簡單行時段與雨勢
+ * 例如："微雨(19-20點)"、"陣雨(14-16點)"、"大雨(15-18點)"
  */
 function describeRainSummary(hourlyRainList, totalRain) {
   if (!hourlyRainList || hourlyRainList.length === 0 || totalRain < 0.2) {
@@ -84,21 +84,13 @@ function describeRainSummary(hourlyRainList, totalRain) {
   const minHour = Math.min(...hours);
   const maxHour = Math.max(...hours);
 
-  let periodName = '日間';
-  if (maxHour <= 6) periodName = '清晨';
-  else if (maxHour <= 11) periodName = '上午';
-  else if (minHour >= 12 && maxHour <= 17) periodName = '午後';
-  else if (minHour >= 17 && maxHour <= 21) periodName = '傍晚';
-  else if (minHour >= 21 || maxHour <= 5) periodName = '夜間';
-  else if (minHour >= 13 && maxHour >= 18) periodName = '午後至傍晚';
-
   let intensity = '微雨';
   if (totalRain >= 15) intensity = '大雨';
-  else if (totalRain >= 5) intensity = '陣雨';
-  else if (totalRain >= 2) intensity = '小雨';
+  else if (totalRain >= 4) intensity = '陣雨';
+  else if (totalRain >= 1.5) intensity = '小雨';
 
   const timeStr = minHour === maxHour ? `${minHour}點` : `${minHour}-${maxHour}點`;
-  return `${periodName}${intensity} (${timeStr})`;
+  return `${intensity}(${timeStr})`;
 }
 
 /**
@@ -2338,8 +2330,8 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       const relTag = (f.relLabel && ['今天', '明天', '後天'].includes(f.relLabel))
         ? `<span class="capsule-rel">(${f.relLabel})</span>`
         : '';
-      const rainDesc = (f.rain > 0.1 && f.rainSummary)
-        ? `<div class="capsule-rain-desc">💧 ${f.rain}mm · ${f.rainSummary}</div>`
+      const rainTag = (f.isAlert || (f.rain > 0.1 && f.rainSummary))
+        ? `<span class="capsule-rain-tag"> · ${f.rainSummary || '微雨'}</span>`
         : '';
 
       capsulesHtml += `
@@ -2350,9 +2342,8 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
           </div>
           <div class="capsule-main">
             <span class="capsule-emoji">${f.emoji}</span>
-            <span class="capsule-prob">${f.prob}%${alertIcon}</span>
+            <span class="capsule-prob">${f.prob}%</span>${rainTag}
           </div>
-          ${rainDesc}
           ${tempInfo}
         </div>
       `;
