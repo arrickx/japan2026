@@ -3097,6 +3097,7 @@ function setupRatePopup() {
   const jpyInput = document.getElementById('rate-jpy-input');
   const usdResult = document.getElementById('rate-usd-result');
   const note = document.getElementById('rate-popup-note');
+  const inputGroup = document.getElementById('rate-input-group') || jpyInput?.parentElement;
   if (!jpyInput || !usdResult) return;
 
   function calcAndShow() {
@@ -3122,6 +3123,72 @@ function setupRatePopup() {
       calcAndShow();
     });
   });
+
+  // 🌟 手勢滑動改金額：在虛化背景或彈窗上任意滑動快速微調 JPY，同時 100% 鎖定背景主頁不滾動
+  const overlay = document.getElementById('rate-overlay');
+  if (overlay) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let startVal = 0;
+    let isDragging = false;
+    let lastDragTime = 0;
+
+    overlay.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.rate-preset') || e.target.closest('#rate-close-btn')) return;
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        startVal = parseFloat(jpyInput.value) || 0;
+        isDragging = false;
+      }
+    }, { passive: true });
+
+    overlay.addEventListener('touchmove', (e) => {
+      if (e.touches.length !== 1) return;
+      if (e.target.closest('.rate-preset') || e.target.closest('#rate-close-btn')) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const deltaX = currentX - touchStartX;
+      const deltaY = touchStartY - currentY; // 向上滑或向右滑為增加
+      const delta = Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : deltaY;
+
+      // 嚴格攔截所有 touchmove 預設行為，保證底層主頁 100% 靜止！
+      if (e.cancelable) e.preventDefault();
+
+      if (Math.abs(delta) > 5) {
+        isDragging = true;
+        lastDragTime = Date.now();
+        inputGroup?.classList.add('is-sliding');
+
+        // 每滑動約 12px 調整 100 JPY
+        const stepCount = Math.trunc(delta / 12);
+        const newVal = Math.max(0, startVal + stepCount * 100);
+        if (parseFloat(jpyInput.value) !== newVal) {
+          jpyInput.value = newVal;
+          calcAndShow();
+        }
+      }
+    }, { passive: false });
+
+    const endTouch = () => {
+      inputGroup?.classList.remove('is-sliding');
+      if (isDragging) {
+        jpyInput.blur();
+      }
+    };
+
+    overlay.addEventListener('touchend', endTouch);
+    overlay.addEventListener('touchcancel', endTouch);
+
+    // 點擊虛化背景時：若是剛滑動過則攔截關閉；若是純單擊點擊則關閉彈窗
+    overlay.addEventListener('click', (e) => {
+      if (Date.now() - lastDragTime < 350 || isDragging) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }, true);
+  }
 }
 
 /** 解析時間字串（如 "1:35 PM", "11:15 AM", "17:30"）為當天分鐘數 */
