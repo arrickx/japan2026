@@ -728,7 +728,7 @@ const ITINERARY = [
         date: '9/2',
         dayNum: 'Day 3',
         title: '光影藝術與豐洲海濱',
-        summary: 'teamLab · 豐洲千客萬來 · 購物',
+        summary: 'teamLab · 豐洲 · 購物',
         illustration: './images/teamlab_toyosu.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         rainBackup: {
@@ -819,7 +819,7 @@ const ITINERARY = [
         date: '9/3',
         dayNum: 'Day 4',
         title: '鎌倉古都與湘南海岸',
-        summary: '小町通 · 鎌倉大佛 · 灌籃高手平交道',
+        summary: '小町通 · 鎌倉大佛 · 湘南海岸',
         illustration: './images/kamakura.jpg',
         hotel: { name: 'Hyatt House Tokyo Shibuya', mapLink: 'https://maps.google.com/?q=Hyatt+House+Tokyo+Shibuya' },
         rainBackup: {
@@ -986,7 +986,7 @@ const ITINERARY = [
         date: '9/4',
         dayNum: 'Day 5',
         title: '飛往札幌與租車自駕',
-        summary: '飛往新千歲 · 取車自駕 · 入住 FAV LUX',
+        summary: '飛往札幌 · 取車自駕 · 狸小路',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         rainBackup: {
@@ -1090,7 +1090,7 @@ const ITINERARY = [
         date: '9/5',
         dayNum: 'Day 6',
         title: '札幌文化體驗與烤肉',
-        summary: 'Ario 採購 · 啤酒博物館烤肉 · 湯咖哩',
+        summary: '生活採購 · 啤酒館烤肉 · 湯咖哩',
         illustration: './images/sapporo_bbq.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         rainBackup: {
@@ -1332,7 +1332,7 @@ const ITINERARY = [
         date: '9/7',
         dayNum: 'Day 8',
         title: '北海道神宮與場外市場海鮮',
-        summary: '北海道神宮 · 場外市場帝王蟹 · Toriton 迴轉壽司',
+        summary: '北海道神宮 · 海鮮 · 壽司',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
         rainBackup: {
@@ -1426,7 +1426,7 @@ const ITINERARY = [
         date: '9/8',
         dayNum: 'Day 9',
         title: '美瑛花海與青池絕景',
-        summary: '青池 · 美瑛農場 · 四季彩之丘 · 富良野',
+        summary: '青池絕景 · 四季彩之丘 · 富良野',
         illustration: './images/biei_furano.jpg',
         hotel: { name: 'Fenix West (富良野)', mapLink: 'https://maps.google.com/?q=Fenix+West+Furano' },
         rainBackup: {
@@ -1550,7 +1550,7 @@ const ITINERARY = [
         date: '9/9',
         dayNum: 'Day 10',
         title: '富良野農場與登別溫泉',
-        summary: '富田農場 · 登別瀧乃家入住 · 部屋食',
+        summary: '富田農場 · 登別溫泉 · 部屋食',
         illustration: './images/noboribetsu.jpg',
         hotel: { name: '登別 瀧乃家 (Takinoya)', mapLink: 'https://maps.google.com/?q=Takinoya+Noboribetsu' },
         rainBackup: {
@@ -1626,7 +1626,7 @@ const ITINERARY = [
         date: '9/10',
         dayNum: 'Day 11',
         title: '登別地獄谷與函館夜景',
-        summary: '地獄谷 · 金森紅磚倉庫 · 函館夜景',
+        summary: '地獄谷 · 紅磚倉庫 · 函館夜景',
         illustration: './images/hakodate_night.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         rainBackup: {
@@ -1752,7 +1752,7 @@ const ITINERARY = [
         date: '9/11',
         dayNum: 'Day 12',
         title: '五稜郭要塞與海景休整',
-        summary: '五稜郭塔俯瞰 · 潮騷亭海景泡湯',
+        summary: '五稜郭塔 · 潮騷亭泡湯 · 休整',
         illustration: './images/goryokaku.jpg',
         hotel: { name: '平成館 潮騷亭 (Hakodate)', mapLink: 'https://maps.google.com/?q=Heiseikan+Shiosaitei+Hakodate' },
         rainBackup: {
@@ -1961,7 +1961,7 @@ const ITINERARY = [
         date: '9/13',
         dayNum: 'Day 14',
         title: '支笏湖散步與飛回東京',
-        summary: '支笏湖 · 順暢還車 · 新千歲 · 飛羽田',
+        summary: '支笏湖 · 機場還車 · 飛回東京',
         illustration: './images/sapporo.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         rainBackup: {
@@ -2087,7 +2087,7 @@ const ITINERARY = [
         date: '9/14',
         dayNum: 'Day 15',
         title: '銀座漫步與集中購物',
-        summary: '自然醒休整 · 銀座特色午餐 · 集中購物',
+        summary: '自然醒 · 銀座漫步 · 集中購物',
         illustration: './images/ginza.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         rainBackup: {
@@ -2149,7 +2149,7 @@ const ITINERARY = [
         date: '9/15',
         dayNum: 'Day 16',
         title: '富士山包車一日遊',
-        summary: '大石公園 · 富士山餺餂麵 · 忍野八海',
+        summary: '大石公園 · 餺餂麵 · 忍野八海',
         illustration: './images/fuji.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         rainBackup: {
@@ -2211,7 +2211,7 @@ const ITINERARY = [
         date: '9/16',
         dayNum: 'Day 17',
         title: '銀座購物與伴手禮',
-        summary: '全天集中購物 · 木村家現烤麵包 · 戰利品隨時回酒店',
+        summary: '銀座購物 · 木村家 · 輕鬆休整',
         illustration: './images/ginza_shopping.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         rainBackup: {
@@ -2286,7 +2286,7 @@ const ITINERARY = [
         date: '9/17',
         dayNum: 'Day 18',
         title: '皇居外苑與自由休整',
-        summary: '皇居外苑漫步 · 查漏補缺 · 打包封箱',
+        summary: '皇居外苑 · 查漏補缺 · 打包封箱',
         illustration: './images/ginza_night.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         rainBackup: {
@@ -2340,7 +2340,7 @@ const ITINERARY = [
         date: '9/18',
         dayNum: 'Day 19',
         title: '圓滿完結與啟程回國',
-        summary: '退房準備 · 機場大巴直達羽田 · 啟程',
+        summary: '退房清點 · 機場大巴 · 圓滿啟程',
         illustration: './images/haneda.jpg',
         hotel: { name: 'Courtyard by Marriott Tokyo Ginza (銀座萬怡)', mapLink: 'https://maps.google.com/?q=Courtyard+by+Marriott+Tokyo+Ginza+Hotel' },
         activities: [
