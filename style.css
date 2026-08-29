@@ -22,13 +22,49 @@ body {
   z-index: 10;
 }
 
-.flag { font-size: 1.4rem; line-height: 1; }
+.flag { font-size: 1.35rem; line-height: 1; flex-shrink: 0; }
 
 .site-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #b54040;
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.site-title.sunset-active {
+  color: #c06820;
+  font-size: 0.88rem;
+}
+
+.site-title-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  will-change: transform;
+}
+
+.site-title.has-marquee {
+  mask-image: linear-gradient(90deg, transparent 0%, black 6px, black calc(100% - 6px), transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6px, black calc(100% - 6px), transparent 100%);
+}
+
+.site-title.has-marquee .site-title-track {
+  animation: topTitleMarqueeLoop 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+}
+
+@keyframes topTitleMarqueeLoop {
+  0%, 25% {
+    transform: translateX(1px);
+  }
+  75%, 100% {
+    transform: translateX(var(--title-marquee-dist, -60px));
+  }
 }
 
 /* 匯率標籤（點擊開啟換匯彈窗） */
@@ -43,6 +79,7 @@ body {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.15s;
+  flex-shrink: 0;
 }
 .rate-badge:active { background: #ffe8e0; }
 
@@ -50,11 +87,6 @@ body {
   font-size: 0.76rem;
   font-weight: 700;
   color: #b54040;
-}
-
-.site-title.sunset-active {
-  color: #c06820;
-  font-size: 0.92rem;
 }
 
 /* ===== 通用彈窗基類 ===== */

@@ -2876,6 +2876,11 @@ async function initWeatherSystem() {
   for (const day of allDays) {
     load3DayWeatherForCard(day.date, false);
   }
+
+  // 天氣資料載入完成後，立即刷新頂部日落與降雨跑馬燈
+  if (typeof window.triggerFabUpdate === 'function') {
+    window.triggerFabUpdate();
+  }
 }
 
 // 每 60 秒定期心跳檢測，時段切換時自動無縫刷新
@@ -3251,7 +3256,71 @@ function setupHotelFab() {
 
   let currentHotel = null;
 
-  // 更新 FAB 與日落標籤（展開卡片時直接替代頂部標題，節省空間）
+  /**
+   * 取得指定日期的日落與即時天氣/降雨摘要字串（供左上角頂部標題使用）
+   * 例如：6:11 PM 日落 · 涉谷 🌧️ 61% · 微雨(19-20點)
+   */
+  function getTopBannerText(dateStr) {
+    const targetDate = dateStr || '8/31';
+    const sunsetInfo = SUNSET_TABLE[targetDate];
+    if (!sunsetInfo) return '日本旅行 2026';
+
+    let sunsetText = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
+
+    const coords = SUNSET_COORDS[targetDate];
+    if (!coords) return sunsetText;
+
+    const nowJst = getNowJST();
+    const todayStr = nowJst.isoDate;
+
+    let rainText = '';
+
+    // 1. 多時段自駕日（如上午/下午跨城）
+    if (coords.segments && coords.segments.length > 0) {
+      const isToday = coords.apiDate === todayStr;
+      const currentSeg = coords.segments.find(s => isToday && nowJst.hour >= s.startHour && nowJst.hour < s.endHour) || coords.segments[0];
+      const segCacheKey = `${currentSeg.lat.toFixed(4)},${currentSeg.lng.toFixed(4)}`;
+      const segForecast = getSegmentForecast(segCacheKey, coords.apiDate, currentSeg);
+      if (segForecast) {
+        if (segForecast.isAlert || (segForecast.rain > 0.1 && segForecast.rainSummary) || segForecast.prob >= 40) {
+          const summary = segForecast.rainSummary || '降雨';
+          rainText = ` ${segForecast.emoji} ${segForecast.prob}% · ${summary}`;
+        }
+      }
+    } else {
+      // 2. 一般日氣象
+      const cacheKey = `${coords.lat.toFixed(4)},${coords.lng.toFixed(4)}`;
+      const weatherData = WEATHER_CACHE[cacheKey];
+      const matchedDay = weatherData?.daily?.find(d => d.date === coords.apiDate);
+      if (matchedDay) {
+        if (matchedDay.prob >= 40 || (matchedDay.rain > 0.1 && matchedDay.rainSummary)) {
+          const emoji = getWeatherEmoji(matchedDay.code, matchedDay.prob);
+          const summary = matchedDay.rainSummary || '微雨';
+          rainText = ` ${emoji} ${matchedDay.prob}% · ${summary}`;
+        }
+      }
+    }
+
+    return `${sunsetText}${rainText}`;
+  }
+
+  /** 檢測頂部標題文字長度並啟用平滑往復跑馬燈（Marquee） */
+  function setupTopBannerMarquee() {
+    if (!siteTitle) return;
+    requestAnimationFrame(() => {
+      const track = siteTitle.querySelector('.site-title-track');
+      if (!track) return;
+      const overflow = track.scrollWidth - siteTitle.clientWidth;
+      if (overflow > 3) {
+        siteTitle.style.setProperty('--title-marquee-dist', `-${overflow + 8}px`);
+        siteTitle.classList.add('has-marquee');
+      } else {
+        siteTitle.classList.remove('has-marquee');
+      }
+    });
+  }
+
+  // 更新 FAB 與頂部日落/天氣跑馬燈（展開卡片或頁面載入時即時聯動）
   function updateFab(hotel, hasAnyOpenCard, dateStr) {
     if (memoFab && memoFab.classList) {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
@@ -3261,18 +3330,14 @@ function setupHotelFab() {
       rainFab.classList.toggle('hidden', !hasRain || !hasAnyOpenCard);
     }
 
-    // 展開卡片時替代頂部「🇯🇵 日本旅行 2026」
+    // 頂部標題：即時呈現對應日期的日落與降雨警報（長度超出時自動平滑跑馬燈滾動）
     if (siteFlag && siteTitle) {
-      const sunsetInfo = dateStr ? SUNSET_TABLE[dateStr] : null;
-      if (sunsetInfo && hasAnyOpenCard) {
-        siteFlag.textContent = '🌅';
-        siteTitle.textContent = `${sunsetInfo.time} 日落 · ${sunsetInfo.city}`;
-        siteTitle.classList.add('sunset-active');
-      } else {
-        siteFlag.textContent = '🇯🇵';
-        siteTitle.textContent = '日本旅行 2026';
-        siteTitle.classList.remove('sunset-active');
-      }
+      const activeDate = dateStr || (typeof todayDateStr !== 'undefined' && todayDateStr ? todayDateStr : '8/31');
+      const bannerText = getTopBannerText(activeDate);
+      siteFlag.textContent = '🌅';
+      siteTitle.classList.add('sunset-active');
+      siteTitle.innerHTML = `<div class="site-title-track"><span class="site-title-text">${bannerText}</span></div>`;
+      setupTopBannerMarquee();
     }
 
     if (!hotel) {
