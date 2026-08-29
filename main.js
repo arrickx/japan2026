@@ -72,6 +72,36 @@ function getWeatherEmoji(code, prob = 0) {
 }
 
 /**
+ * 根據逐時降雨數據智能歸納降雨時段與雨勢
+ * 例如："傍晚微雨 (19-20點)"、"午後陣雨 (14-16點)"
+ */
+function describeRainSummary(hourlyRainList, totalRain) {
+  if (!hourlyRainList || hourlyRainList.length === 0 || totalRain < 0.2) {
+    return null;
+  }
+
+  const hours = hourlyRainList.map(item => parseInt(item.hour.split(':')[0], 10));
+  const minHour = Math.min(...hours);
+  const maxHour = Math.max(...hours);
+
+  let periodName = '日間';
+  if (maxHour <= 6) periodName = '清晨';
+  else if (maxHour <= 11) periodName = '上午';
+  else if (minHour >= 12 && maxHour <= 17) periodName = '午後';
+  else if (minHour >= 17 && maxHour <= 21) periodName = '傍晚';
+  else if (minHour >= 21 || maxHour <= 5) periodName = '夜間';
+  else if (minHour >= 13 && maxHour >= 18) periodName = '午後至傍晚';
+
+  let intensity = '微雨';
+  if (totalRain >= 15) intensity = '大雨';
+  else if (totalRain >= 5) intensity = '陣雨';
+  else if (totalRain >= 2) intensity = '小雨';
+
+  const timeStr = minHour === maxHour ? `${minHour}點` : `${minHour}-${maxHour}點`;
+  return `${periodName}${intensity} (${timeStr})`;
+}
+
+/**
  * 一次性 Batch 請求所有天數的城市天氣（只需 1 個 HTTP GET 請求，耗時約 0.3~0.5s）
  */
 async function fetchAllCitiesWeatherBatch() {
@@ -91,8 +121,8 @@ async function fetchAllCitiesWeatherBatch() {
       const lats = uniqueCoords.map(c => c.lat.toFixed(4)).join(',');
       const lngs = uniqueCoords.map(c => c.lng.toFixed(4)).join(',');
 
-      // 支援長達 16 天預報，直連日本氣象廳 JMA 數值預報模型
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16`;
+      // 支援長達 16 天日預報與逐時降雨預報
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=precipitation,precipitation_probability&timezone=Asia%2FTokyo&forecast_days=16`;
 
       const res = await fetch(url);
       if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
@@ -103,14 +133,33 @@ async function fetchAllCitiesWeatherBatch() {
         const data = items[idx];
         if (data && data.daily && data.daily.time) {
           const key = `${coord.lat.toFixed(4)},${coord.lng.toFixed(4)}`;
-          WEATHER_CACHE[key] = data.daily.time.map((time, dIdx) => ({
-            date: time,
-            code: data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0,
-            prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[dIdx] ?? 0 : 0,
-            rain: data.daily.precipitation_sum ? data.daily.precipitation_sum[dIdx] ?? 0 : 0,
-            tempMax: data.daily.temperature_2m_max ? Math.round(data.daily.temperature_2m_max[dIdx]) : null,
-            tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[dIdx]) : null,
-          }));
+          WEATHER_CACHE[key] = data.daily.time.map((time, dIdx) => {
+            // 提取當天的逐時降雨小時
+            const hourlyRainList = [];
+            if (data.hourly && data.hourly.time && data.hourly.precipitation) {
+              data.hourly.time.forEach((hTime, hIdx) => {
+                if (hTime.startsWith(time)) {
+                  const p = data.hourly.precipitation[hIdx] ?? 0;
+                  if (p > 0) {
+                    hourlyRainList.push({ hour: hTime.slice(11, 16), rain: p });
+                  }
+                }
+              });
+            }
+
+            const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[dIdx] ?? 0 : 0;
+            const rainSummary = describeRainSummary(hourlyRainList, totalRain);
+
+            return {
+              date: time,
+              code: data.daily.weather_code ? data.daily.weather_code[dIdx] ?? 0 : 0,
+              prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[dIdx] ?? 0 : 0,
+              rain: totalRain,
+              rainSummary: rainSummary,
+              tempMax: data.daily.temperature_2m_max ? Math.round(data.daily.temperature_2m_max[dIdx]) : null,
+              tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[dIdx]) : null,
+            };
+          });
         }
       });
       return true;
@@ -137,20 +186,38 @@ async function fetchCityWeather(lat, lng) {
   }
 
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=16`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=weather_code,precipitation_probability_max,precipitation_sum,temperature_2m_max,temperature_2m_min&hourly=precipitation,precipitation_probability&timezone=Asia%2FTokyo&forecast_days=16`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Weather API HTTP ${res.status}`);
     const data = await res.json();
     if (!data.daily || !data.daily.time) throw new Error('Invalid weather data');
 
-    const result = data.daily.time.map((time, idx) => ({
-      date: time,
-      code: data.daily.weather_code ? data.daily.weather_code[idx] ?? 0 : 0,
-      prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[idx] ?? 0 : 0,
-      rain: data.daily.precipitation_sum ? data.daily.precipitation_sum[idx] ?? 0 : 0,
-      tempMax: data.daily.temperature_2m_max ? Math.round(data.daily.temperature_2m_max[idx]) : null,
-      tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[idx]) : null,
-    }));
+    const result = data.daily.time.map((time, idx) => {
+      const hourlyRainList = [];
+      if (data.hourly && data.hourly.time && data.hourly.precipitation) {
+        data.hourly.time.forEach((hTime, hIdx) => {
+          if (hTime.startsWith(time)) {
+            const p = data.hourly.precipitation[hIdx] ?? 0;
+            if (p > 0) {
+              hourlyRainList.push({ hour: hTime.slice(11, 16), rain: p });
+            }
+          }
+        });
+      }
+
+      const totalRain = data.daily.precipitation_sum ? data.daily.precipitation_sum[idx] ?? 0 : 0;
+      const rainSummary = describeRainSummary(hourlyRainList, totalRain);
+
+      return {
+        date: time,
+        code: data.daily.weather_code ? data.daily.weather_code[idx] ?? 0 : 0,
+        prob: data.daily.precipitation_probability_max ? data.daily.precipitation_probability_max[idx] ?? 0 : 0,
+        rain: totalRain,
+        rainSummary: rainSummary,
+        tempMax: data.daily.temperature_2m_max ? Math.round(data.daily.temperature_2m_max[idx]) : null,
+        tempMin: data.daily.temperature_2m_min ? Math.round(data.daily.temperature_2m_min[idx]) : null,
+      };
+    });
 
     WEATHER_CACHE[cacheKey] = result;
     return result;
@@ -199,11 +266,12 @@ async function get3DayForecastForDate(startDateStr) {
         emoji: '⛅',
         prob: 15,
         rain: 0,
+        rainSummary: null,
         tempMax: null,
         tempMin: null,
         isAlert: false,
         isFuture: true,
-        relLabel: day.date
+        relLabel: ''
       };
     }
 
@@ -211,7 +279,7 @@ async function get3DayForecastForDate(startDateStr) {
     const isAlert = prob >= 50;
     const emoji = getWeatherEmoji(matchedDay.code, prob);
 
-    let relLabel = day.date;
+    let relLabel = '';
     if (coords.apiDate === todayStr) {
       relLabel = '今天';
     } else if (coords.apiDate === tomorrowStr) {
@@ -229,6 +297,7 @@ async function get3DayForecastForDate(startDateStr) {
       emoji: emoji,
       prob: prob,
       rain: matchedDay.rain ?? 0,
+      rainSummary: matchedDay.rainSummary || null,
       tempMax: matchedDay.tempMax,
       tempMin: matchedDay.tempMin,
       isAlert: isAlert,
@@ -2208,7 +2277,7 @@ function isDateInActive3DayWindow(dateStr) {
  * 標題旁 Weather Badge 僅反映「該天當天自身」的真實天氣（非受未來幾天影響）；
  * 
  * @param {string} dateStr - e.g. "8/31"
- * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄
+ * @param {boolean} [autoOpen=false] - 是否在加載後直接展開 3 天天氣欄（僅在使用者點擊 Weather Badge 時為 true）
  */
 async function load3DayWeatherForCard(dateStr, autoOpen = false) {
   const safeId = dateStr.replace('/', '-');
@@ -2220,7 +2289,7 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
 
   // 如果已經加載過資料
   if (container.getAttribute('data-loaded') === 'true') {
-    if (autoOpen || isNear3Days) {
+    if (autoOpen) {
       container.classList.add('open');
       badge?.classList.add('active');
     }
@@ -2243,11 +2312,11 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       badge.style.display = '';
 
       if (isDayAlert) {
-        badge.className = 'day-weather-badge is-alert active';
+        badge.className = 'day-weather-badge is-alert';
         badge.innerHTML = `<span class="badge-emoji">☔</span><span class="badge-detail">${dayProb}%</span>`;
         badge.title = '點擊展開/收合未來 3 天詳細天氣與降雨預報';
       } else {
-        badge.className = 'day-weather-badge active';
+        badge.className = 'day-weather-badge';
         badge.innerHTML = `<span class="badge-emoji">${todayForecast.emoji}</span><span class="badge-detail">${dayProb}%</span>`;
         badge.title = '點擊展開/收合未來 3 天詳細天氣預報';
       }
@@ -2266,18 +2335,24 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       const tempInfo = f.tempMax !== null && f.tempMin !== null
         ? `<div class="capsule-temp">${f.tempMin}° ~ ${f.tempMax}°</div>`
         : '';
-      const relTag = f.relLabel ? `<span class="capsule-rel">(${f.relLabel})</span>` : '';
+      const relTag = (f.relLabel && ['今天', '明天', '後天'].includes(f.relLabel))
+        ? `<span class="capsule-rel">(${f.relLabel})</span>`
+        : '';
+      const rainDesc = (f.rain > 0.1 && f.rainSummary)
+        ? `<div class="capsule-rain-desc">💧 ${f.rain}mm · ${f.rainSummary}</div>`
+        : '';
 
       capsulesHtml += `
         <div class="weather-capsule${alertClass}">
           <div class="capsule-header">
-            <span class="capsule-date">${f.date} ${relTag}</span>
+            <span class="capsule-date">${f.date}</span>${relTag ? ' ' + relTag : ''}
             <span class="capsule-city">${f.city}</span>
           </div>
           <div class="capsule-main">
             <span class="capsule-emoji">${f.emoji}</span>
             <span class="capsule-prob">${f.prob}%${alertIcon}</span>
           </div>
+          ${rainDesc}
           ${tempInfo}
         </div>
       `;
@@ -2290,8 +2365,8 @@ async function load3DayWeatherForCard(dateStr, autoOpen = false) {
       </div>
     `;
 
-    // 當卡片處於 3 天活躍窗口內或手動展開時展示天氣膠囊欄
-    if (autoOpen || isNear3Days) {
+    // 僅在使用者點擊 Weather Badge (autoOpen === true) 時才展開 3 天膠囊欄
+    if (autoOpen) {
       container.classList.add('open');
       badge?.classList.add('active');
     }

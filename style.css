@@ -1173,8 +1173,22 @@ body {
   font-weight: 500;
 }
 
+.capsule-rain-desc {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #c83828;
+  background: #ffede8;
+  border-radius: 4px;
+  padding: 1px 4px;
+  line-height: 1.25;
+  margin: 2px 0;
+  text-align: center;
+  word-break: break-word;
+}
+
 .capsule-rel {
   font-size: 0.64rem;
   color: #966f5e;
   font-weight: 500;
 }
+
