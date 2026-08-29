@@ -3320,7 +3320,9 @@ function setupHotelFab() {
     });
   }
 
-  // 更新 FAB 與頂部日落/天氣跑馬燈（展開卡片或頁面載入時即時聯動）
+  let lastBannerKey = '';
+
+  // 更新 FAB 與頂部日落/天氣跑馬燈（展開卡片時即時聯動，收起時恢復 🇯🇵 日本旅行 2026）
   function updateFab(hotel, hasAnyOpenCard, dateStr) {
     if (memoFab && memoFab.classList) {
       memoFab.classList.toggle('hidden', !hasAnyOpenCard);
@@ -3330,14 +3332,29 @@ function setupHotelFab() {
       rainFab.classList.toggle('hidden', !hasRain || !hasAnyOpenCard);
     }
 
-    // 頂部標題：即時呈現對應日期的日落與降雨警報（長度超出時自動平滑跑馬燈滾動）
+    // 頂部標題邏輯：
+    // 1. 若所有卡片皆收起：顯示「🇯🇵 日本旅行 2026」
+    // 2. 若展開卡片：顯示該天的「🌅 [日落] · [城市] [降雨警報]」並啟用持續平滑跑馬燈
     if (siteFlag && siteTitle) {
-      const activeDate = dateStr || (typeof todayDateStr !== 'undefined' && todayDateStr ? todayDateStr : '8/31');
-      const bannerText = getTopBannerText(activeDate);
-      siteFlag.textContent = '🌅';
-      siteTitle.classList.add('sunset-active');
-      siteTitle.innerHTML = `<div class="site-title-track"><span class="site-title-text">${bannerText}</span></div>`;
-      setupTopBannerMarquee();
+      if (!hasAnyOpenCard || !dateStr) {
+        if (lastBannerKey !== '__CLOSED__') {
+          lastBannerKey = '__CLOSED__';
+          siteFlag.textContent = '🇯🇵';
+          siteTitle.classList.remove('sunset-active', 'has-marquee');
+          siteTitle.textContent = '日本旅行 2026';
+        }
+      } else {
+        const bannerText = getTopBannerText(dateStr);
+        const currentKey = `${dateStr}:${bannerText}`;
+        // 只有當日期或內容真正改變時才更新 DOM，避免滾動時重置動畫導致定格
+        if (lastBannerKey !== currentKey) {
+          lastBannerKey = currentKey;
+          siteFlag.textContent = '🌅';
+          siteTitle.classList.add('sunset-active');
+          siteTitle.innerHTML = `<div class="site-title-track"><span class="site-title-text">${bannerText}</span></div>`;
+          setupTopBannerMarquee();
+        }
+      }
     }
 
     if (!hotel) {
