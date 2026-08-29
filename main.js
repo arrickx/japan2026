@@ -1175,7 +1175,7 @@ const ITINERARY = [
       {
         date: '9/6',
         dayNum: 'Day 7',
-        title: '小樽運河遊船與名物晚宴',
+        title: '小樽運河遊船與晚宴',
         summary: '分頭行動 · 運河遊船 · 小樽晚宴',
         illustration: './images/otaru.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
@@ -1331,7 +1331,7 @@ const ITINERARY = [
       {
         date: '9/7',
         dayNum: 'Day 8',
-        title: '北海道神宮與場外市場海鮮',
+        title: '北海道神宮與場外市場',
         summary: '北海道神宮 · 海鮮 · 壽司',
         illustration: './images/sapporo_crab.jpg',
         hotel: { name: 'FAV LUX 札幌', mapLink: 'https://maps.google.com/?q=FAV+LUX+Sapporo' },
