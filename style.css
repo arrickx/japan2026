@@ -1062,7 +1062,8 @@ body {
 /* ===== 卡片內 3 日天氣預報膠囊條（預設隱藏，點擊天氣標籤才展開） ===== */
 .weather-3day-container {
   display: none;
-  padding: 4px 18px 8px;
+  padding: 12px 18px 14px;
+  margin-bottom: 4px;
 }
 
 .weather-3day-container.open {
@@ -1082,10 +1083,11 @@ body {
 .weather-capsule-row {
   display: flex;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  padding: 2px 0 4px;
 }
 
 .weather-capsule-row::-webkit-scrollbar {
@@ -1094,18 +1096,18 @@ body {
 
 .weather-capsule {
   flex: 1 1 0;
-  min-width: 90px;
+  min-width: 95px;
   box-sizing: border-box;
   background: #ffffff;
   border: 1.2px solid #f4dbcf;
-  border-radius: 10px;
-  padding: 6px 6px 8px;
+  border-radius: 12px;
+  padding: 8px 8px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 2px;
-  box-shadow: 0 1px 4px rgba(180, 100, 60, 0.05);
+  gap: 4px;
+  box-shadow: 0 1px 5px rgba(180, 100, 60, 0.06);
   transition: transform 0.15s ease, border-color 0.2s ease;
 }
 

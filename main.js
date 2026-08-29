@@ -2811,17 +2811,19 @@ function renderItinerary() {
       header.addEventListener('click', () => {
         const isOpen = card.classList.contains('open');
 
-        // 先關閉所有卡片
+        // 先關閉所有卡片及其天氣欄
         document.querySelectorAll('.day-card').forEach(c => {
           c.classList.remove('open');
           c.querySelector('.day-header')?.setAttribute('aria-expanded', 'false');
+          c.querySelector('.weather-3day-container')?.classList.remove('open');
+          c.querySelector('.day-weather-badge')?.classList.remove('active');
         });
 
-        // 若原本是關閉的，則展開並滾動到頂部
+        // 若原本是關閉的，則展開並滾動到頂部（天氣欄預設保持收起狀態，僅點擊天氣圖示才展開）
         if (!isOpen) {
           card.classList.add('open');
           header.setAttribute('aria-expanded', 'true');
-          load3DayWeatherForCard(day.date);
+          load3DayWeatherForCard(day.date, false);
           setTimeout(() => {
             card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 50);
@@ -2835,10 +2837,6 @@ function renderItinerary() {
     });
   });
 }
-
-/**
- * 頁面載入時：單次 Batch 請求拉取全行程天氣，並一鍵填入所有卡片！
- */
 
 /**
  * 頁面載入時：單次 Batch 請求拉取全行程天氣，並一鍵填入所有卡片！
